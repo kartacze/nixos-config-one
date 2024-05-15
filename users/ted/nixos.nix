@@ -15,7 +15,7 @@
     home = "/home/mitchellh";
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.fish;
-    hashedPassword = "jSwPIP4UytU5uIkDafy+mxwGsQWdwW367Voyz/tb8P//3l7Yczl1+6OyAf/g4XYriTBGj6KAb79VzCI2dq50mw==";
+    initialPassword = "qwer1234";
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbTIKIPtrymhvtTvqbU07/e7gyFJqNS4S0xlfrZLOaY mitchellh"
     ];
