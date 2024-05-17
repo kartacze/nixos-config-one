@@ -10,6 +10,47 @@
   # Since we're using fish as our shell
   programs.fish.enable = true;
 
+  programs.nixvim = {
+    enable = true;
+    colorschemes.gruvbox.enable = true;
+
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+    };
+
+    globals.mapleader = " ";
+
+    keymaps = [
+      {
+        action = "<cmd>Telescope live_grep<CR>";
+	key = "<leader>g";
+      }
+    ];
+
+    plugins = {
+       telescope.enable = true;
+       oil.enable = true;
+       treesitter.enable = true;
+       luasnip.enable = true;
+       lualine.enable = true;
+       nvim-tree = {
+         enable = true;
+	 openOnSetupFile = true;
+       };
+
+       lsp = {
+         enable = true;
+	 servers = {
+           tsserver.enable = true;
+	   lua-ls.enable = true;
+	   nixd.enable = true;
+	 };
+       };
+    };
+  };
+
   users.users.ted = {
     isNormalUser = true;
     home = "/home/ted";

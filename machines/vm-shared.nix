@@ -1,4 +1,4 @@
-{ config, pkgs, lib, currentSystem, currentSystemName,... }:
+{ config, pkgs, lib, currentSystem, currentSystemName, inputs, ... }:
 
 let
   # Turn this to true to use gnome instead of i3. This is a bit
@@ -6,6 +6,8 @@ let
   # for now.
   linuxGnome = false;
 in {
+  networking.networkmanager.enable = true;
+
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -114,8 +116,9 @@ in {
     rxvt_unicode
     xclip
     firefox
-    neovim
+    vim
     kitty
+    git
 
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
@@ -136,6 +139,7 @@ in {
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  # programs.nixvim.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
