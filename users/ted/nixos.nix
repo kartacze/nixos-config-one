@@ -12,7 +12,7 @@
 
   users.users.ted = {
     isNormalUser = true;
-    home = "/home/mitchellh";
+    home = "/home/ted";
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.fish;
     initialPassword = "qwer1234";

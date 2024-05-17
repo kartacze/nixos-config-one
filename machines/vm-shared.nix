@@ -4,28 +4,12 @@ let
   # Turn this to true to use gnome instead of i3. This is a bit
   # of a hack, I just flip it on as I need to develop gnome stuff
   # for now.
-  linuxGnome = true;
+  linuxGnome = false;
 in {
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  nix = {
-    # use unstable nix so we can access flakes
-    package = pkgs.nixUnstable;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
-    '';
-
-    # public binary cache that I use for all my derivations. You can keep
-    # this, use your own, or toss it. Its typically safe to use a binary cache
-    # since the data inside is checksummed.
-    settings = {
-      substituters = ["https://mitchellh-nixos-config.cachix.org"];
-      trusted-public-keys = ["mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="];
-    };
-  };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.permittedInsecurePackages = [
     # Needed for k2pdfopt 2.53.
@@ -44,7 +28,7 @@ in {
   networking.hostName = "dev";
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Europe/Warsaw";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -117,7 +101,6 @@ in {
 
     packages = [
       pkgs.fira-code
-      pkgs.jetbrains-mono
     ];
   };
 
@@ -130,6 +113,9 @@ in {
     niv
     rxvt_unicode
     xclip
+    firefox
+    neovim
+    kitty
 
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
@@ -166,5 +152,5 @@ in {
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "20.09"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }

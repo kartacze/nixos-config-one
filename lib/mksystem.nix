@@ -36,14 +36,14 @@ in systemFunc rec {
 
     machineConfig
     userOSConfig
-    home-manager.home-manager {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.${user} = import userHMConfig {
-        isWSL = isWSL;
-        inputs = inputs;
-      };
-    }
+    # home-manager.home-manager {
+    #   home-manager.useGlobalPkgs = true;
+    #   home-manager.useUserPackages = true;
+    #   home-manager.users.${user} = import userHMConfig {
+    #     isWSL = isWSL;
+    #     inputs = inputs;
+    #   };
+    # }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
