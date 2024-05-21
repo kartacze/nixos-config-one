@@ -64,7 +64,7 @@ in {
     displayManager.gdm.enable = true;
   } else {
     enable = true;
-    layout = "us";
+    xkb.layout = "us";
     dpi = 220;
 
     desktopManager = {
@@ -73,13 +73,14 @@ in {
     };
 
     displayManager = {
-      defaultSession = "none+i3";
+      # defaultSession = "none+i3";
       lightdm.enable = true;
 
       # AARCH64: For now, on Apple Silicon, we must manually set the
       # display resolution. This is a known issue with VMware Fusion.
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset r rate 200 40
+        ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
       '';
     };
 
@@ -87,6 +88,10 @@ in {
       i3.enable = true;
     };
   };
+
+  services.displayManager = {
+      defaultSession = "none+i3";
+      };
 
   # Enable tailscale. We manually authenticate when we want with
   # "sudo tailscale up". If you don't use tailscale, you should comment
@@ -102,6 +107,7 @@ in {
     fontDir.enable = true;
 
     packages = [
+     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       pkgs.fira-code
     ];
   };
@@ -119,6 +125,7 @@ in {
     vim
     kitty
     git
+    home-manager
 
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
