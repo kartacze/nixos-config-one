@@ -1,9 +1,7 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [
-    ./nixvim.nix
-  ];
+  imports = [ ./nixvim.nix ];
 
   # https://github.com/nix-community/home-manager/pull/2408
   environment.pathsToLink = [ "/share/fish" ];

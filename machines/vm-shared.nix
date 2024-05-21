@@ -84,14 +84,10 @@ in {
       '';
     };
 
-    windowManager = {
-      i3.enable = true;
-    };
+    windowManager = { i3.enable = true; };
   };
 
-  services.displayManager = {
-      defaultSession = "none+i3";
-      };
+  services.displayManager = { defaultSession = "none+i3"; };
 
   # Enable tailscale. We manually authenticate when we want with
   # "sudo tailscale up". If you don't use tailscale, you should comment
@@ -107,37 +103,37 @@ in {
     fontDir.enable = true;
 
     packages = [
-     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
       pkgs.fira-code
     ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    cachix
-    gnumake
-    killall
-    niv
-    rxvt_unicode
-    xclip
-    firefox
-    vim
-    kitty
-    git
-    home-manager
+  environment.systemPackages = with pkgs;
+    [
+      cachix
+      gnumake
+      killall
+      niv
+      rxvt_unicode
+      xclip
+      firefox
+      vim
+      kitty
+      home-manager
 
-    # For hypervisors that support auto-resizing, this script forces it.
-    # I've noticed not everyone listens to the udev events so this is a hack.
-    (writeShellScriptBin "xrandr-auto" ''
-      xrandr --output Virtual-1 --auto
-    '')
-  ] ++ lib.optionals (currentSystemName == "vm-aarch64") [
-    # This is needed for the vmware user tools clipboard to work.
-    # You can test if you don't need this by deleting this and seeing
-    # if the clipboard sill works.
-    gtkmm3
-  ];
+      # For hypervisors that support auto-resizing, this script forces it.
+      # I've noticed not everyone listens to the udev events so this is a hack.
+      (writeShellScriptBin "xrandr-auto" ''
+        xrandr --output Virtual-1 --auto
+      '')
+    ] ++ lib.optionals (currentSystemName == "vm-aarch64") [
+      # This is needed for the vmware user tools clipboard to work.
+      # You can test if you don't need this by deleting this and seeing
+      # if the clipboard sill works.
+      gtkmm3
+    ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

@@ -8,6 +8,9 @@ let
   isLinux = pkgs.stdenv.isLinux;
 
 in {
+
+  imports = [ ./home ];
+
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
   home.stateVersion = "23.11";
@@ -35,6 +38,7 @@ in {
     pkgs.ripgrep
     pkgs.tree
     pkgs.watch
+    pkgs.diff-so-fancy
 
     pkgs.gopls
     # pkgs.zigpkgs."0.12.0"
@@ -70,16 +74,16 @@ in {
     initExtra = builtins.readFile ./bashrc;
 
     shellAliases = {
-      ga = "git add";
-      gc = "git commit";
-      gcm = "git commit --message";
-      gco = "git checkout";
-      gcp = "git cherry-pick";
-      gdiff = "git diff";
-      gl = "git prettylog";
-      gp = "git push";
-      gs = "git status";
-      gt = "git tag";
+      # ga = "git add";
+      # gc = "git commit";
+      # gcm = "git commit --message";
+      # gco = "git checkout";
+      # gcp = "git cherry-pick";
+      # gdiff = "git diff";
+      # gl = "git prettylog";
+      # gp = "git push";
+      # gs = "git status";
+      # gt = "git tag";
     };
   };
 
