@@ -1,6 +1,7 @@
 { config, lib, ... }:
 
 let cfg = config.veritas.configs.nixvim;
+
 in {
   options.veritas.configs.nixvim = {
     enable = lib.mkEnableOption "neovim configuration";
@@ -29,7 +30,7 @@ in {
           key = "<C-n>";
         }
         {
-          action = "<cmd>NvimTreeFocus<CR>";
+          action = "<cmd> NvimTreeFindFile <CR>";
           key = "<leader>e";
         }
         {
@@ -40,12 +41,59 @@ in {
           action = "<cmd>Telescope find_files<CR>";
           key = "<leader>ff";
         }
+        {
+          action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
+          key = "<leader>fm";
+        }
+        {
+          action = "<cmd>BufferLineCycleNext<CR>";
+          key = "]b";
+        }
+        {
+          action = "<cmd>BufferLineCyclePrev<CR>";
+          key = "[b";
+        }
+        {
+          action = "<cmd>b#|bd#<CR>";
+          key = "<leader>x";
+        }
       ];
 
       plugins = {
+        gitsigns = {
+          enable = true;
+          settings = {
+            current_line_blame = false;
+            current_line_blame_opts = {
+              virt_text = true;
+              virt_text_pos = "eol";
+            };
+            signcolumn = true;
+            signs = {
+              add = { text = "│"; };
+              change = { text = "│"; };
+              changedelete = { text = "~"; };
+              delete = { text = "_"; };
+              topdelete = { text = "‾"; };
+              untracked = { text = "┆"; };
+            };
+            watch_gitdir = { follow_files = true; };
+          };
+        };
+        cmp.enable = true;
+        cmp-nvim-lsp.enable = true;
         telescope.enable = true;
         oil.enable = true;
         treesitter.enable = true;
+        bufferline = {
+          enable = true;
+          offsets = [{
+            filetype = "NvimTree";
+            text = "File Explorer";
+            highlight = "Directory";
+            separator = true;
+          }];
+        };
         luasnip.enable = true;
         lualine.enable = true;
         efmls-configs = {
@@ -82,7 +130,8 @@ in {
               };
             };
             tsserver.enable = true;
-            lua-ls.enable = true;
+            # lua-ls.enable = true;
+
             nixd.enable = true;
             nil_ls.enable = true;
           };
