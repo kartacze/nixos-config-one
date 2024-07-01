@@ -13,7 +13,7 @@ in {
 
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
   home.sessionVariables = {
     EDITOR = "nvim";
   };

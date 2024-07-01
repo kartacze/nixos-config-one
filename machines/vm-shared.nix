@@ -152,5 +152,5 @@ in {
   # easy to visit stuff in here. We only use NAT networking anyways.
   networking.firewall.enable = false;
 
-  system.stateVersion = "23.11"; # DONT CHANGE THIS
+  system.stateVersion = "24.05"; # DONT CHANGE THIS
 }

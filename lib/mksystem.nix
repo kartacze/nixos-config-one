@@ -11,8 +11,8 @@ let
 
   # The config files for this system.
   machineConfig = ../machines/${name}.nix;
-  userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos"}.nix;
-  userHMConfig = ../users/${user}/home-manager.nix;
+  userOSConfig = ../users/ted/${if darwin then "darwin" else "nixos"}.nix;
+  userHMConfig = ../users/ted/home-manager.nix;
 
   # NixOS vs nix-darwin functionst
   systemFunc =
@@ -35,7 +35,7 @@ in systemFunc rec {
     # Bring in WSL if this is a WSL build
     # (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
 
-    inputs.nixvim.nixosModules.nixvim
+    (if darwin then inputs.nixvim.nixDarwinModules.nixvim else inputs.nixvim.nixosModules.nixvim)
 
     machineConfig
     userOSConfig
