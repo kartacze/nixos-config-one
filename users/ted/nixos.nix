@@ -23,6 +23,6 @@
     home = "/home/ted";
     extraGroups = [ "docker" "wheel" ];
     shell = pkgs.fish;
-    initialPassword = "qwer1234";
+    password = "qwer1234";
   };
 }

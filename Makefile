@@ -1,13 +1,13 @@
 # Connectivity info for Linux VM
 NIXADDR ?= unset
 NIXPORT ?= 22
-NIXUSER ?= teodorp
+NIXUSER ?= ted
 
 # Get the path to this Makefile and directory
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
-NIXNAME ?= macbook-pro-m1
+NIXNAME ?= g5555-intel
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
