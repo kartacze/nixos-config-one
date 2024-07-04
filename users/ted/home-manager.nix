@@ -14,9 +14,6 @@ in {
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
   home.stateVersion = "24.05";
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
 
   xdg.enable = true;
 
@@ -62,6 +59,22 @@ in {
   # Env vars and dotfiles
   #---------------------------------------------------------------------
 
+  home.sessionVariables = {
+    LANG = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
+    EDITOR = "nvim";
+    PAGER = "less -FirSwX";
+  };
+
+  # home.file.".gdbinit".source = ./gdbinit;
+  # home.file.".inputrc".source = ./inputrc;
+
+  xdg.configFile = {
+    "i3/config".text = builtins.readFile ./i3;
+    "rofi/config.rasi".text = builtins.readFile ./rofi;
+    # "ghostty/config".text = builtins.readFile ./ghostty.linux;
+  };
 
   #---------------------------------------------------------------------
   # Programs
@@ -69,7 +82,7 @@ in {
 
   programs.bash = {
     enable = true;
-    shellOptions = [];
+    shellOptions = [ ];
     historyControl = [ "ignoredups" "ignorespace" ];
     initExtra = builtins.readFile ./bashrc;
 

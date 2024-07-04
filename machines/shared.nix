@@ -1,13 +1,10 @@
-
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
 
-let 
-  linuxGnome = false;
-
+let linuxGnome = false;
 
 in {
 
@@ -47,7 +44,6 @@ in {
   } else {
     enable = true;
     xkb.layout = "us";
-    dpi = 220;
 
     desktopManager = {
       xterm.enable = false;
@@ -62,15 +58,18 @@ in {
       # display resolution. This is a known issue with VMware Fusion.
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset r rate 200 40
-        ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
+      #   ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
       '';
     };
 
-    windowManager = { i3.enable = true; };
+    windowManager.i3 = {
+      enable = true;
+
+      extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks ];
+    };
   };
 
   services.displayManager = { defaultSession = "none+i3"; };
-
 
   fonts = {
     fontDir.enable = true;
@@ -80,7 +79,6 @@ in {
       pkgs.fira-code
     ];
   };
-
 
   # Configure console keymap
   console.keyMap = "pl2";
@@ -113,9 +111,10 @@ in {
     description = "ted";
     extraGroups = [ "networkmanager" "wheel" ];
     password = "qwer1234";
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    # packages = with pkgs;
+    #   [
+    #     #  thunderbird
+    #   ];
   };
 
   # Install firefox.
@@ -127,16 +126,16 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-      cachix
-      gnumake
-      killall
-      niv
-      rxvt_unicode
-      xclip
-      firefox
-      vim
-      kitty
-      home-manager
+    cachix
+    gnumake
+    killall
+    niv
+    rxvt_unicode
+    xclip
+    firefox
+    vim
+    kitty
+    home-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
