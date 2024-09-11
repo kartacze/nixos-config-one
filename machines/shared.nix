@@ -22,7 +22,7 @@ in {
   time.timeZone = "Europe/Warsaw";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "pl_PL.UTF-8";
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "pl_PL.UTF-8";
@@ -38,12 +38,13 @@ in {
 
   services.xserver = if linuxGnome then {
     enable = true;
-    layout = "us";
+    layout = "pl";
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
   } else {
     enable = true;
-    xkb.layout = "us";
+    xkb.layout = "pl";
+    dpi = 96;
 
     desktopManager = {
       xterm.enable = false;
@@ -58,14 +59,12 @@ in {
       # display resolution. This is a known issue with VMware Fusion.
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset r rate 200 40
-      #   ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
       '';
     };
 
     windowManager.i3 = {
       enable = true;
-
-      extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks ];
+      extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks dolphin ];
     };
   };
 
@@ -110,15 +109,14 @@ in {
     isNormalUser = true;
     description = "ted";
     extraGroups = [ "networkmanager" "wheel" ];
-    password = "qwer1234";
-    # packages = with pkgs;
-    #   [
-    #     #  thunderbird
-    #   ];
+    hashedPassword =
+      "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
   };
 
   # Install firefox.
   programs.firefox.enable = true;
+
+  programs.thunar.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

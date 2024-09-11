@@ -9,7 +9,7 @@ let
 
 in {
 
-  imports = [ ./home ];
+  imports = [ ./home/default.nix ];
 
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -36,6 +36,8 @@ in {
     pkgs.tree
     pkgs.watch
     pkgs.diff-so-fancy
+    pkgs.megasync
+    pkgs.brave
 
     pkgs.gopls
     # pkgs.zigpkgs."0.12.0"
@@ -71,8 +73,8 @@ in {
   # home.file.".inputrc".source = ./inputrc;
 
   xdg.configFile = {
-    "i3/config".text = builtins.readFile ./i3;
-    "rofi/config.rasi".text = builtins.readFile ./rofi;
+    # "i3/config".text = builtins.readFile ./i3;
+    # "rofi/config.rasi".ext = builtins.readFile ./rofi;
     # "ghostty/config".text = builtins.readFile ./ghostty.linux;
   };
 
@@ -110,10 +112,10 @@ in {
   xresources.extraConfig = builtins.readFile ./Xresources;
 
   # Make cursor not tiny on HiDPI screens
-  home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
-    name = "Vanilla-DMZ";
-    package = pkgs.vanilla-dmz;
-    size = 128;
-    x11.enable = true;
-  };
+  # home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
+  #   name = "Vanilla-DMZ";
+  #   package = pkgs.vanilla-dmz;
+  #   size = 128;
+  #   x11.enable = true;
+  # };
 }
