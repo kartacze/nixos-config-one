@@ -12,21 +12,16 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/0875fb14-5920-44c3-9275-ac8459a35ff2";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/c8084e5c-ec86-41c9-833f-45b70569e8d3";
+      fsType = "ext4";
+    };
 
-  fileSystems."/run/media/sda1" = {
-    device = "/dev/disk/by-uuid/38f1afe8-61b2-4662-9f18-6b1193bd42f8";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6607-EFBD";
-    fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
-  };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/7A1C-7EEC";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
 
   swapDevices = [ ];
 
@@ -41,6 +36,7 @@
   # services.printing.drivers = [ pkgs.brlaser ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
   hardware.cpu.intel.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

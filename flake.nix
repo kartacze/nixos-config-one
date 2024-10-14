@@ -49,7 +49,12 @@
     #   user   = "ted";
     # };
 
-    nixosConfigurations.g5555-intel = mkSystem "g5555-intel" rec {
+    # nixosConfigurations.g5555-intel = mkSystem "g5555-intel" rec {
+    #   system = "x86_64-linux";
+    #   user   = "ted";
+    # };
+
+    nixosConfigurations.latitude-7390 = mkSystem "latitude-7390" rec {
       system = "x86_64-linux";
       user   = "ted";
     };
