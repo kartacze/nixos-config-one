@@ -40,15 +40,6 @@ if not __ssh_agent_is_started
     __ssh_agent_start
 end
 
-#-------------------------------------------------------------------------------
-# Ghostty Shell Integration
-#-------------------------------------------------------------------------------
-# Ghostty supports auto-injection but Nix-darwin hard overwrites XDG_DATA_DIRS
-# which make it so that we can't use the auto-injection. We have to source
-# manually.
-if set -q GHOSTTY_RESOURCES_DIR
-    source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
-end
 
 #-------------------------------------------------------------------------------
 # Programs
@@ -67,9 +58,9 @@ if test -d "/opt/homebrew"
 end
 
 # Hammerspoon
-if test -d "/Applications/Hammerspoon.app"
-    set -q PATH; or set PATH ''; set -gx PATH "/Applications/Hammerspoon.app/Contents/Frameworks/hs" $PATH;
-end
+# if test -d "/Applications/Hammerspoon.app"
+#     set -q PATH; or set PATH ''; set -gx PATH "/Applications/Hammerspoon.app/Contents/Frameworks/hs" $PATH;
+# end
 
 # Add ~/.local/bin
 set -q PATH; or set PATH ''; set -gx PATH  "$HOME/.local/bin" $PATH;
