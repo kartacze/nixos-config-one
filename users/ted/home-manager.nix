@@ -73,7 +73,7 @@ in {
   # home.file.".inputrc".source = ./inputrc;
 
   xdg.configFile = {
-    # "i3/config".text = builtins.readFile ./i3;
+    "i3/config".text = builtins.readFile ./i3;
     # "rofi/config.rasi".ext = builtins.readFile ./rofi;
     # "ghostty/config".text = builtins.readFile ./ghostty.linux;
   };
@@ -89,6 +89,8 @@ in {
     initExtra = builtins.readFile ./bashrc;
 
     shellAliases = {
+      # vim = "nvim";
+      # vi = "nvim";
       # ga = "git add";
       # gc = "git commit";
       # gcm = "git commit --message";

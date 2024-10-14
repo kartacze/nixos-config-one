@@ -10,7 +10,13 @@
   environment.localBinInPath = true;
 
   # Since we're using fish as our shell
-  programs.fish.enable = true;
+  programs.fish = {
+     enable = true;
+     shellAliases = {
+       vi = "nvim";
+       vim = "nvim";
+     };
+  };
 
   programs.tmux.enable = true;
 
