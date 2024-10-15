@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let cfg = config.veritas.configs.nixvim;
 
@@ -10,7 +10,15 @@ in {
   config = lib.mkIf cfg.enable {
     programs.nixvim = {
       enable = true;
-      colorschemes.gruvbox.enable = true;
+      colorschemes.dracula.enable = true;
+
+      extraPlugins = with pkgs.vimPlugins; [ vim-nix ];
+
+      clipboard.providers.xclip.enable = true;
+      extraConfigLua = ''
+        -- Print a little welcome message when nvim is opened!
+        print("Hello world!")
+      '';
 
       opts = {
         number = true;
@@ -30,7 +38,7 @@ in {
           key = "<C-n>";
         }
         {
-          action = "<cmd> NvimTreeFindFile <CR>";
+          action = "<cmd>NvimTreeFindFile <CR>";
           key = "<leader>e";
         }
         {
@@ -56,6 +64,18 @@ in {
         {
           action = "<cmd>b#|bd#<CR>";
           key = "<leader>x";
+        }
+        {
+          action = "<cmd>Gitsigns next_hunk<CR>";
+          key = "]c";
+        }
+        {
+          action = "<cmd>Gitsigns prev_hunk<CR>";
+          key = "[c";
+        }
+        {
+          action = "<cmd>Gitsigns preview_hunk<CR>";
+          key = "<leader>ph";
         }
       ];
 
@@ -96,6 +116,7 @@ in {
         };
         luasnip.enable = true;
         lualine.enable = true;
+
         efmls-configs = {
           enable = true;
           setup = {
@@ -107,6 +128,7 @@ in {
           enable = true;
           openOnSetupFile = true;
         };
+
         nix.enable = true;
 
         lsp-format = {

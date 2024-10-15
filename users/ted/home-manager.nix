@@ -3,7 +3,6 @@
 { config, lib, pkgs, ... }:
 
 let
-  # sources = import ../../nix/sources.nix;
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
@@ -11,8 +10,6 @@ in {
 
   imports = [ ./home/default.nix ];
 
-  # Home-manager 22.11 requires this be set. We never set it so we have
-  # to use the old state version.
   home.stateVersion = "24.05";
 
   xdg.enable = true;
@@ -36,26 +33,21 @@ in {
     pkgs.tree
     pkgs.watch
     pkgs.diff-so-fancy
-    pkgs.megasync
-    pkgs.brave
+    pkgs.deno
 
-    pkgs.gopls
-    # pkgs.zigpkgs."0.12.0"
-
-    # Node is required for Copilot.vim
-    # pkgs.nodejs
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
-    pkgs.cachix
-    pkgs.tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
-    pkgs.chromium
+    pkgs.brave
     pkgs.firefox
     pkgs.rofi
     pkgs.valgrind
     pkgs.zathura
     pkgs.xfce.xfce4-terminal
     pkgs.xautolock
+
+    # move it to nixvim when in home
+    pkgs.nixfmt-rfc-style
   ]);
 
   #---------------------------------------------------------------------
@@ -76,7 +68,6 @@ in {
   xdg.configFile = {
     "i3/config".text = builtins.readFile ./i3;
     # "rofi/config.rasi".ext = builtins.readFile ./rofi;
-    # "ghostty/config".text = builtins.readFile ./ghostty.linux;
   };
 
   #---------------------------------------------------------------------
@@ -88,21 +79,7 @@ in {
     shellOptions = [ ];
     historyControl = [ "ignoredups" "ignorespace" ];
     initExtra = builtins.readFile ./bashrc;
-
-    shellAliases = {
-      # vim = "nvim";
-      # vi = "nvim";
-      # ga = "git add";
-      # gc = "git commit";
-      # gcm = "git commit --message";
-      # gco = "git checkout";
-      # gcp = "git cherry-pick";
-      # gdiff = "git diff";
-      # gl = "git prettylog";
-      # gp = "git push";
-      # gs = "git status";
-      # gt = "git tag";
-    };
+    shellAliases = { };
   };
 
   # programs.gpg.enable = !isDarwin;
@@ -115,10 +92,10 @@ in {
   xresources.extraConfig = builtins.readFile ./Xresources;
 
   # Make cursor not tiny on HiDPI screens
-  # home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
-  #   name = "Vanilla-DMZ";
-  #   package = pkgs.vanilla-dmz;
-  #   size = 128;
-  #   x11.enable = true;
-  # };
+   home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
+     name = "Vanilla-DMZ";
+     package = pkgs.vanilla-dmz;
+     size = 128;
+     x11.enable = true;
+   };
 }

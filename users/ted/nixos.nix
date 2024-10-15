@@ -10,14 +10,7 @@
   environment.localBinInPath = true;
 
   # Since we're using fish as our shell
-  programs.fish = {
-     enable = true;
-     shellAliases = {
-       vi = "nvim";
-       vim = "nvim";
-     };
-  };
-
+  programs.fish.enable = true;
   programs.tmux.enable = true;
 
   veritas.configs = { nixvim.enable = true; };
