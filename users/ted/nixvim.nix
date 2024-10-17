@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let cfg = config.veritas.configs.nixvim;
 
@@ -15,9 +15,10 @@ in {
       extraPlugins = with pkgs.vimPlugins; [ vim-nix ];
 
       clipboard.providers.xclip.enable = true;
+      # print("Hello world!")
       extraConfigLua = ''
         -- Print a little welcome message when nvim is opened!
-        print("Hello world!")
+        luasnip = require("luasnip")
       '';
 
       opts = {
@@ -50,6 +51,18 @@ in {
           key = "<leader>ff";
         }
         {
+          action = "<cmd>Telescope find_files<CR>";
+          key = "<leader>ff";
+        }
+        {
+          action = "<cmd>Telescope lsp_references<CR>";
+          key = "gr";
+        }
+        {
+          action = "<cmd>Telescope git_status<CR>";
+          key = "<leader>gs";
+        }
+        {
           action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
           key = "<leader>fm";
         }
@@ -61,10 +74,10 @@ in {
           action = "<cmd>BufferLineCyclePrev<CR>";
           key = "[b";
         }
-        {
-          action = "<cmd>b#|bd#<CR>";
-          key = "<leader>x";
-        }
+        # {
+        #   action = "<cmd>Bdelete<CR>";
+        #   key = "<leader>x";
+        # }
         {
           action = "<cmd>Gitsigns next_hunk<CR>";
           key = "]c";
@@ -76,6 +89,10 @@ in {
         {
           action = "<cmd>Gitsigns preview_hunk<CR>";
           key = "<leader>ph";
+        }
+        {
+          action = "<cmd>Gitsigns reset_hunk<CR>";
+          key = "<leader>rh";
         }
       ];
 
@@ -100,11 +117,101 @@ in {
             watch_gitdir = { follow_files = true; };
           };
         };
-        cmp.enable = true;
+
         cmp-nvim-lsp.enable = true;
-        telescope.enable = true;
+        cmp-nvim-lua.enable = true;
+        luasnip.enable = true;
+
+        lspkind = {
+          enable = true;
+
+          cmp = {
+            enable = true;
+            menu = {
+              nvim_lsp = "[LSP]";
+              nvim_lua = "[api]";
+              path = "[path]";
+              luasnip = "[snip]";
+              buffer = "[buffer]";
+              neorg = "[neorg]";
+            };
+          };
+        };
+
+        cmp-rg = { enable = true; }; # ripgrep cmp
+        cmp-buffer = { enable = true; };
+        cmp-path = { enable = true; }; # file system paths
+        cmp_luasnip = { enable = true; }; # snippets
+        cmp-cmdline = { enable = true; };
+        cmp-emoji = { enable = true; };
+
+        cmp = {
+          enable = true;
+
+          settings = {
+            autoEnableSources = true;
+            experimental = { ghost_text = true; };
+            performance = {
+              debounce = 60;
+              fetchingTimeout = 200;
+              maxViewEntries = 30;
+            };
+            snippet = { expand = "luasnip"; };
+            formatting = { fields = [ "kind" "abbr" "menu" ]; };
+
+            sources = [
+              { name = "nvim_lsp"; }
+              { name = "emoji"; }
+              {
+                name = "buffer"; # text within current buffer
+                option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
+                keywordLength = 3;
+              }
+              {
+                name = "path"; # file system paths
+                keywordLength = 3;
+              }
+              {
+                name = "luasnip"; # snippets
+                keywordLength = 3;
+              }
+              { name = "rg"; }
+              { name = "nvim_lua"; }
+
+            ];
+
+            window = {
+              completion = { border = "solid"; };
+              documentation = { border = "solid"; };
+            };
+
+            mapping = {
+              "<Tab>" =
+                "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+              "<C-j>" = "cmp.mapping.select_next_item()";
+              "<C-k>" = "cmp.mapping.select_prev_item()";
+              "<C-e>" = "cmp.mapping.abort()";
+              "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+              "<C-f>" = "cmp.mapping.scroll_docs(4)";
+              "<C-Space>" = "cmp.mapping.complete()";
+              "<CR>" = "cmp.mapping.confirm({ select = true })";
+              "<S-CR>" =
+                "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
+            };
+          };
+        };
+
+        telescope = {
+          enable = true;
+          extensions.fzf-native.enable = true;
+        };
         oil.enable = true;
         treesitter.enable = true;
+
+        which-key.enable = true;
+
+        # bufdelete.enable = true;
+
         bufferline = {
           enable = true;
           offsets = [{
@@ -114,21 +221,22 @@ in {
             separator = true;
           }];
         };
-        luasnip.enable = true;
         lualine.enable = true;
 
-        efmls-configs = {
-          enable = true;
-          setup = {
-            nix.formatter = [ "nixfmt" ];
-            typescript.formatter = [ "prettier_d" ];
-          };
-        };
+        # efmls-configs = {
+        #   enable = true;
+        #   setup = {
+        #     nix.formatter = [ "nixfmt" ];
+        #     typescript.formatter = [ "prettier_d" ];
+        #   };
+        # };
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
+          view = { width = "30%"; };
         };
 
+        nvim-autopairs.enable = true;
         nix.enable = true;
 
         lsp-format = {
@@ -136,26 +244,43 @@ in {
           lspServersToEnable = [ "efm" ];
         };
 
+        none-ls = {
+          enable = true;
+          sources = {
+            code_actions = { gitsigns.enable = true; };
+            formatting = {
+              prettierd.enable = true;
+              stylua.enable = true;
+              nixfmt.enable = true;
+            };
+            diagnostics = { fish.enable = true; };
+          };
+        };
+
         lsp = {
 
           enable = true;
           servers = {
-            efm = {
-              enable = true;
-              extraOptions.init_options = {
-                documentFormatting = true;
-                documentRangeFormatting = true;
-                hover = true;
-                documentSymbol = true;
-                codeAction = true;
-                completion = true;
-              };
-            };
+            #efm = {
+            #  enable = true;
+            #  extraOptions.init_options = {
+            #    documentFormatting = true;
+            #    documentRangeFormatting = true;
+            #    hover = true;
+            #    documentSymbol = true;
+            #    codeAction = true;
+            #    completion = true;
+            #  };
+            #};
             tsserver.enable = true;
             # lua-ls.enable = true;
 
             nixd.enable = true;
-            nil_ls.enable = true;
+            elixirls.enable = true;
+            eslint.enable = true;
+            html.enable = true;
+            biome.enable = true;
+            nil-ls.enable = true;
           };
           keymaps = {
             diagnostic = {
