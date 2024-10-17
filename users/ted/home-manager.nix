@@ -8,8 +8,8 @@ let
 
 in {
 
-  imports = [ ./home/default.nix ];
-
+  imports = [ ./home/default.nix ./nixvim.nix ];
+  veritas.configs.nixvim.enable = true;
   home.stateVersion = "24.05";
 
   xdg.enable = true;

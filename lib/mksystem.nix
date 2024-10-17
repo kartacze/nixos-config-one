@@ -14,6 +14,7 @@ let
   userOSConfig = ../users/ted/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../users/ted/home-manager.nix;
 
+  nixvim = inputs.nixvim.homeManagerModules.nixvim;
   # NixOS vs nix-darwin functionst
   systemFunc =
     if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
@@ -35,9 +36,9 @@ in systemFunc rec {
     # Bring in WSL if this is a WSL build
     # (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
 
-    (if darwin then inputs.nixvim.nixDarwinModules.nixvim else inputs.nixvim.nixosModules.nixvim)
 
     machineConfig
+
     userOSConfig
 
     home-manager.home-manager
@@ -48,6 +49,7 @@ in systemFunc rec {
         isWSL = isWSL;
         inputs = inputs;
       };
+      home-manager.sharedModules = [ nixvim ];
     }
 
     # We expose some extra arguments so that our modules can parameterize

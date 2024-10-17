@@ -22,7 +22,7 @@
   };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs: let
+  outputs = { self, nixpkgs, home-manager, darwin, nixvim, ... }@inputs: let
     overlays = [ ];
     mkSystem = import ./lib/mksystem.nix {
       inherit overlays nixpkgs inputs;

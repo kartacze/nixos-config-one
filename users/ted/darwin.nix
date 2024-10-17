@@ -3,7 +3,6 @@
 {
   nixpkgs.overlays = import ../../lib/overlays.nix;
 
-
   homebrew = { enable = true; casks = [ ]; };
 
   # The user should already exist, but we need to set this up so Nix knows
