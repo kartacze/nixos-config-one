@@ -8,8 +8,8 @@ let
 
 in {
 
-  imports = [ ./home/default.nix ./nixvim.nix ];
-  veritas.configs.nixvim.enable = true;
+  imports = [ ./home/default.nix ];
+
   home.stateVersion = "24.05";
 
   programs.zsh.enable = true;
