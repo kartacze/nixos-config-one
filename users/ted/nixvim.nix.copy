@@ -74,10 +74,10 @@ in {
           action = "<cmd>BufferLineCyclePrev<CR>";
           key = "[b";
         }
-        {
-          action = "<cmd>Bdelete<CR>";
-          key = "<leader>x";
-        }
+        # {
+        #   action = "<cmd>Bdelete<CR>";
+        #   key = "<leader>x";
+        # }
         {
           action = "<cmd>Gitsigns next_hunk<CR>";
           key = "]c";
@@ -210,20 +210,16 @@ in {
 
         which-key.enable = true;
 
-        bufdelete.enable = true;
+        # bufdelete.enable = true;
 
         bufferline = {
           enable = true;
-          settings = {
-            options = {
-              offsets = [{
-                filetype = "NvimTree";
-                text = "File Explorer";
-                highlight = "Directory";
-                separator = true;
-              }];
-            };
-          };
+          offsets = [{
+            filetype = "NvimTree";
+            text = "File Explorer";
+            highlight = "Directory";
+            separator = true;
+          }];
         };
         lualine.enable = true;
 
@@ -261,8 +257,6 @@ in {
           };
         };
 
-        web-devicons.enable = true;
-
         lsp = {
 
           enable = true;
@@ -278,7 +272,7 @@ in {
             #    completion = true;
             #  };
             #};
-            ts_ls.enable = true;
+            tsserver.enable = true;
             # lua-ls.enable = true;
 
             nixd.enable = true;
@@ -303,7 +297,6 @@ in {
               gd = "definition";
               gi = "implementation";
               gt = "type_definition";
-              ca = "code_action";
             };
           };
         };

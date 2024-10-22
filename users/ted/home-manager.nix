@@ -1,6 +1,6 @@
-{ isWSL, ... }:
+{ isWSL, inputs, ... }:
 
-{ config, lib, pkgs,inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
@@ -8,11 +8,14 @@ let
 
 in {
 
-  imports = [ ./home/default.nix ];
+  imports = [ ./home/default.nix ./nixvim.nix ];
+
+  veritas.configs.nixvim.enable = true;
 
   home.stateVersion = "24.05";
-  # environment.loginShell = [ "/share/fish" ];
+
   programs.zsh.enable = true;
+  programs.nixvim.enable = true;
 
   xdg.enable = true;
 
@@ -36,8 +39,10 @@ in {
     pkgs.watch
     pkgs.diff-so-fancy
     pkgs.deno
-    pkgs.nodejs
     pkgs.vim
+    pkgs.nodejs
+    pkgs.xclip
+
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven
@@ -117,14 +122,6 @@ in {
     } else
       { });
 
-    # plugins = map (n: {
-    #   name = n;
-    #   src  = sources.${n};
-    # }) [
-    #   "fish-fzf"
-    #   "fish-foreign-env"
-    #   "theme-bobthefish"
-    # ];
   };
 
   # home.file.".gdbinit".source = ./gdbinit;

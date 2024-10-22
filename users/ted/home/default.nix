@@ -4,8 +4,8 @@
   imports = [ ./git.nix ./fish/default.nix ];
 
   veritas.configs = {
-    git.enable = false;
-    # nixvim.enable = false;
+    git.enable = true;
+    # nixvim.enable = true;
     fish.enable = false;
   };
 }

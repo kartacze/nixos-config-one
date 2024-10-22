@@ -1,8 +1,6 @@
 { pkgs, inputs, ... }:
 
 {
-  imports = [ ./nixvim.nix ];
-
   # https://github.com/nix-community/home-manager/pull/2408
   environment.pathsToLink = [ "/share/fish" ];
 
@@ -12,8 +10,6 @@
   # Since we're using fish as our shell
   programs.fish.enable = true;
   programs.tmux.enable = true;
-
-  veritas.configs = { nixvim.enable = true; };
 
   users.users.ted = {
     isNormalUser = true;

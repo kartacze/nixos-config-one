@@ -26,12 +26,14 @@ endif
 
 test:
 ifeq ($(UNAME), Darwin)
-	nix build ".#darwinConfigurations.${NIXNAME}.system"
+	nix build --extra-experimental-features nix-command --extra-experimental-features flakes ".#darwinConfigurations.${NIXNAME}.system"
 	./result/sw/bin/darwin-rebuild test --flake "$$(pwd)#${NIXNAME}"
 else
 	sudo NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild test --flake ".#$(NIXNAME)"
 endif
 
+flakeupdate:
+	nix flake --extra-experimental-features nix-command --extra-experimental-features flakes update
 # This builds the given NixOS configuration and pushes the results to the
 # cache. This does not alter the current running system. This requires
 # cachix authentication to be configured out of band.

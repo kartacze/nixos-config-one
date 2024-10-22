@@ -1,6 +1,6 @@
 # This function creates a NixOS system based on our VM setup for a
 # particular architecture.
-{ nixpkgs, overlays, inputs }:
+{ nixpkgs, inputs }:
 
 name:
 { system, user, darwin ? false, wsl ? false }:
@@ -10,35 +10,33 @@ let
   isWSL = wsl;
 
   # The config files for this system.
-  # machineConfig = ../machines/${name}.nix;
+  machineConfig = ../machines/${name}.nix;
   userOSConfig = ../users/ted/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../users/ted/home-manager.nix;
 
   # NixOS vs nix-darwin functionst
   systemFunc =
     if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+
   home-manager = if darwin then
     inputs.home-manager.darwinModules
   else
     inputs.home-manager.nixosModules;
+
+  nixvim = inputs.nixvim.homeManagerModules.nixvim;
+
 in systemFunc rec {
   inherit system;
 
   modules = [
-    # Apply our overlays. Overlays are keyed by system type so we have
-    # to go through and apply our system type. We do this first so
-    # the overlays are available globally.
-
     # Bring in WSL if this is a WSL build
-    # (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
+    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
 
-    (if darwin then inputs.nixvim.nixDarwinModules.nixvim else inputs.nixvim.nixosModules.nixvim)
-    # inputs.nixvim.homeManagerModules.nixvim
-
-    # machineConfig
+    machineConfig
     userOSConfig
 
     home-manager.home-manager
+
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -46,6 +44,9 @@ in systemFunc rec {
         isWSL = isWSL;
         inputs = inputs;
       };
+
+      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.sharedModules = [ nixvim ];
     }
 
     # We expose some extra arguments so that our modules can parameterize
