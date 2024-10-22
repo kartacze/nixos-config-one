@@ -8,9 +8,7 @@ let
 
 in {
 
-  imports = [ ./home/default.nix ./nixvim.nix ];
-
-  veritas.configs.nixvim.enable = true;
+  imports = [ ./home/default.nix ];
 
   home.stateVersion = "24.05";
 
@@ -42,6 +40,7 @@ in {
     pkgs.vim
     pkgs.nodejs
     pkgs.xclip
+    pkgs.direnv
 
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
@@ -142,8 +141,6 @@ in {
     enable = true;
     extraConfig = builtins.readFile ./kitty;
   };
-
-  # xresources.extraConfig = builtins.readFile ./Xresources;
 
   # Make cursor not tiny on HiDPI screens
   home.pointerCursor = lib.mkIf (isLinux && !isWSL) {

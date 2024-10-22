@@ -3,6 +3,8 @@
 let cfg = config.veritas.configs.nixvim;
 
 in {
+  imports = [ ./keymaps.nix ./lsp.nix ];
+
   options.veritas.configs.nixvim = {
     enable = lib.mkEnableOption "neovim configuration";
   };
@@ -25,76 +27,11 @@ in {
         number = true;
         relativenumber = true;
         shiftwidth = 2;
+        ignorecase = true;
+        smartcase = true;
       };
 
       globals.mapleader = " ";
-
-      keymaps = [
-        {
-          action = "<cmd>Telescope live_grep<CR>";
-          key = "<leader>g";
-        }
-        {
-          action = "<cmd>NvimTreeToggle<CR>";
-          key = "<C-n>";
-        }
-        {
-          action = "<cmd>NvimTreeFindFile <CR>";
-          key = "<leader>e";
-        }
-        {
-          action = "<cmd>Telescope live_grep<CR>";
-          key = "<leader>fw";
-        }
-        {
-          action = "<cmd>Telescope find_files<CR>";
-          key = "<leader>ff";
-        }
-        {
-          action = "<cmd>Telescope find_files<CR>";
-          key = "<leader>ff";
-        }
-        {
-          action = "<cmd>Telescope lsp_references<CR>";
-          key = "gr";
-        }
-        {
-          action = "<cmd>Telescope git_status<CR>";
-          key = "<leader>gs";
-        }
-        {
-          action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
-          key = "<leader>fm";
-        }
-        {
-          action = "<cmd>BufferLineCycleNext<CR>";
-          key = "]b";
-        }
-        {
-          action = "<cmd>BufferLineCyclePrev<CR>";
-          key = "[b";
-        }
-        {
-          action = "<cmd>Bdelete<CR>";
-          key = "<leader>x";
-        }
-        {
-          action = "<cmd>Gitsigns next_hunk<CR>";
-          key = "]c";
-        }
-        {
-          action = "<cmd>Gitsigns prev_hunk<CR>";
-          key = "[c";
-        }
-        {
-          action = "<cmd>Gitsigns preview_hunk<CR>";
-          key = "<leader>ph";
-        }
-        {
-          action = "<cmd>Gitsigns reset_hunk<CR>";
-          key = "<leader>rh";
-        }
-      ];
 
       plugins = {
         gitsigns = {
@@ -117,26 +54,11 @@ in {
             watch_gitdir = { follow_files = true; };
           };
         };
+        comment.enable = true;
 
         cmp-nvim-lsp.enable = true;
         cmp-nvim-lua.enable = true;
         luasnip.enable = true;
-
-        lspkind = {
-          enable = true;
-
-          cmp = {
-            enable = true;
-            menu = {
-              nvim_lsp = "[LSP]";
-              nvim_lua = "[api]";
-              path = "[path]";
-              luasnip = "[snip]";
-              buffer = "[buffer]";
-              neorg = "[neorg]";
-            };
-          };
-        };
 
         cmp-rg = { enable = true; }; # ripgrep cmp
         cmp-buffer = { enable = true; };
@@ -239,74 +161,8 @@ in {
           openOnSetupFile = true;
           view = { width = "30%"; };
         };
-
         nvim-autopairs.enable = true;
-        nix.enable = true;
-
-        lsp-format = {
-          enable = true;
-          lspServersToEnable = [ "efm" ];
-        };
-
-        none-ls = {
-          enable = true;
-          sources = {
-            code_actions = { gitsigns.enable = true; };
-            formatting = {
-              prettierd.enable = true;
-              stylua.enable = true;
-              nixfmt.enable = true;
-            };
-            diagnostics = { fish.enable = true; };
-          };
-        };
-
         web-devicons.enable = true;
-
-        lsp = {
-
-          enable = true;
-          servers = {
-            #efm = {
-            #  enable = true;
-            #  extraOptions.init_options = {
-            #    documentFormatting = true;
-            #    documentRangeFormatting = true;
-            #    hover = true;
-            #    documentSymbol = true;
-            #    codeAction = true;
-            #    completion = true;
-            #  };
-            #};
-            ts_ls.enable = true;
-            # lua-ls.enable = true;
-
-            nixd.enable = true;
-            # elixirls.enable = true;
-            # eslint.enable = true;
-            # html.enable = true;
-            # biome.enable = true;
-            # nil-ls.enable = true;
-            # elixirls.enable = true;
-            # eslint.enable = true;
-            # html.enable = true;
-            # biome.enable = true;
-          };
-          keymaps = {
-            diagnostic = {
-              "]d" = "goto_next";
-              "[d" = "goto_prev";
-            };
-            lspBuf = {
-              K = "hover";
-              gD = "references";
-              gd = "definition";
-              gi = "implementation";
-              gt = "type_definition";
-              ca = "code_action";
-            };
-          };
-        };
       };
 
       autoCmd = [{

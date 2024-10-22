@@ -241,7 +241,7 @@ in {
 
         lsp-format = {
           enable = true;
-          lspServersToEnable = [ "efm" ];
+          lspServersToEnable = [ "none-ls" ];
         };
 
         none-ls = {
@@ -277,7 +277,6 @@ in {
 
             nixd.enable = true;
             # elixirls.enable = true;
-            # eslint.enable = true;
             # html.enable = true;
             # biome.enable = true;
             # nil-ls.enable = true;
