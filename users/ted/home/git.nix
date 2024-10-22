@@ -30,14 +30,12 @@ in {
           "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative";
         lfa =
           "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative --all";
-
       };
 
       extraConfig = {
         core.editor = "nvim";
         core.pager = "diff-so-fancy | less --tabs=4 -RFX";
       };
-
     };
   };
 }
