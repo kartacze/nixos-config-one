@@ -53,9 +53,11 @@ in {
     pkgs.zathura
     pkgs.xfce.xfce4-terminal
     pkgs.xautolock
+    # pkgs.steam
 
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
+    pkgs.megasync
   ]);
 
   #---------------------------------------------------------------------

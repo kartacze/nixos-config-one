@@ -11,6 +11,5 @@
   nixpkgs.config.allowUnfree = true;
 
   # This works through our custom module imported above
-  virtualisation.vmware.guest.enable = true;
 
 }

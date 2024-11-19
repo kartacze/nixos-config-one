@@ -11,6 +11,8 @@
   programs.fish.enable = true;
   programs.tmux.enable = true;
 
+  programs.steam.enable = true;
+
   users.users.ted = {
     isNormalUser = true;
     home = "/home/ted";

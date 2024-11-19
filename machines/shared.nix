@@ -68,7 +68,8 @@ in {
     };
   };
 
-  services.displayManager = { defaultSession = "none+i3"; };
+  services.displayManager =
+    if !linuxGnome then { defaultSession = "none+i3"; } else { };
 
   fonts = {
     fontDir.enable = true;

@@ -12,6 +12,54 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  services.fwupd.enable = true;
+
+  # Cooling management
+  services.thermald.enable = lib.mkDefault true;
+
+  # Use same ACPI identifier as Dell Ubuntu
+  boot.kernelParams = [ "acpi_osi=Linux-Dell-Video" ];
+
+  ##############################################################
+  ################### NVIDIA PART ##############################
+  ##############################################################
+
+  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+
+  hardware.opengl = { enable = true; };
+
+  # TODO: this will be a default after https://github.com/NixOS/nixpkgs/pull/326369
+  hardware.nvidia.modesetting.enable = lib.mkDefault true;
+  hardware.nvidia.open = false;
+
+  hardware.nvidia.prime = {
+    # offload = {
+    #   enable = lib.mkOverride 990 true;
+    #   enableOffloadCmd = lib.mkIf config.hardware.nvidia.prime.offload.enable
+    #     true; # Provides `nvidia-offload` command.
+    # };
+
+    sync.enable = true;
+
+    # Specify bus id of Nvidia and Intel graphics
+    intelBusId = "PCI:0:2:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
+
+  ##############################################################
+  ################# END OF NVIDIA ##############################
+  ##############################################################
+
+  services.fstrim.enable = lib.mkDefault true;
+  boot.blacklistedKernelModules =
+    lib.optionals (!config.hardware.enableRedistributableFirmware) [ "ath3k" ];
+
+    # Gnome 40 introduced a new way of managing power, without tlp.
+  # However, these 2 services clash when enabled simultaneously.
+  # https://github.com/NixOS/nixos-hardware/issues/260
+  services.tlp.enable = lib.mkDefault ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
+                                       || !config.services.power-profiles-daemon.enable);
+
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0875fb14-5920-44c3-9275-ac8459a35ff2";
     fsType = "ext4";

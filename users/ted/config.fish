@@ -45,7 +45,7 @@ end
 # Programs
 #-------------------------------------------------------------------------------
 # Vim: We should move this somewhere else but it works for now
-mkdir -p $HOME/.vim/{backup,swap,undo}
+#  mkdir -p $HOME/.vim/{backup,swap,undo}
 
 # Homebrew
 if test -d "/opt/homebrew"
@@ -69,9 +69,9 @@ set -q PATH; or set PATH ''; set -gx PATH  "$HOME/.local/bin" $PATH;
 # Prompt
 #-------------------------------------------------------------------------------
 # Do not show any greeting
-set --universal --erase fish_greeting
-function fish_greeting; end
-funcsave fish_greeting
+# set --universal --erase fish_greeting
+# function fish_greeting; end
+# funcsave fish_greeting
 
 # bobthefish theme
 set -g theme_color_scheme dracula
@@ -138,4 +138,4 @@ set -gx EDITOR nvim
 alias fnix "nix-shell --run fish"
 
 # rbenv stuff
-status --is-interactive; and . (rbenv init -|psub)
+# status --is-interactive; and . (rbenv init -|psub)
