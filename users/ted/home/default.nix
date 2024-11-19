@@ -1,10 +1,11 @@
-{ ... }:
+{ inputs, ... }:
 
 {
-  imports = [ ./git.nix ./fish/default.nix ];
+  imports = [ ./git.nix ./fish/default.nix ./nixvim/default.nix ];
 
   veritas.configs = {
     git.enable = true;
-    fish.enable = true;
+    nixvim.enable = true;
+    fish.enable = false;
   };
 }

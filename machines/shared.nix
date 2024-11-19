@@ -129,7 +129,6 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     pavucontrol
-    cachix
     gnumake
     killall
     niv

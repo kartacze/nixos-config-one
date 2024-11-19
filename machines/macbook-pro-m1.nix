@@ -2,6 +2,8 @@
   # We install Nix using a separate installer so we don't want nix-darwin
   # to manage it for us. This tells nix-darwin to just use whatever is running.
   nix.useDaemon = true;
+  nix.package = pkgs.nix;
+  services.nix-daemon.enable = true;
 
   # Keep in async with vm-shared.nix. (todo: pull this out into a file)
   nix = {
@@ -13,6 +15,8 @@
     '';
   };
 
+  programs.tmux.enable = true;
+
   # zsh is the default shell on Mac and we want to make sure that we're
   # configuring the rc correctly with nix-darwin paths.
   programs.zsh.enable = true;
@@ -22,7 +26,7 @@
       . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
     fi
     # End Nix
-    '';
+  '';
 
   programs.fish.enable = true;
   programs.fish.shellInit = ''
@@ -31,10 +35,8 @@
       source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
     end
     # End Nix
-    '';
+  '';
 
   environment.shells = with pkgs; [ bashInteractive zsh fish ];
-  environment.systemPackages = with pkgs; [
-    cachix
-  ];
+  # environment.systemPackages = with pkgs; [ cachix ];
 }
