@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,9 +18,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, nixvim, ... }@inputs:
+  outputs =
+    { self, nixpkgs, home-manager, darwin, nixvim, nixos-hardware, ... }@inputs:
     let mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
     in {
 
@@ -52,6 +55,7 @@
       nixosConfigurations.latitude-7390 = mkSystem "latitude-7390" rec {
         system = "x86_64-linux";
         user = "ted";
+        isLatitude = true;
       };
 
       nixosConfigurations.wsl = mkSystem "wsl" {

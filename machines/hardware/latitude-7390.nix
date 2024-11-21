@@ -4,14 +4,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/c8084e5c-ec86-41c9-833f-45b70569e8d3";
     fsType = "ext4";
@@ -31,9 +23,6 @@
     }
 
   ];
-  boot.kernelParams =
-    [ "systemd.unified_cgroup_hierarchy=0" "resume_offset=13465600" ];
-  security.protectKernelImage = false;
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -43,10 +32,5 @@
   # networking.interfaces.enp60s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
-  # services.printing.drivers = [ pkgs.brlaser ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

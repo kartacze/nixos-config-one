@@ -7,6 +7,7 @@
 let linuxGnome = false;
 
 in {
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -17,6 +18,19 @@ in {
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+
+  hardware.bluetooth = {
+    enable = true; # enables support for Bluetooth
+    powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  };
+
+  services.blueman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
@@ -119,8 +133,6 @@ in {
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
-
   programs.thunar.enable = true;
 
   # Allow unfree packages
@@ -133,9 +145,7 @@ in {
     gnumake
     killall
     niv
-    rxvt_unicode
     xclip
-    firefox
     vim
     kitty
     home-manager

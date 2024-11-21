@@ -32,7 +32,11 @@ in {
           sources = {
             code_actions = { gitsigns.enable = true; };
             formatting = {
-              prettierd.enable = true;
+              prettierd = {
+                enable = true;
+
+                disableTsServerFormatter = true;
+              };
               stylua.enable = true;
               nixfmt.enable = true;
             };
@@ -45,7 +49,7 @@ in {
           enable = true;
           servers = {
             ts_ls.enable = true;
-            lua-ls.enable = true;
+            lua_ls.enable = true;
             kotlin_language_server.enable = true;
 
             nixd.enable = true;
@@ -53,7 +57,7 @@ in {
             eslint.enable = true;
             html.enable = true;
             # biome.enable = true;
-            nil-ls.enable = true;
+            nil_ls.enable = true;
           };
           keymaps = {
             diagnostic = {

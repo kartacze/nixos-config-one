@@ -3,7 +3,7 @@
 { nixpkgs, inputs }:
 
 name:
-{ system, user, darwin ? false, wsl ? false }:
+{ system, user, darwin ? false, wsl ? false, isLatitude ? false }:
 
 let
   # True if this is a WSL system.
@@ -19,6 +19,11 @@ let
   systemFunc =
     if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
+  nixos-hardware = if isLatitude then
+    inputs.nixos-hardware.nixosModules.dell-latitude-7390
+  else
+    { };
+
   home-manager = if darwin then
     inputs.home-manager.darwinModules
   else
@@ -30,11 +35,9 @@ in systemFunc rec {
   modules = [
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
-
     machineConfig
-
+    nixos-hardware
     userOSConfig
-
     home-manager.home-manager
 
     {
