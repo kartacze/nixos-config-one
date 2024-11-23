@@ -117,7 +117,7 @@ in {
       niv
       rxvt_unicode
       xclip
-      firefox
+      brave
       vim
       kitty
       home-manager

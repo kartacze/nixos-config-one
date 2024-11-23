@@ -47,7 +47,6 @@ in {
     pkgs.maven
   ]) ++ (lib.optionals (isLinux && !isWSL) [
     pkgs.brave
-    pkgs.firefox
     pkgs.rofi
     pkgs.valgrind
     pkgs.zathura
