@@ -129,6 +129,7 @@ in {
 
   xdg.configFile = {
     "i3/config".text = builtins.readFile ./i3;
+    # ".tmux.conf".text = builtins.readFile ./tmux.conf;
     # "rofi/config.rasi".ext = builtins.readFile ./rofi;
   };
 

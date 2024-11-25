@@ -52,6 +52,17 @@ in {
             lua_ls.enable = true;
             kotlin_language_server.enable = true;
 
+            tailwindcss = {
+              enable = true;
+              extraOptions = {
+                userLanguages = {
+                  elixir = "html-eex";
+                  eelixir = "html-eex";
+                  heex = "html-eex";
+                };
+              };
+            };
+
             nixd.enable = true;
             elixirls.enable = true;
             eslint.enable = true;

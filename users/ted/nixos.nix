@@ -9,7 +9,6 @@
 
   # Since we're using fish as our shell
   programs.fish.enable = true;
-  programs.tmux.enable = true;
 
   programs.steam.enable = true;
 
