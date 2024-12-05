@@ -19,8 +19,11 @@ let
   systemFunc =
     if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
-  nixos-hardware = if isLatitude then
+  nixos-hardware = if name == "latitude-7390" then
     inputs.nixos-hardware.nixosModules.dell-latitude-7390
+  else if name == "g5555-intel" then
+  # only because there is only cpu intell and laptop and ssd
+    inputs.nixos-hardware.nixosModules.dell-latitude-7280
   else
     { };
 

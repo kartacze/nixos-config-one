@@ -91,8 +91,11 @@ in {
     fontDir.enable = true;
 
     packages = [
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-      pkgs.fira-code
+      # (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      # pkgs.fira-code
+      pkgs.nerd-fonts.jetbrains-mono
+      pkgs.nerd-fonts.fira-code
+      pkgs.nerd-fonts.fira-mono
     ];
   };
 
