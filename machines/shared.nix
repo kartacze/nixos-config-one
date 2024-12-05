@@ -133,6 +133,8 @@ in {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -145,6 +147,7 @@ in {
     kitty
     home-manager
     pciutils
+    logseq
   ];
 
   # Enable the OpenSSH daemon.
