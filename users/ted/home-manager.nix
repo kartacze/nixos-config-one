@@ -57,6 +57,7 @@ in {
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
     pkgs.megasync
+    # pkgs.logseq
     pkgs.signal-desktop
     pkgs.upower
   ]);

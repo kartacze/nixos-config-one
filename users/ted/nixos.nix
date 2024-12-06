@@ -12,6 +12,10 @@
 
   # programs.steam.enable = true;
 
+  nixpkgs.config.permittedInsecurePackages = {
+    nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
+  };
+
   users.users.ted = {
     isNormalUser = true;
     home = "/home/ted";
