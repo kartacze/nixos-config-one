@@ -128,7 +128,53 @@ in {
           extensions.fzf-native.enable = true;
         };
         oil.enable = true;
-        treesitter.enable = true;
+        treesitter = {
+          enable = true;
+          settings = {
+            auto_install = false;
+            ensure_installed = "all";
+            highlight = {
+              additional_vim_regex_highlighting = true;
+              custom_captures = { };
+              disable = [ "rust" ];
+              enable = true;
+            };
+            ignore_install = [ "rust" ];
+            incremental_selection = {
+              enable = true;
+              keymaps = {
+                init_selection = false;
+                node_decremental = "grm";
+                node_incremental = "grn";
+                scope_incremental = "grc";
+              };
+            };
+            indent = { enable = true; };
+            sync_install = false;
+          };
+
+          grammarPackages =
+            with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              bash
+              json
+              lua
+              make
+              markdown
+              nix
+              regex
+              toml
+              vim
+              vimdoc
+              xml
+              yaml
+              elixir
+              erlang
+              typescript
+              javascript
+              kotlin
+              java
+            ];
+        };
 
         which-key.enable = true;
 

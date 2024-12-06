@@ -26,7 +26,7 @@ in {
                		set -g @dracula-show-battery false
              			set -g @dracula-show-powerline true
              			set -g @dracula-refresh-rate 10
-                  set -g @dracula-plugins "git mpc cpu-usage ram-usage battery weather time"
+                  set -g @dracula-plugins "git mpc time"
             	'';
         }
       ];
