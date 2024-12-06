@@ -10,7 +10,7 @@
   # Since we're using fish as our shell
   programs.fish.enable = true;
 
-  programs.steam.enable = true;
+  # programs.steam.enable = true;
 
   users.users.ted = {
     isNormalUser = true;
