@@ -75,6 +75,7 @@ in {
       # display resolution. This is a known issue with VMware Fusion.
       sessionCommands = ''
         ${pkgs.xorg.xset}/bin/xset r rate 200 40
+        ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
       '';
     };
 
@@ -91,8 +92,6 @@ in {
     fontDir.enable = true;
 
     packages = [
-      # (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
-      # pkgs.fira-code
       pkgs.nerd-fonts.jetbrains-mono
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.fira-mono

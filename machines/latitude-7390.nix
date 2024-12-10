@@ -1,5 +1,6 @@
 { config, pkgs, lib, ... }: {
-  imports = [ ./hardware/latitude-7390.nix ./shared.nix ];
+  imports =
+    [ ./hardware/latitude-7390.nix ./shared.nix ./hardware/battery.nix ];
 
   # hardware.graphics = {
   #   enable = true;
