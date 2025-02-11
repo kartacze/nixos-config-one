@@ -37,4 +37,5 @@
 
   environment.shells = with pkgs; [ bashInteractive zsh fish ];
   # environment.systemPackages = with pkgs; [ cachix ];
+  nixpkgs.config.allowUnfree = true;
 }

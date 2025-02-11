@@ -34,6 +34,28 @@ in {
       globals.mapleader = " ";
 
       plugins = {
+        lsp-signature = { enable = true; };
+        copilot-vim = {
+          enable = false;
+          # settings = {
+          #   panel = {
+          #     auto_refresh = true;
+          #     enabled = false;
+          #   };
+          #   suggestion = {
+          #     auto_trigger = false;
+          #     debounce = 90;
+          #     enabled = false;
+          #     hide_during_completion = false;
+          #     keymap = {
+          #       accept_line = false;
+          #       accept_word = false;
+          #     };
+          #   };
+          # };
+        };
+
+        # copilot-cmp = { enable = true; };
         gitsigns = {
           enable = true;
           settings = {
@@ -128,7 +150,26 @@ in {
           extensions.fzf-native.enable = true;
         };
         oil.enable = true;
-        treesitter.enable = true;
+        treesitter = {
+          enable = true;
+          grammarPackages =
+            with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              bash
+              json
+              lua
+              make
+              markdown
+              nix
+              regex
+              toml
+              vim
+              vimdoc
+              xml
+              yaml
+              typescript
+              javascript
+            ];
+        };
 
         which-key.enable = true;
 

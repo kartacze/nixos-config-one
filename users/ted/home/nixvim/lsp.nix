@@ -58,6 +58,7 @@ in {
             html.enable = true;
             # biome.enable = true;
             nil_ls.enable = true;
+            cssls.enable = true;
           };
           keymaps = {
             diagnostic = {
