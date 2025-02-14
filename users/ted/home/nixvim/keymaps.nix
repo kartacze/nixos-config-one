@@ -39,7 +39,9 @@ in {
           key = "<leader>gs";
         }
         {
-          action = "<cmd>lua vim.lsp.buf.format({ async = true })<CR>";
+          action = ''
+            <cmd>lua vim.lsp.buf.format({ async = true, filter = function(client) return client.name ~= "ts_ls" end })<CR>";
+          '';
           key = "<leader>fm";
         }
         {

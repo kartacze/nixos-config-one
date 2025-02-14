@@ -24,18 +24,21 @@ in {
           };
         };
 
-        lsp-format = { enable = true; };
+        lsp-format = { enable = false; };
 
         none-ls = {
           enable = true;
-          enableLspFormat = true;
+          enableLspFormat = false;
           sources = {
             code_actions = { gitsigns.enable = true; };
             formatting = {
               prettierd = {
                 enable = true;
-
                 disableTsServerFormatter = true;
+                settings = {
+                  extra_filetypes = [ "toml" ];
+                  disabled_filetypes = [ "lua" "typescript" "typescriptreact" "javascript" "javascriptreact" ];
+                };
               };
               stylua.enable = true;
               nixfmt.enable = true;
