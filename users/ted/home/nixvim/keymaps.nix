@@ -27,8 +27,8 @@ in {
           key = "<leader>ff";
         }
         {
-          action = "<cmd>Telescope find_files<CR>";
-          key = "<leader>ff";
+          action = "<cmd>Telescope grep_string<CR>";
+          key = "<leader>fs";
         }
         {
           action = "<cmd>Telescope lsp_references<CR>";

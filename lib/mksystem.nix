@@ -42,7 +42,7 @@ in systemFunc rec {
     nixos-hardware
     userOSConfig
     home-manager.home-manager
-
+    
     {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
@@ -50,13 +50,13 @@ in systemFunc rec {
         isWSL = isWSL;
         inputs = inputs;
       };
-
+    
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.sharedModules = [ nixvim ];
     }
 
-    # We expose some extra arguments so that our modules can parameterize
-    # better based on these values.
+     # We expose some extra arguments so that our modules can parameterize
+     # better based on these values.
     {
       config._module.args = {
         currentSystem = system;

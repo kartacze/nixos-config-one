@@ -8,6 +8,8 @@ in {
       plugins = {
         nix.enable = true;
 
+        lsp-signature.enable = true;
+
         lspkind = {
           enable = true;
 
