@@ -27,6 +27,10 @@ in {
           key = "<leader>ff";
         }
         {
+          action = "<cmd>Telescope oldfiles<CR>";
+          key = "<leader>fo";
+        }
+        {
           action = "<cmd>Telescope grep_string<CR>";
           key = "<leader>fs";
         }

@@ -36,13 +36,16 @@ in {
             formatting = {
               prettierd = {
                 enable = true;
-
                 disableTsServerFormatter = true;
               };
               stylua.enable = true;
               nixfmt.enable = true;
+              black.enable = true;
             };
-            diagnostics = { fish.enable = true; };
+            diagnostics = {
+              fish.enable = true;
+              mypy.enable = true;
+            };
           };
         };
 
@@ -50,7 +53,22 @@ in {
 
           enable = true;
           servers = {
-            ts_ls.enable = true;
+            ts_ls = {
+              enable = true;
+              settings = {
+                single_file_support = false;
+                rootDir = ''
+                  require('lspconfig').util.root_pattern("package.json")
+                '';
+              };
+            };
+            denols = {
+              enable = true;
+              rootDir = ''
+                require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")
+              '';
+
+            };
             lua_ls.enable = true;
             kotlin_language_server.enable = true;
 
@@ -71,6 +89,7 @@ in {
             html.enable = true;
             # biome.enable = true;
             nil_ls.enable = true;
+            pyright.enable = true;
           };
           keymaps = {
             diagnostic = {
