@@ -27,6 +27,18 @@ in {
     openFirewall = true;
   };
 
+  services.livebook = {
+    enableUserService = true;
+    environment = {
+      LIVEBOOK_PORT = 20123;
+      LIVEBOOK_PASSWORD = "mypassword";
+    };
+
+    extraPackages = with pkgs; [ gcc gnumake ];
+    # See note below about security
+    environmentFile = "/var/lib/livebook.env";
+  };
+
   hardware.bluetooth = {
     enable = true; # enables support for Bluetooth
     powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -91,11 +103,7 @@ in {
   fonts = {
     fontDir.enable = true;
 
-    packages = [
-      pkgs.nerd-fonts.jetbrains-mono
-      pkgs.nerd-fonts.fira-code
-      pkgs.nerd-fonts.fira-mono
-    ];
+    packages = with pkgs; [ jetbrains-mono fira-code fira-mono ];
   };
 
   # Configure console keymap
