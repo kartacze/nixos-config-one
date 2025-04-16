@@ -38,7 +38,7 @@ in {
     pkgs.diff-so-fancy
     pkgs.deno
     pkgs.vim
-    pkgs.nodejs
+    pkgs.nodejs_22
     pkgs.xclip
     pkgs.direnv
 
