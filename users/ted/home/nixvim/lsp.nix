@@ -57,16 +57,16 @@ in {
               enable = true;
               settings = {
                 single_file_support = false;
-                rootDir = ''
-                  require('lspconfig').util.root_pattern("package.json")
-                '';
+                # rootDir = ''
+                #   require('lspconfig').util.root_pattern("package.json")
+                # '';
               };
             };
             denols = {
               enable = true;
-              rootDir = ''
-                require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")
-              '';
+              # rootDir = ''
+              #   require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")
+              # '';
 
             };
             lua_ls.enable = true;

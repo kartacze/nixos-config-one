@@ -92,7 +92,7 @@ in {
     fontDir.enable = true;
 
     packages = [
-      pkgs.nerd-fonts.jetbrains-mono
+      # pkgs.nerd-fonts.jetbrains-mono
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.fira-mono
     ];
