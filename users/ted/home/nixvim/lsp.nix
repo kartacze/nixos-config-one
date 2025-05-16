@@ -103,6 +103,7 @@ in {
               gi = "implementation";
               gt = "type_definition";
               ca = "code_action";
+              mr = "rename";
             };
           };
         };
