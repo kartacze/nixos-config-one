@@ -29,13 +29,8 @@ in {
 
   services.livebook = {
     enableUserService = true;
-    environment = {
-      LIVEBOOK_PORT = 20123;
-      LIVEBOOK_PASSWORD = "mypassword";
-    };
-
+    package = pkgs.livebook;
     extraPackages = with pkgs; [ gcc gnumake ];
-    # See note below about security
     environmentFile = "/var/lib/livebook.env";
   };
 

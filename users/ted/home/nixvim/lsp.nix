@@ -62,13 +62,13 @@ in {
                 '';
               };
             };
-            denols = {
-              enable = true;
-              rootDir = ''
-                require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")
-              '';
-
-            };
+            # denols = {
+            #   enable = true;
+            #   rootDir = ''
+            #     require('lspconfig').util.root_pattern("deno.json", "deno.jsonc")
+            #   '';
+            #
+            # };
             lua_ls.enable = true;
             kotlin_language_server.enable = true;
 
