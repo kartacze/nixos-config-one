@@ -105,6 +105,10 @@ in {
       pkgs.noto-fonts
       pkgs.noto-fonts-cjk-sans
       pkgs.noto-fonts-cjk-serif
+<<<<<<< Updated upstream
+=======
+      pkgs.noto-fonts-emoji
+>>>>>>> Stashed changes
     ];
   };
 
