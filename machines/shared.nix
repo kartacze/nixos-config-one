@@ -27,6 +27,13 @@ in {
     openFirewall = true;
   };
 
+  services.livebook = {
+    enableUserService = true;
+    package = pkgs.livebook;
+    extraPackages = with pkgs; [ gcc gnumake ];
+    environmentFile = "/var/lib/livebook.env";
+  };
+
   hardware.bluetooth = {
     enable = true; # enables support for Bluetooth
     powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -95,6 +102,9 @@ in {
       # pkgs.nerd-fonts.jetbrains-mono
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.fira-mono
+      pkgs.noto-fonts
+      pkgs.noto-fonts-cjk-sans
+      pkgs.noto-fonts-cjk-serif
     ];
   };
 

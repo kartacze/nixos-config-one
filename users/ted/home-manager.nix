@@ -41,6 +41,7 @@ in {
     pkgs.nodejs_22
     pkgs.xclip
     pkgs.direnv
+    pkgs.livebook
 
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
