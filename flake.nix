@@ -20,6 +20,8 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
+    gicz-server.url = "path:///home/ted/workspace/winpol/gicz";
   };
 
   outputs =

@@ -41,12 +41,9 @@ in {
     pkgs.nodejs_22
     pkgs.xclip
     pkgs.direnv
-<<<<<<< Updated upstream
     pkgs.livebook
-=======
     pkgs.anki-bin
     pkgs.mpv
->>>>>>> Stashed changes
 
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
