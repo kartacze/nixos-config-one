@@ -11,12 +11,12 @@
   programs.fish.enable = true;
 
   # programs.steam.enable = true;
-  services.gicz-server = {
-    enable = true;
-    host = "localhost";
-    secretKeyBaseFile = ./secretKey;
-    databaseUrlFile = ./databaseUrl;
-  };
+  # services.gicz-server = {
+  #   enable = true;
+  #   host = "localhost";
+  #   secretKeyBaseFile = ./secretKey;
+  #   databaseUrlFile = ./databaseUrl;
+  # };
 
   users.users.ted = {
     isNormalUser = true;

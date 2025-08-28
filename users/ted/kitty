@@ -1,5 +1,5 @@
 font_family FiraCode Nerd Font Mono
-font_size 13.0
+font_size 10.0
 
 #--------------------------------------------------------------------
 # Key bindings
@@ -32,7 +32,7 @@ background            #282c34
 selection_foreground  #000000
 selection_background  #FFFACD
 url_color             #0087BD
-background_opacity 0.9
+background_opacity 0.8
 
 # black
 color0   #282c34

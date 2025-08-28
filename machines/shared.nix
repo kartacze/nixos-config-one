@@ -7,6 +7,7 @@
 let linuxGnome = false;
 
 in {
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
@@ -35,11 +36,11 @@ in {
   };
 
   hardware.bluetooth = {
-    enable = true; # enables support for Bluetooth
-    powerOnBoot = true; # powers up the default Bluetooth controller on boot
+    enable = false; # enables support for Bluetooth
+    powerOnBoot = false; # powers up the default Bluetooth controller on boot
   };
 
-  services.blueman.enable = true;
+  services.blueman.enable = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
@@ -59,53 +60,85 @@ in {
     LC_TIME = "pl_PL.UTF-8";
   };
 
-  services.xserver = if linuxGnome then {
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
+  # environment.pathsToLink =
+  #   [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
+
+  # services.xserver = if linuxGnome then {
+  #   enable = true;
+  #   layout = "pl";
+  #   # desktopManager.gnome.enable = true;
+  #   # displayManager.gdm.enable = true;
+  # } else {
+  #   enable = true;
+  #   xkb.layout = "pl";
+  #   dpi = 96;
+  #
+  #   desktopManager = {
+  #     xterm.enable = false;
+  #
+  #     # xfce = {
+  #     #   enable = true;
+  #     #   noDesktop = true;
+  #     #   enableXfwm = false;
+  #     # };
+  #   };
+  #
+  #   # desktopManager = {
+  #   #   xterm.enable = false;
+  #   #   i3.enable = true;
+  #   #   wallpaper.mode = "fill";
+  #   # };
+  #
+  #   windowManager.i3 = {
+  #     enable = true;
+  #     extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks ];
+  #   };
+  #
+  #   displayManager = {
+  #     sessionCommands = ''
+  #       ${pkgs.xorg.xset}/bin/xset r rate 200 40
+  #     '';
+  #   };
+  #
+  # };
+
+  # services.displayManager = { defaultSession = "none+i3"; };
+  # programs.i3lock.enable = true;
+
+  # services.displayManager =
+  #   if !linuxGnome then { defaultSession = "none+i3"; } else { };
+
+  location.latitude = 50.0;
+  location.longitude = -20.0;
+
+  services.redshift = {
     enable = true;
-    layout = "pl";
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-  } else {
-    enable = true;
-    xkb.layout = "pl";
-    dpi = 96;
-
-    desktopManager = {
-      xterm.enable = false;
-      wallpaper.mode = "fill";
+    brightness = {
+      # Note the string values below.
+      day = "1";
+      night = "1";
     };
-
-    displayManager = {
-      # defaultSession = "none+i3";
-      lightdm.enable = true;
-
-      # AARCH64: For now, on Apple Silicon, we must manually set the
-      # display resolution. This is a known issue with VMware Fusion.
-      sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset r rate 200 40
-        ${pkgs.xorg.xrandr}/bin/xrandr -s '2048x1152'
-      '';
-    };
-
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks ];
+    temperature = {
+      day = 5500;
+      night = 3700;
     };
   };
-
-  services.displayManager =
-    if !linuxGnome then { defaultSession = "none+i3"; } else { };
 
   fonts = {
     fontDir.enable = true;
 
     packages = [
       # pkgs.nerd-fonts.jetbrains-mono
+      pkgs.nerd-fonts.jetbrains-mono
       pkgs.nerd-fonts.fira-code
       pkgs.nerd-fonts.fira-mono
       pkgs.noto-fonts
       pkgs.noto-fonts-cjk-sans
       pkgs.noto-fonts-cjk-serif
       pkgs.noto-fonts-emoji
+      pkgs.font-awesome
     ];
   };
 
@@ -113,10 +146,10 @@ in {
   console.keyMap = "pl2";
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services.printing.enable = false;
 
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -151,6 +184,11 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    firefox
+    brave
+    libnotify
+    glib
+    glibc
     pavucontrol
     gnumake
     killall

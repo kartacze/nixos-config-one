@@ -5,7 +5,6 @@
 let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
-
 in {
 
   imports = [ ./home/default.nix ];
@@ -15,7 +14,7 @@ in {
   programs.zsh.enable = true;
   programs.nixvim.enable = true;
 
-  xdg.enable = true;
+  # xdg.enable = true;
 
   #---------------------------------------------------------------------
   # Packages
@@ -25,6 +24,8 @@ in {
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = [
+    pkgs.pipewire
+    pkgs.dunst
     pkgs.asciinema
     pkgs.bat
     pkgs.fd
@@ -59,7 +60,7 @@ in {
 
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
-    pkgs.megasync
+    # pkgs.megasync
     pkgs.signal-desktop
     pkgs.upower
   ]);
@@ -132,11 +133,11 @@ in {
   # home.file.".gdbinit".source = ./gdbinit;
   # home.file.".inputrc".source = ./inputrc;
 
-  xdg.configFile = {
-    "i3/config".text = builtins.readFile ./i3;
-    # ".tmux.conf".text = builtins.readFile ./tmux.conf;
-    # "rofi/config.rasi".ext = builtins.readFile ./rofi;
-  };
+  # xdg.configFile = {
+  #   "i3/config".text = builtins.readFile ./i3;
+  #   # ".tmux.conf".text = builtins.readFile ./tmux.conf;
+  #   # "rofi/config.rasi".ext = builtins.readFile ./rofi;
+  # };
 
   #---------------------------------------------------------------------
   # Programs
@@ -150,10 +151,10 @@ in {
   };
 
   # Make cursor not tiny on HiDPI screens
-  home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
-    name = "Vanilla-DMZ";
-    package = pkgs.vanilla-dmz;
-    size = 128;
-    x11.enable = true;
-  };
+  # home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
+  #   name = "Vanilla-DMZ";
+  #   package = pkgs.vanilla-dmz;
+  #   size = 128;
+  #   x11.enable = true;
+  # };
 }

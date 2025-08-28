@@ -18,15 +18,15 @@ in {
       historyLimit = 100000;
       terminal = "screen-256color";
       plugins = with pkgs; [
-        tmuxPlugins.cpu
-        tmuxPlugins.yank
+        # tmuxPlugins.cpu
+        # tmuxPlugins.yank
         {
           plugin = tmuxPlugins.dracula;
           extraConfig = ''
-               		set -g @dracula-show-battery false
-             			set -g @dracula-show-powerline true
-             			set -g @dracula-refresh-rate 10
-                  set -g @dracula-plugins "git mpc time"
+               	set -g @dracula-show-battery false
+             	set -g @dracula-show-powerline true
+             	set -g @dracula-refresh-rate 10
+                set -g @dracula-plugins "git mpc time"
             	'';
         }
       ];

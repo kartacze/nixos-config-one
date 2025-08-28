@@ -2,6 +2,8 @@
   imports =
     [ ./hardware/latitude-7390.nix ./shared.nix ./hardware/battery.nix ];
 
+  programs.hyprland = { enable = true; };
+
   # hardware.graphics = {
   #   enable = true;
   #   extraPackages = with pkgs; [
