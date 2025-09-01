@@ -1,7 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let cfg = config.veritas.configs.hyprland;
-in {
+let
+  cfg = config.veritas.configs.hyprland;
+in
+{
   imports = [ ];
 
   options.veritas.configs.hyprland = {
@@ -12,8 +20,7 @@ in {
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       portalPackage =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
@@ -60,9 +67,15 @@ in {
       # };
     };
 
-    programs.waybar = { enable = true; };
+    programs.waybar = {
+      enable = true;
+    };
 
-    home.packages = [ pkgs.hyprpaper pkgs.hypridle pkgs.hyprlock ];
+    home.packages = [
+      pkgs.hyprpaper
+      pkgs.hypridle
+      pkgs.hyprlock
+    ];
 
     xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
@@ -72,8 +85,7 @@ in {
     xdg.configFile."waybar/config.jsonc".source = ./waybar/config.jsonc;
     xdg.configFile."waybar/style.css".source = ./waybar/style.css;
 
-    systemd.user.targets.tray.Unit.Requires =
-      lib.mkForce [ "graphical-session.target" ];
+    systemd.user.targets.tray.Unit.Requires = lib.mkForce [ "graphical-session.target" ];
 
     home.sessionVariables = {
       QT_QPA_PLATFORM = "wayland";

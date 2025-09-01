@@ -30,19 +30,9 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      darwin,
-      nixvim,
-      nixos-hardware,
-      ...
-    }@inputs:
-    let
-      mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
-    in
-    {
+    { self, nixpkgs, home-manager, darwin, nixvim, nixos-hardware, ... }@inputs:
+    let mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+    in {
 
       nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
         system = "aarch64-linux";
@@ -73,6 +63,12 @@
         system = "x86_64-linux";
         user = "ted";
         isLatitude = true;
+      };
+
+      nixosConfigurations.x1-intel = mkSystem "x1-intel" rec {
+        system = "x86_64-linux";
+        user = "ted";
+        isLatitude = false;
       };
 
       nixosConfigurations.wsl = mkSystem "wsl" {

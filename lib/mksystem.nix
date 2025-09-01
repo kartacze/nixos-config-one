@@ -21,18 +21,17 @@ let
 
   nixos-hardware = if name == "latitude-7390" then
     inputs.nixos-hardware.nixosModules.dell-latitude-7390
-  else if name == "g5555-intel" then
-  # only because there is only cpu intell and laptop and ssd
-    inputs.nixos-hardware.nixosModules.dell-latitude-7280
+  else if name == "x1-intel" then
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
   else
     { };
 
   # gicz-server = inputs.gicz-server.outputs.packages.x86_64-linux.nixosModule;
 
-   home-manager = if darwin then
-     inputs.home-manager.darwinModules
-   else
-     inputs.home-manager.nixosModules;
+  home-manager = if darwin then
+    inputs.home-manager.darwinModules
+  else
+    inputs.home-manager.nixosModules;
 
 in systemFunc rec {
   inherit system;
@@ -46,17 +45,17 @@ in systemFunc rec {
     home-manager.home-manager
     # gicz-server
 
-     {
-       home-manager.useGlobalPkgs = true;
-       home-manager.useUserPackages = true;
-       home-manager.users.${user} = import userHMConfig {
-         isWSL = isWSL;
-         inputs = inputs;
-       };
-    
-       home-manager.extraSpecialArgs = { inherit inputs; };
-       home-manager.sharedModules = [ nixvim ];
-     }
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.${user} = import userHMConfig {
+        isWSL = isWSL;
+        inputs = inputs;
+      };
+
+      home-manager.extraSpecialArgs = { inherit inputs; };
+      home-manager.sharedModules = [ nixvim ];
+    }
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.

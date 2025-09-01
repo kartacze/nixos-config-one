@@ -4,11 +4,16 @@
 
 { config, pkgs, ... }:
 
-let linuxGnome = false;
+let
+  linuxGnome = false;
 
-in {
+in
+{
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,7 +36,10 @@ in {
   services.livebook = {
     enableUserService = true;
     package = pkgs.livebook;
-    extraPackages = with pkgs; [ gcc gnumake ];
+    extraPackages = with pkgs; [
+      gcc
+      gnumake
+    ];
     environmentFile = "/var/lib/livebook.env";
   };
 
@@ -139,6 +147,7 @@ in {
       pkgs.noto-fonts-cjk-serif
       pkgs.noto-fonts-emoji
       pkgs.font-awesome
+      pkgs.papirus-icon-theme
     ];
   };
 
@@ -168,13 +177,18 @@ in {
   users.users.ted = {
     isNormalUser = true;
     description = "ted";
-    extraGroups = [ "networkmanager" "wheel" ];
-    hashedPassword =
-      "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+    ];
+    hashedPassword = "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
   };
 
   # Install firefox.
   programs.thunar.enable = true;
+
+  programs.yazi.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -191,6 +205,7 @@ in {
     glibc
     pavucontrol
     gnumake
+    gcc
     killall
     niv
     xclip
