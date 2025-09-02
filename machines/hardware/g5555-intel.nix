@@ -56,13 +56,6 @@
   boot.blacklistedKernelModules =
     lib.optionals (!config.hardware.enableRedistributableFirmware) [ "ath3k" ];
 
-  # Gnome 40 introduced a new way of managing power, without tlp.
-  # However, these 2 services clash when enabled simultaneously.
-  # https://github.com/NixOS/nixos-hardware/issues/260
-  services.tlp.enable = lib.mkDefault
-    ((lib.versionOlder (lib.versions.majorMinor lib.version) "21.05")
-      || !config.services.power-profiles-daemon.enable);
-
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0875fb14-5920-44c3-9275-ac8459a35ff2";
     fsType = "ext4";

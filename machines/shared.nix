@@ -4,16 +4,11 @@
 
 { config, pkgs, ... }:
 
-let
-  linuxGnome = false;
-
-in
 {
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  imports = [ ./shared/default.nix ];
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -31,16 +26,6 @@ in
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-  };
-
-  services.livebook = {
-    enableUserService = true;
-    package = pkgs.livebook;
-    extraPackages = with pkgs; [
-      gcc
-      gnumake
-    ];
-    environmentFile = "/var/lib/livebook.env";
   };
 
   hardware.bluetooth = {
@@ -68,130 +53,16 @@ in
     LC_TIME = "pl_PL.UTF-8";
   };
 
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # environment.pathsToLink =
-  #   [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw
-
-  # services.xserver = if linuxGnome then {
-  #   enable = true;
-  #   layout = "pl";
-  #   # desktopManager.gnome.enable = true;
-  #   # displayManager.gdm.enable = true;
-  # } else {
-  #   enable = true;
-  #   xkb.layout = "pl";
-  #   dpi = 96;
-  #
-  #   desktopManager = {
-  #     xterm.enable = false;
-  #
-  #     # xfce = {
-  #     #   enable = true;
-  #     #   noDesktop = true;
-  #     #   enableXfwm = false;
-  #     # };
-  #   };
-  #
-  #   # desktopManager = {
-  #   #   xterm.enable = false;
-  #   #   i3.enable = true;
-  #   #   wallpaper.mode = "fill";
-  #   # };
-  #
-  #   windowManager.i3 = {
-  #     enable = true;
-  #     extraPackages = with pkgs; [ dmenu i3status i3lock i3blocks ];
-  #   };
-  #
-  #   displayManager = {
-  #     sessionCommands = ''
-  #       ${pkgs.xorg.xset}/bin/xset r rate 200 40
-  #     '';
-  #   };
-  #
-  # };
-
-  # services.displayManager = { defaultSession = "none+i3"; };
-  # programs.i3lock.enable = true;
-
-  # services.displayManager =
-  #   if !linuxGnome then { defaultSession = "none+i3"; } else { };
-
-  location.latitude = 50.0;
-  location.longitude = -20.0;
-
-  services.redshift = {
-    enable = true;
-    brightness = {
-      # Note the string values below.
-      day = "1";
-      night = "1";
-    };
-    temperature = {
-      day = 5500;
-      night = 3700;
-    };
-  };
-
-  fonts = {
-    fontDir.enable = true;
-
-    packages = [
-      # pkgs.nerd-fonts.jetbrains-mono
-      pkgs.nerd-fonts.jetbrains-mono
-      pkgs.nerd-fonts.fira-code
-      pkgs.nerd-fonts.fira-mono
-      pkgs.noto-fonts
-      pkgs.noto-fonts-cjk-sans
-      pkgs.noto-fonts-cjk-serif
-      pkgs.noto-fonts-emoji
-      pkgs.font-awesome
-      pkgs.papirus-icon-theme
-    ];
-  };
-
   # Configure console keymap
-  console.keyMap = "pl2";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = false;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    jack.enable = true;
-    wireplumber = {
-      enable = true;
-      package = pkgs.wireplumber;
-    };
-  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.ted = {
     isNormalUser = true;
     description = "ted";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-    ];
-    hashedPassword = "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
+    extraGroups = [ "networkmanager" "wheel" "video" ];
+    hashedPassword =
+      "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
   };
-
-  # Install firefox.
-  programs.thunar.enable = true;
-
-  programs.yazi.enable = true;
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
 
