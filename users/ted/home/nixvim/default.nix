@@ -222,7 +222,7 @@ in {
               disable = [ "rust" ];
               enable = true;
             };
-            ignore_install = [ "rust" ];
+            ignore_install = [ "rust" "ipkg" ];
             incremental_selection = {
               enable = true;
               keymaps = {

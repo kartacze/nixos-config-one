@@ -50,6 +50,7 @@ in {
     # This is automatically setup on Linux
     pkgs.maven
   ]) ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.wl-clipboard
     pkgs.brave
     pkgs.rofi
     pkgs.valgrind
