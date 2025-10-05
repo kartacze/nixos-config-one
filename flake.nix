@@ -27,6 +27,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # gicz-server.url = "path:///home/ted/workspace/winpol/gicz";
+    # postgres-db.url =
+    #   "path:///home/ted/workspace/winpol/sluz-gicz/flakes/postgresql";
   };
 
   outputs =

@@ -24,6 +24,7 @@ in {
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = [
+    pkgs.zoom-us
     pkgs.pipewire
     pkgs.dunst
     pkgs.asciinema
@@ -50,6 +51,8 @@ in {
     # This is automatically setup on Linux
     pkgs.maven
   ]) ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.solaar
+    pkgs.qalculate-qt
     pkgs.wl-clipboard
     pkgs.brave
     pkgs.rofi
@@ -61,7 +64,7 @@ in {
 
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
-    # pkgs.megasync
+    pkgs.megasync
     pkgs.signal-desktop
     pkgs.upower
   ]);
