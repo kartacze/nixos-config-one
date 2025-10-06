@@ -2,7 +2,7 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-25.05-darwin";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -10,7 +10,7 @@
     };
 
     darwin = {
-      url = "github:LnL7/nix-darwin";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -25,14 +25,9 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # gicz-server.url = "path:///home/ted/workspace/winpol/gicz";
-    # postgres-db.url =
-    #   "path:///home/ted/workspace/winpol/sluz-gicz/flakes/postgresql";
   };
 
-  outputs =
-    { self, nixpkgs, home-manager, darwin, nixvim, nixos-hardware, ... }@inputs:
+  outputs = { nixpkgs, ... }@inputs:
     let mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
     in {
 
