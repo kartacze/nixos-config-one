@@ -26,8 +26,6 @@ let
   else
     { };
 
-  # gicz-server = inputs.gicz-server.outputs.packages.x86_64-linux.nixosModule;
-
   home-manager = if darwin then
     inputs.home-manager.darwinModules
   else
@@ -43,7 +41,6 @@ in systemFunc rec {
     nixos-hardware
     userOSConfig
     home-manager.home-manager
-    # gicz-server
 
     {
       home-manager.useGlobalPkgs = true;

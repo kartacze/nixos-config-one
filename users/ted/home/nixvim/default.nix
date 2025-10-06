@@ -1,20 +1,9 @@
-{
-  config,
-  lib,
-  pkgs,
-  inputs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 
-let
-  cfg = config.veritas.configs.nixvim;
+let cfg = config.veritas.configs.nixvim;
 
-in
-{
-  imports = [
-    ./keymaps.nix
-    ./lsp.nix
-  ];
+in {
+  imports = [ ./keymaps.nix ./lsp.nix ];
 
   options.veritas.configs.nixvim = {
     enable = lib.mkEnableOption "neovim configuration";
@@ -25,10 +14,7 @@ in
       enable = true;
       colorschemes.dracula.enable = true;
 
-      extraPlugins = with pkgs.vimPlugins; [
-        vim-nix
-        oklch-color-picker-nvim
-      ];
+      extraPlugins = with pkgs.vimPlugins; [ vim-nix ];
 
       clipboard.providers.xclip.enable = true;
       # print("Hello world!")
@@ -49,9 +35,9 @@ in
 
       plugins = {
 
-        render-markdown = {
-          enable = true;
-        };
+        render-markdown = { enable = true; };
+        trouble.enable = true;
+        colorizer.enable = true;
 
         mini = {
           enable = true;
@@ -60,6 +46,7 @@ in
               n_lines = 50;
               search_method = "cover_or_next";
             };
+
             # comment = {
             #   mappings = {
             #     comment = "<leader>/";
@@ -75,10 +62,12 @@ in
                   __raw = "require('mini.starter').gen_hook.adding_bullet()";
                 };
                 "__unkeyed-2.indexing" = {
-                  __raw = "require('mini.starter').gen_hook.indexing('all', { 'Builtin actions' })";
+                  __raw =
+                    "require('mini.starter').gen_hook.indexing('all', { 'Builtin actions' })";
                 };
                 "__unkeyed-3.padding" = {
-                  __raw = "require('mini.starter').gen_hook.aligning('center', 'center')";
+                  __raw =
+                    "require('mini.starter').gen_hook.aligning('center', 'center')";
                 };
               };
               evaluate_single = true;
@@ -94,28 +83,57 @@ in
                   __raw = "require('mini.starter').sections.builtin_actions()";
                 };
                 "__unkeyed-2.recent_files_current_directory" = {
-                  __raw = "require('mini.starter').sections.recent_files(10, false)";
+                  __raw =
+                    "require('mini.starter').sections.recent_files(10, false)";
                 };
                 "__unkeyed-3.recent_files" = {
-                  __raw = "require('mini.starter').sections.recent_files(10, true)";
+                  __raw =
+                    "require('mini.starter').sections.recent_files(10, true)";
                 };
                 "__unkeyed-4.sessions" = {
                   __raw = "require('mini.starter').sections.sessions(5, true)";
                 };
               };
               operators = { };
-              surround = {
-                mappings = {
-                  add = "gsa";
-                  delete = "gsd";
-                  find = "gsf";
-                  find_left = "gsF";
-                  highlight = "gsh";
-                  replace = "gsr";
-                  update_n_lines = "gsn";
-                };
+            };
+
+            surround = {
+              custom_surroundings = null;
+
+              highlight_duration = 500;
+
+              mappings = {
+                add = "sa";
+                delete = "sd";
+                find = "sf";
+                find_left = "sF";
+                highlight = "sh";
+                replace = "sr";
+
+                suffix_last = "l";
+                suffix_next = "n";
               };
             };
+
+            # -- Number of lines within which surrounding is searched
+            # n_lines = 20,
+            #
+            # -- Whether to respect selection type:
+            # -- - Place surroundings on separate lines in linewise mode.
+            # -- - Place surroundings on each line in blockwise mode.
+            # respect_selection_type = false,
+            #
+            # -- How to search for surrounding (first inside current line, then inside
+            # -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
+            # -- 'cover_or_nearest', 'next', 'prev', 'nearest'. For more details,
+            # -- see `:h MiniSurround.config`.
+            # search_method = 'cover',
+            #
+            # -- Whether to disable showing non-error feedback
+            # -- This also affects (purely informational) helper messages shown after
+            # -- idle time if user input is required.
+            # silent = false,;
+
           };
         };
 
@@ -129,35 +147,22 @@ in
             };
             signcolumn = true;
             signs = {
-              add = {
-                text = "│";
-              };
-              change = {
-                text = "│";
-              };
-              changedelete = {
-                text = "~";
-              };
-              delete = {
-                text = "_";
-              };
-              topdelete = {
-                text = "‾";
-              };
-              untracked = {
-                text = "┆";
-              };
+              add = { text = "│"; };
+              change = { text = "│"; };
+              changedelete = { text = "~"; };
+              delete = { text = "_"; };
+              topdelete = { text = "‾"; };
+              untracked = { text = "┆"; };
             };
-            watch_gitdir = {
-              follow_files = true;
-            };
+            watch_gitdir = { follow_files = true; };
           };
         };
 
         comment = {
           enable = true;
           settings = {
-            pre_hook = "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
+            pre_hook =
+              "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
           };
         };
 
@@ -168,48 +173,26 @@ in
         cmp-nvim-lua.enable = true;
         luasnip.enable = true;
 
-        cmp-rg = {
-          enable = true;
-        }; # ripgrep cmp
-        cmp-buffer = {
-          enable = true;
-        };
-        cmp-path = {
-          enable = true;
-        }; # file system paths
-        cmp_luasnip = {
-          enable = true;
-        }; # snippets
-        cmp-cmdline = {
-          enable = true;
-        };
-        cmp-emoji = {
-          enable = true;
-        };
+        cmp-rg = { enable = true; }; # ripgrep cmp
+        cmp-buffer = { enable = true; };
+        cmp-path = { enable = true; }; # file system paths
+        cmp_luasnip = { enable = true; }; # snippets
+        cmp-cmdline = { enable = true; };
+        cmp-emoji = { enable = true; };
 
         cmp = {
           enable = true;
 
           settings = {
             autoEnableSources = true;
-            experimental = {
-              ghost_text = true;
-            };
+            experimental = { ghost_text = true; };
             performance = {
               debounce = 60;
               fetchingTimeout = 200;
               maxViewEntries = 30;
             };
-            snippet = {
-              expand = "luasnip";
-            };
-            formatting = {
-              fields = [
-                "kind"
-                "abbr"
-                "menu"
-              ];
-            };
+            snippet = { expand = "luasnip"; };
+            formatting = { fields = [ "kind" "abbr" "menu" ]; };
 
             sources = [
               { name = "nvim_lsp"; }
@@ -233,16 +216,13 @@ in
             ];
 
             window = {
-              completion = {
-                border = "solid";
-              };
-              documentation = {
-                border = "solid";
-              };
+              completion = { border = "solid"; };
+              documentation = { border = "solid"; };
             };
 
             mapping = {
-              "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+              "<Tab>" =
+                "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
               "<C-j>" = "cmp.mapping.select_next_item()";
               "<C-k>" = "cmp.mapping.select_prev_item()";
               "<C-e>" = "cmp.mapping.abort()";
@@ -250,7 +230,8 @@ in
               "<C-f>" = "cmp.mapping.scroll_docs(4)";
               "<C-Space>" = "cmp.mapping.complete()";
               "<CR>" = "cmp.mapping.confirm({ select = true })";
-              "<S-CR>" = "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
+              "<S-CR>" =
+                "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
             };
           };
         };
@@ -271,10 +252,7 @@ in
               disable = [ "rust" ];
               enable = true;
             };
-            ignore_install = [
-              "rust"
-              "ipkg"
-            ];
+            ignore_install = [ "rust" "ipkg" ];
             incremental_selection = {
               enable = true;
               keymaps = {
@@ -284,32 +262,31 @@ in
                 scope_incremental = "grc";
               };
             };
-            indent = {
-              enable = true;
-            };
+            indent = { enable = true; };
             sync_install = false;
           };
 
-          grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-            bash
-            json
-            lua
-            make
-            markdown
-            nix
-            regex
-            toml
-            vim
-            vimdoc
-            xml
-            yaml
-            elixir
-            erlang
-            typescript
-            javascript
-            kotlin
-            java
-          ];
+          grammarPackages =
+            with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              bash
+              json
+              lua
+              make
+              markdown
+              nix
+              regex
+              toml
+              vim
+              vimdoc
+              xml
+              yaml
+              elixir
+              erlang
+              typescript
+              javascript
+              kotlin
+              java
+            ];
         };
 
         which-key.enable = true;
@@ -320,44 +297,30 @@ in
           enable = true;
           settings = {
             options = {
-              offsets = [
-                {
-                  filetype = "NvimTree";
-                  text = "File Explorer";
-                  highlight = "Directory";
-                  separator = true;
-                }
-              ];
+              offsets = [{
+                filetype = "NvimTree";
+                text = "File Explorer";
+                highlight = "Directory";
+                separator = true;
+              }];
             };
           };
         };
         lualine.enable = true;
-
-        # efmls-configs = {
-        #   enable = true;
-        #   setup = {
-        #     nix.formatter = [ "nixfmt" ];
-        #     typescript.formatter = [ "prettier_d" ];
-        #   };
-        # };
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
-          view = {
-            width = "30%";
-          };
+          view = { width = "30%"; };
         };
         nvim-autopairs.enable = true;
         web-devicons.enable = true;
       };
 
-      autoCmd = [
-        {
-          event = "FileType";
-          pattern = "nix";
-          command = "setlocal tabstop=2 shiftwidth=2";
-        }
-      ];
+      autoCmd = [{
+        event = "FileType";
+        pattern = "nix";
+        command = "setlocal tabstop=2 shiftwidth=2";
+      }];
     };
   };
 }

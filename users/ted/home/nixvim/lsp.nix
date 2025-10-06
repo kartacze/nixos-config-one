@@ -26,11 +26,10 @@ in {
           };
         };
 
-        lsp-format = { enable = true; };
+        # lsp-format = { enable = true; };
 
         none-ls = {
           enable = true;
-          enableLspFormat = true;
           sources = {
             code_actions = { gitsigns.enable = true; };
             formatting = {
@@ -55,6 +54,7 @@ in {
           servers = {
             ts_ls = {
               enable = true;
+              packageFallback = true;
               settings = {
                 single_file_support = false;
                 # rootDir = ''

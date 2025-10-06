@@ -24,44 +24,38 @@ in {
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = [
-    pkgs.zoom-us
-    pkgs.pipewire
-    pkgs.dunst
-    pkgs.asciinema
-    pkgs.bat
-    pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.htop
+    pkgs.diff-so-fancy
+    pkgs.vim
     pkgs.jq
     pkgs.ripgrep
     pkgs.tree
     pkgs.watch
-    pkgs.diff-so-fancy
-    pkgs.deno
-    pkgs.vim
-    pkgs.nodejs_22
     pkgs.xclip
+    # pkgs.asciinema
+    # pkgs.ghostty-bin
+    pkgs.bat
+    pkgs.fd
+    pkgs.nodejs_22
     pkgs.direnv
-    pkgs.livebook
-    pkgs.anki-bin
-    pkgs.mpv
-
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven
   ]) ++ (lib.optionals (isLinux && !isWSL) [
-    pkgs.solaar
+    pkgs.pipewire
+    pkgs.dunst
+    pkgs.anki-bin
     pkgs.qalculate-qt
     pkgs.wl-clipboard
-    pkgs.brave
+    pkgs.solaar
+    pkgs.mpv
     pkgs.rofi
+    pkgs.brave
+    pkgs.livebook
     pkgs.valgrind
     pkgs.zathura
-    pkgs.xfce.xfce4-terminal
-    pkgs.xautolock
-    # pkgs.steam
-
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
     pkgs.megasync
