@@ -70,7 +70,7 @@ in {
             #
             # };
             lua_ls.enable = true;
-            kotlin_language_server.enable = true;
+            # kotlin_language_server.enable = true;
 
             tailwindcss = {
               enable = true;
@@ -88,8 +88,8 @@ in {
             eslint.enable = true;
             html.enable = true;
             # biome.enable = true;
-            nil_ls.enable = true;
-            pyright.enable = true;
+            # nil_ls.enable = true;
+            # pyright.enable = true;
           };
           keymaps = {
             diagnostic = {

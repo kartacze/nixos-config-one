@@ -33,7 +33,6 @@ in {
     pkgs.ripgrep
     pkgs.tree
     pkgs.watch
-    pkgs.xclip
     # pkgs.asciinema
     # pkgs.ghostty-bin
     pkgs.bat
@@ -44,6 +43,7 @@ in {
     # This is automatically setup on Linux
     pkgs.maven
   ]) ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.xclip
     pkgs.pipewire
     pkgs.dunst
     pkgs.anki-bin
