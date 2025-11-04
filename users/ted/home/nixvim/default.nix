@@ -310,7 +310,10 @@ in {
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
-          view = { width = "30%"; };
+
+          settings = {
+            view = { width = "30%"; };
+          };
         };
         nvim-autopairs.enable = true;
         web-devicons.enable = true;
