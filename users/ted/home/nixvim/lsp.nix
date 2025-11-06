@@ -10,6 +10,7 @@ in {
 
         lsp-signature.enable = true;
 
+<<<<<<< Updated upstream
         lspkind = {
           enable = true;
           settings = {
@@ -29,6 +30,27 @@ in {
 
         # lsp-format = { enable = true; };
 
+||||||| Stash base
+        lspkind = {
+          enable = true;
+
+          cmp = {
+            enable = true;
+            menu = {
+              nvim_lsp = "[LSP]";
+              nvim_lua = "[api]";
+              path = "[path]";
+              luasnip = "[snip]";
+              buffer = "[buffer]";
+              neorg = "[neorg]";
+            };
+          };
+        };
+
+        # lsp-format = { enable = true; };
+
+=======
+>>>>>>> Stashed changes
         none-ls = {
           enable = true;
           sources = {
@@ -56,12 +78,7 @@ in {
             ts_ls = {
               enable = true;
               packageFallback = true;
-              settings = {
-                single_file_support = false;
-                # rootDir = ''
-                #   require('lspconfig').util.root_pattern("package.json")
-                # '';
-              };
+              settings = { single_file_support = false; };
             };
             # denols = {
             #   enable = true;
@@ -103,7 +120,7 @@ in {
               gd = "definition";
               gi = "implementation";
               gt = "type_definition";
-              ca = "code_action";
+              gca = "code_action";
               mr = "rename";
             };
           };

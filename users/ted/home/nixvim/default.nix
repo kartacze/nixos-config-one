@@ -20,7 +20,7 @@ in {
       # print("Hello world!")
       extraConfigLua = ''
         -- Print a little welcome message when nvim is opened!
-        luasnip = require("luasnip")
+        -- luasnip = require("luasnip")
       '';
 
       opts = {
@@ -38,6 +38,60 @@ in {
         render-markdown = { enable = true; };
         trouble.enable = true;
         colorizer.enable = true;
+        friendly-snippets.enable = true;
+
+        blink-cmp = {
+          enable = true;
+
+          settings.appearance.kind_icons = {
+            Class = "󱡠";
+            Color = "󰏘";
+            Constant = "󰏿";
+            Constructor = "󰒓";
+            Enum = "󰦨";
+            EnumMember = "󰦨";
+            Event = "󱐋";
+            Field = "󰜢";
+            File = "󰈔";
+            Folder = "󰉋";
+            Function = "󰊕";
+            Interface = "󱡠";
+            Keyword = "󰻾";
+            Method = "󰊕";
+            Module = "󰅩";
+            Operator = "󰪚";
+            Property = "󰖷";
+            Reference = "󰬲";
+            Snippet = "󱄽";
+            Struct = "󱡠";
+            Text = "󰉿";
+            TypeParameter = "󰬛";
+            Unit = "󰪚";
+            Value = "󰦨";
+            Variable = "󰆦";
+          };
+
+        };
+
+        snacks = {
+          enable = true;
+          settings = {
+            image = { enabled = true; };
+            notifier = { enabled = true; };
+            picker = { enabled = true; };
+            explorer = { enabled = true; };
+            bufdelete = { enabled = true; };
+            dim = { enabled = true; };
+            git = { enabled = true; };
+            indent = { enabled = true; };
+            scope = { enabled = true; };
+            scratch = { enabled = true; };
+            toggle = { enabled = true; };
+            words = { enabled = true; };
+          };
+        };
+        #  this could be replaced with folde/snacks.image
+        # image = { enable = true; };
 
         mini = {
           enable = true;
@@ -46,7 +100,31 @@ in {
               n_lines = 50;
               search_method = "cover_or_next";
             };
+            diff = { view = { style = "sign"; }; };
+            pairs = {
+              modes = {
+                insert = true;
+                command = false;
+                terminal = false;
+              };
+            };
+            splitjoin = { };
+            tabline = { };
+            icons = { };
+            notify = { };
+            indentscope = { };
+            cursorword = { };
+            jump = { };
+            bracketed = { };
 
+            # snippets = {
+            #   settings = {
+            #     snippets = {
+            #       "__raw" = "require('mini.snippets').gen_loader.from_lang()";
+            #     };
+            #   };
+            # };
+            # completion = { };
             # comment = {
             #   mappings = {
             #     comment = "<leader>/";
@@ -55,7 +133,6 @@ in {
             #     textobject = "<leader>/";
             #   };
             # };
-            # diff = { view = { style = "sign"; }; };
             starter = {
               content_hooks = {
                 "__unkeyed-1.adding_bullet" = {
@@ -99,7 +176,6 @@ in {
 
             surround = {
               custom_surroundings = null;
-
               highlight_duration = 500;
 
               mappings = {
@@ -109,31 +185,10 @@ in {
                 find_left = "sF";
                 highlight = "sh";
                 replace = "sr";
-
                 suffix_last = "l";
                 suffix_next = "n";
               };
             };
-
-            # -- Number of lines within which surrounding is searched
-            # n_lines = 20,
-            #
-            # -- Whether to respect selection type:
-            # -- - Place surroundings on separate lines in linewise mode.
-            # -- - Place surroundings on each line in blockwise mode.
-            # respect_selection_type = false,
-            #
-            # -- How to search for surrounding (first inside current line, then inside
-            # -- neighborhood). One of 'cover', 'cover_or_next', 'cover_or_prev',
-            # -- 'cover_or_nearest', 'next', 'prev', 'nearest'. For more details,
-            # -- see `:h MiniSurround.config`.
-            # search_method = 'cover',
-            #
-            # -- Whether to disable showing non-error feedback
-            # -- This also affects (purely informational) helper messages shown after
-            # -- idle time if user input is required.
-            # silent = false,;
-
           };
         };
 
@@ -169,129 +224,128 @@ in {
         ts-comments.enable = true;
         ts-context-commentstring.enable = true;
 
-        cmp-nvim-lsp.enable = true;
-        cmp-nvim-lua.enable = true;
-        luasnip.enable = true;
+        # cmp-nvim-lsp.enable = true;
+        # cmp-nvim-lua.enable = true;
+        # luasnip.enable = true;
 
-        cmp-rg = { enable = true; }; # ripgrep cmp
-        cmp-buffer = { enable = true; };
-        cmp-path = { enable = true; }; # file system paths
-        cmp_luasnip = { enable = true; }; # snippets
-        cmp-cmdline = { enable = true; };
-        cmp-emoji = { enable = true; };
+        # cmp-rg = { enable = true; }; # ripgrep cmp
+        # cmp-buffer = { enable = true; };
+        # cmp-path = { enable = true; }; # file system paths
+        # cmp_luasnip = { enable = true; }; # snippets
+        # cmp-cmdline = { enable = true; };
+        # cmp-emoji = { enable = true; };
 
-        cmp = {
-          enable = true;
-
-          settings = {
-            autoEnableSources = true;
-            experimental = { ghost_text = true; };
-            performance = {
-              debounce = 60;
-              fetchingTimeout = 200;
-              maxViewEntries = 30;
-            };
-            snippet = { expand = "luasnip"; };
-            formatting = { fields = [ "kind" "abbr" "menu" ]; };
-
-            sources = [
-              { name = "nvim_lsp"; }
-              { name = "emoji"; }
-              {
-                name = "buffer"; # text within current buffer
-                option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
-                keywordLength = 3;
-              }
-              {
-                name = "path"; # file system paths
-                keywordLength = 3;
-              }
-              {
-                name = "luasnip"; # snippets
-                keywordLength = 3;
-              }
-              { name = "rg"; }
-              { name = "nvim_lua"; }
-
-            ];
-
-            window = {
-              completion = { border = "solid"; };
-              documentation = { border = "solid"; };
-            };
-
-            mapping = {
-              "<Tab>" =
-                "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-              "<C-j>" = "cmp.mapping.select_next_item()";
-              "<C-k>" = "cmp.mapping.select_prev_item()";
-              "<C-e>" = "cmp.mapping.abort()";
-              "<C-b>" = "cmp.mapping.scroll_docs(-4)";
-              "<C-f>" = "cmp.mapping.scroll_docs(4)";
-              "<C-Space>" = "cmp.mapping.complete()";
-              "<CR>" = "cmp.mapping.confirm({ select = true })";
-              "<S-CR>" =
-                "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
-            };
-          };
-        };
+        # cmp = {
+        #   enable = true;
+        #
+        #   settings = {
+        #     autoEnableSources = true;
+        #     experimental = { ghost_text = true; };
+        #     performance = {
+        #       debounce = 60;
+        #       fetchingTimeout = 200;
+        #       maxViewEntries = 30;
+        #     };
+        #     snippet = { expand = "luasnip"; };
+        #     formatting = { fields = [ "kind" "abbr" "menu" ]; };
+        #
+        #     sources = [
+        #       { name = "nvim_lsp"; }
+        #       { name = "emoji"; }
+        #       {
+        #         name = "buffer"; # text within current buffer
+        #         option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
+        #         keywordLength = 3;
+        #       }
+        #       {
+        #         name = "path"; # file system paths
+        #         keywordLength = 3;
+        #       }
+        #       {
+        #         name = "luasnip"; # snippets
+        #         keywordLength = 3;
+        #       }
+        #       { name = "rg"; }
+        #       { name = "nvim_lua"; }
+        #
+        #     ];
+        #
+        #     window = {
+        #       completion = { border = "solid"; };
+        #       documentation = { border = "solid"; };
+        #     };
+        #
+        #     mapping = {
+        #       "<Tab>" =
+        #         "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+        #       "<C-j>" = "cmp.mapping.select_next_item()";
+        #       "<C-k>" = "cmp.mapping.select_prev_item()";
+        #       "<C-e>" = "cmp.mapping.abort()";
+        #       "<C-b>" = "cmp.mapping.scroll_docs(-4)";
+        #       "<C-f>" = "cmp.mapping.scroll_docs(4)";
+        #       "<C-Space>" = "cmp.mapping.complete()";
+        #       "<CR>" = "cmp.mapping.confirm({ select = true })";
+        #       "<S-CR>" =
+        #         "cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })";
+        #     };
+        #   };
+        # };
 
         telescope = {
           enable = true;
           extensions.fzf-native.enable = true;
         };
-        oil.enable = true;
-        treesitter = {
-          enable = true;
-          settings = {
-            auto_install = false;
-            ensure_installed = "all";
-            highlight = {
-              additional_vim_regex_highlighting = true;
-              custom_captures = { };
-              disable = [ "rust" ];
-              enable = true;
-            };
-            ignore_install = [ "rust" "ipkg" ];
-            incremental_selection = {
-              enable = true;
-              keymaps = {
-                init_selection = false;
-                node_decremental = "grm";
-                node_incremental = "grn";
-                scope_incremental = "grc";
-              };
-            };
-            indent = { enable = true; };
-            sync_install = false;
-          };
 
-          grammarPackages =
-            with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-              bash
-              json
-              lua
-              make
-              markdown
-              nix
-              regex
-              toml
-              vim
-              vimdoc
-              xml
-              yaml
-              elixir
-              erlang
-              typescript
-              javascript
-              kotlin
-              java
-            ];
-        };
+        # oil.enable = true;
+        # treesitter = {
+        #   enable = true;
+        #   settings = {
+        #     auto_install = false;
+        #     ensure_installed = "all";
+        #     highlight = {
+        #       additional_vim_regex_highlighting = true;
+        #       custom_captures = { };
+        #       disable = [ "rust" ];
+        #       enable = true;
+        #     };
+        #     ignore_install = [ "rust" "ipkg" ];
+        #     incremental_selection = {
+        #       enable = true;
+        #       keymaps = {
+        #         init_selection = false;
+        #         node_decremental = "grm";
+        #         node_incremental = "grn";
+        #         scope_incremental = "grc";
+        #       };
+        #     };
+        #     indent = { enable = true; };
+        #     sync_install = false;
+        #   };
+        #
+        #   grammarPackages =
+        #     with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        #       bash
+        #       json
+        #       lua
+        #       make
+        #       markdown
+        #       nix
+        #       regex
+        #       toml
+        #       vim
+        #       vimdoc
+        #       xml
+        #       yaml
+        #       elixir
+        #       erlang
+        #       typescript
+        #       javascript
+        #       kotlin
+        #       java
+        #     ];
+        # };
 
         which-key.enable = true;
-
-        bufdelete.enable = true;
 
         bufferline = {
           enable = true;
@@ -310,12 +364,17 @@ in {
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
+<<<<<<< Updated upstream
 
           settings = {
             view = { width = "30%"; };
           };
+||||||| Stash base
+          view = { width = "30%"; };
+=======
+          settings = { view = { width = "30%"; }; };
+>>>>>>> Stashed changes
         };
-        nvim-autopairs.enable = true;
         web-devicons.enable = true;
       };
 
