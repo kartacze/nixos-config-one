@@ -10,47 +10,6 @@ in {
 
         lsp-signature.enable = true;
 
-<<<<<<< Updated upstream
-        lspkind = {
-          enable = true;
-          settings = {
-            cmp = {
-              enable = true;
-              menu = {
-                nvim_lsp = "[LSP]";
-                nvim_lua = "[api]";
-                path = "[path]";
-                luasnip = "[snip]";
-                buffer = "[buffer]";
-                neorg = "[neorg]";
-              };
-            };
-          };
-        };
-
-        # lsp-format = { enable = true; };
-
-||||||| Stash base
-        lspkind = {
-          enable = true;
-
-          cmp = {
-            enable = true;
-            menu = {
-              nvim_lsp = "[LSP]";
-              nvim_lua = "[api]";
-              path = "[path]";
-              luasnip = "[snip]";
-              buffer = "[buffer]";
-              neorg = "[neorg]";
-            };
-          };
-        };
-
-        # lsp-format = { enable = true; };
-
-=======
->>>>>>> Stashed changes
         none-ls = {
           enable = true;
           sources = {

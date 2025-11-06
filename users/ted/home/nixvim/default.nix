@@ -364,16 +364,7 @@ in {
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
-<<<<<<< Updated upstream
-
-          settings = {
-            view = { width = "30%"; };
-          };
-||||||| Stash base
-          view = { width = "30%"; };
-=======
           settings = { view = { width = "30%"; }; };
->>>>>>> Stashed changes
         };
         web-devicons.enable = true;
       };

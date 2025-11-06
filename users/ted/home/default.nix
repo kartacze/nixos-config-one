@@ -14,6 +14,6 @@
     nixvim.enable = true;
     fish.enable = false;
     tmux.enable = true;
-    hyprland.enable = false;
+    hyprland.enable = true;
   };
 }

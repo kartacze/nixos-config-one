@@ -62,17 +62,17 @@
   },
   "backlight": {
     "device": "intel_backlight",
-    "format": "{percent}% {icon}",
-    "format-icons": ["", ""], // Example icons
+    "format": "{icon} {percent}%",
+    "format-icons": ["", ""], // Example icons
     "on-click-right": "brightnessctl s 0", // Example: right-click to set to 0%
   },
   "network": {
-    "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
-    "format-ethernet": "<span color='#7FFF00'> </span>Wired ",
+    "format-wifi": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
+    "format-ethernet": "<span color='#7FFF00'>  </span>Wired ",
     "tooltip-format": "<span color='#FF1493'> 󰅧 </span>{bandwidthUpBytes}  <span color='#00BFFF'> 󰅢 </span>{bandwidthDownBytes}",
     "format-linked": "<span color='#FFA500'> 󱘖 </span>{ifname} (No IP) ",
-    "format-disconnected": "<span color='#FF4040'>  </span>Disconnected ",
-    "format-alt": "<span color='#00FFFF'> 󰤨 </span>{signalStrength}% ",
+    "format-disconnected": "<span color='#FF4040'>  </span> ",
+    "format-alt": "<span color='#00FFFF'> 󰤨 </span>{essid} ",
     "interval": 1,
   },
   "battery": {
@@ -81,7 +81,7 @@
       "critical": 15,
     },
     "format": "<span color='#28CD41'> {icon} </span>{capacity}% ",
-    "format-charging": " 󱐋{capacity}%",
+    "format-charging": " 󱐋 {capacity}%",
     "interval": 1,
     "format-icons": ["󰂎", "󰁼", "󰁿", "󰂁", "󰁹"],
     "tooltip": true,

@@ -50,7 +50,7 @@ in {
     pkgs.qalculate-qt
     pkgs.wl-clipboard
     pkgs.solaar
-    pkgs.mpv
+    # pkgs.mpv
     pkgs.rofi
     pkgs.brave
     pkgs.livebook
@@ -60,7 +60,7 @@ in {
     pkgs.nixfmt-rfc-style
     pkgs.megasync
     pkgs.signal-desktop
-    pkgs.upower
+    # pkgs.upower
   ]);
 
   #---------------------------------------------------------------------
