@@ -32,9 +32,19 @@
   };
 
   outputs =
-    { self, nixpkgs, home-manager, darwin, nixvim, nixos-hardware, ... }@inputs:
-    let mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
-    in {
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      darwin,
+      nixvim,
+      nixos-hardware,
+      ...
+    }@inputs:
+    let
+      mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+    in
+    {
 
       nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
         system = "aarch64-linux";
