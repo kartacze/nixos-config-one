@@ -49,10 +49,11 @@ in {
     pkgs.anki-bin
     pkgs.qalculate-qt
     pkgs.wl-clipboard
+    pkgs.copyq
+    pkgs.cliphist
     pkgs.solaar
-    # pkgs.mpv
-    pkgs.rofi
     pkgs.brave
+    pkgs.rofi
     pkgs.livebook
     pkgs.valgrind
     pkgs.zathura
