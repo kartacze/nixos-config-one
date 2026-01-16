@@ -39,6 +39,8 @@ in {
     pkgs.fd
     pkgs.nodejs_22
     pkgs.direnv
+    pkgs.bun
+    pkgs.steam-run
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven
@@ -61,6 +63,7 @@ in {
     pkgs.nixfmt-rfc-style
     pkgs.megasync
     pkgs.signal-desktop
+    pkgs.qimgv
     # pkgs.upower
   ]);
 
@@ -119,6 +122,7 @@ in {
       jf = "jj git fetch";
       jn = "jj new";
       js = "jj st";
+      oc = "steam-run opencode";
     } // (if isLinux then {
       # Two decades of using a Mac has made this such a strong memory
       # that I'm just going to keep it consistent.

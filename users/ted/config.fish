@@ -139,3 +139,5 @@ alias fnix "nix-shell --run fish"
 
 # rbenv stuff
 # status --is-interactive; and . (rbenv init -|psub)
+
+fish_add_path "/home/ted/.bun/bin"
