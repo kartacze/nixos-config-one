@@ -364,7 +364,7 @@ in {
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
-          settings = { view = { width = "30%"; }; };
+          settings = { view = { width = "35%"; }; };
         };
         web-devicons.enable = true;
       };

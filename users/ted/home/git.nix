@@ -12,6 +12,10 @@ in {
 
     programs.git = {
       enable = true;
+      package = pkgs.gitAndTools.gitFull;
+      settings = {
+        # name = "Teodor Pytka";
+        # email = "teodoreczek@gmail.com";
 
       aliases = {
         ci = "commit";
