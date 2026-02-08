@@ -35,6 +35,8 @@ in {
 
       plugins = {
 
+        lsp.servers.astro.enable = true;
+
         render-markdown = { enable = true; };
         trouble.enable = true;
         colorizer.enable = true;
@@ -324,6 +326,10 @@ in {
 
           grammarPackages =
             with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+              astro
+              html
+              css
+
               bash
               json
               lua

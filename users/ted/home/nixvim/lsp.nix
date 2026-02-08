@@ -64,6 +64,7 @@ in {
             elixirls.enable = true;
             eslint.enable = true;
             html.enable = true;
+            astro.enable = true;
             # biome.enable = true;
             # nil_ls.enable = true;
             # pyright.enable = true;
