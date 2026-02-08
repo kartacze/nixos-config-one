@@ -18,6 +18,11 @@
   #   databaseUrlFile = ./databaseUrl;
   # };
 
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
+  };
+
   users.users.ted = {
     isNormalUser = true;
     home = "/home/ted";
