@@ -67,7 +67,7 @@ in {
             astro.enable = true;
             # biome.enable = true;
             # nil_ls.enable = true;
-            # pyright.enable = true;
+            pyright.enable = true;
           };
           keymaps = {
             diagnostic = {

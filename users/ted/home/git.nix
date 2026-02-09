@@ -12,12 +12,13 @@ in {
 
     programs.git = {
       enable = true;
-      package = pkgs.gitAndTools.gitFull;
       settings = {
         # name = "Teodor Pytka";
         # email = "teodoreczek@gmail.com";
 
-        aliases = {
+        user.name = "Teodor Pytka";
+        user.email = "teodoreczek@gmail.com";
+        alias = {
           ci = "commit";
           cim = "commit -m";
           st = "status";
@@ -33,8 +34,6 @@ in {
           lfa =
             "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative --all";
         };
-        # userName = "Teodor Pytka";
-        # userEmail = "teodoreczek@gmail.com";
 
         extraConfig = {
           core.editor = "nvim";

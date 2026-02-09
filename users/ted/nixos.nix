@@ -10,6 +10,11 @@
   # Since we're using fish as our shell
   programs.fish.enable = true;
 
+  services.mullvad-vpn = {
+    enable = true;
+    package = pkgs.mullvad-vpn;
+  };
+
   # programs.steam.enable = true;
   # services.gicz-server = {
   #   enable = true;
@@ -17,11 +22,6 @@
   #   secretKeyBaseFile = ./secretKey;
   #   databaseUrlFile = ./databaseUrl;
   # };
-
-  services.mullvad-vpn = {
-    enable = true;
-    package = pkgs.mullvad-vpn;
-  };
 
   users.users.ted = {
     isNormalUser = true;

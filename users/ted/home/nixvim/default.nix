@@ -329,6 +329,8 @@ in {
               astro
               html
               css
+              python
+              pymanifest
 
               bash
               json
