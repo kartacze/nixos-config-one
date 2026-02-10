@@ -37,10 +37,10 @@ in {
     # pkgs.ghostty-bin
     pkgs.bat
     pkgs.fd
-    pkgs.nodejs_22
+    # pkgs.nodejs_22
     pkgs.direnv
-    pkgs.bun
-    pkgs.steam-run
+# pkgs.bun
+    # pkgs.steam-run
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven

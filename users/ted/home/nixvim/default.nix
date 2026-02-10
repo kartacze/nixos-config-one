@@ -1,9 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.veritas.configs.nixvim;
+let
+  cfg = config.veritas.configs.nixvim;
 
-in {
-  imports = [ ./keymaps.nix ./lsp.nix ];
+in
+{
+  imports = [
+    ./keymaps.nix
+    ./lsp.nix
+  ];
 
   options.veritas.configs.nixvim = {
     enable = lib.mkEnableOption "neovim configuration";
@@ -37,7 +47,9 @@ in {
 
         lsp.servers.astro.enable = true;
 
-        render-markdown = { enable = true; };
+        render-markdown = {
+          enable = true;
+        };
         trouble.enable = true;
         colorizer.enable = true;
         friendly-snippets.enable = true;
@@ -78,18 +90,42 @@ in {
         snacks = {
           enable = true;
           settings = {
-            image = { enabled = true; };
-            notifier = { enabled = true; };
-            picker = { enabled = true; };
-            explorer = { enabled = true; };
-            bufdelete = { enabled = true; };
-            dim = { enabled = true; };
-            git = { enabled = true; };
-            indent = { enabled = true; };
-            scope = { enabled = true; };
-            scratch = { enabled = true; };
-            toggle = { enabled = true; };
-            words = { enabled = true; };
+            image = {
+              enabled = true;
+            };
+            notifier = {
+              enabled = true;
+            };
+            picker = {
+              enabled = true;
+            };
+            explorer = {
+              enabled = true;
+            };
+            bufdelete = {
+              enabled = true;
+            };
+            dim = {
+              enabled = true;
+            };
+            git = {
+              enabled = true;
+            };
+            indent = {
+              enabled = true;
+            };
+            scope = {
+              enabled = true;
+            };
+            scratch = {
+              enabled = true;
+            };
+            toggle = {
+              enabled = true;
+            };
+            words = {
+              enabled = true;
+            };
           };
         };
         #  this could be replaced with folde/snacks.image
@@ -102,7 +138,11 @@ in {
               n_lines = 50;
               search_method = "cover_or_next";
             };
-            diff = { view = { style = "sign"; }; };
+            diff = {
+              view = {
+                style = "sign";
+              };
+            };
             pairs = {
               modes = {
                 insert = true;
@@ -141,12 +181,10 @@ in {
                   __raw = "require('mini.starter').gen_hook.adding_bullet()";
                 };
                 "__unkeyed-2.indexing" = {
-                  __raw =
-                    "require('mini.starter').gen_hook.indexing('all', { 'Builtin actions' })";
+                  __raw = "require('mini.starter').gen_hook.indexing('all', { 'Builtin actions' })";
                 };
                 "__unkeyed-3.padding" = {
-                  __raw =
-                    "require('mini.starter').gen_hook.aligning('center', 'center')";
+                  __raw = "require('mini.starter').gen_hook.aligning('center', 'center')";
                 };
               };
               evaluate_single = true;
@@ -162,12 +200,10 @@ in {
                   __raw = "require('mini.starter').sections.builtin_actions()";
                 };
                 "__unkeyed-2.recent_files_current_directory" = {
-                  __raw =
-                    "require('mini.starter').sections.recent_files(10, false)";
+                  __raw = "require('mini.starter').sections.recent_files(10, false)";
                 };
                 "__unkeyed-3.recent_files" = {
-                  __raw =
-                    "require('mini.starter').sections.recent_files(10, true)";
+                  __raw = "require('mini.starter').sections.recent_files(10, true)";
                 };
                 "__unkeyed-4.sessions" = {
                   __raw = "require('mini.starter').sections.sessions(5, true)";
@@ -204,22 +240,35 @@ in {
             };
             signcolumn = true;
             signs = {
-              add = { text = "│"; };
-              change = { text = "│"; };
-              changedelete = { text = "~"; };
-              delete = { text = "_"; };
-              topdelete = { text = "‾"; };
-              untracked = { text = "┆"; };
+              add = {
+                text = "│";
+              };
+              change = {
+                text = "│";
+              };
+              changedelete = {
+                text = "~";
+              };
+              delete = {
+                text = "_";
+              };
+              topdelete = {
+                text = "‾";
+              };
+              untracked = {
+                text = "┆";
+              };
             };
-            watch_gitdir = { follow_files = true; };
+            watch_gitdir = {
+              follow_files = true;
+            };
           };
         };
 
         comment = {
           enable = true;
           settings = {
-            pre_hook =
-              "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
+            pre_hook = "require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook()";
           };
         };
 
@@ -302,15 +351,18 @@ in {
         treesitter = {
           enable = true;
           settings = {
-            auto_install = false;
+            auto_install = true;
             ensure_installed = "all";
             highlight = {
               additional_vim_regex_highlighting = true;
               custom_captures = { };
-              disable = [ "rust" ];
+              disable = [ "rust" "nix" ];
               enable = true;
             };
-            ignore_install = [ "rust" "ipkg" ];
+            ignore_install = [
+              "rust"
+              "ipkg"
+            ];
             incremental_selection = {
               enable = true;
               keymaps = {
@@ -320,37 +372,38 @@ in {
                 scope_incremental = "grc";
               };
             };
-            indent = { enable = true; };
+            indent = {
+              enable = true;
+            };
             sync_install = false;
           };
 
-          grammarPackages =
-            with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-              astro
-              html
-              css
-              python
-              pymanifest
+          grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+            astro
+            html
+            css
+            python
+            pymanifest
 
-              bash
-              json
-              lua
-              make
-              markdown
-              nix
-              regex
-              toml
-              vim
-              vimdoc
-              xml
-              yaml
-              elixir
-              erlang
-              typescript
-              javascript
-              kotlin
-              java
-            ];
+            bash
+            json
+            lua
+            make
+            markdown
+            nix
+            regex
+            toml
+            vim
+            vimdoc
+            xml
+            yaml
+            elixir
+            erlang
+            typescript
+            javascript
+            kotlin
+            java
+          ];
         };
 
         which-key.enable = true;
@@ -359,12 +412,14 @@ in {
           enable = true;
           settings = {
             options = {
-              offsets = [{
-                filetype = "NvimTree";
-                text = "File Explorer";
-                highlight = "Directory";
-                separator = true;
-              }];
+              offsets = [
+                {
+                  filetype = "NvimTree";
+                  text = "File Explorer";
+                  highlight = "Directory";
+                  separator = true;
+                }
+              ];
             };
           };
         };
@@ -372,16 +427,22 @@ in {
         nvim-tree = {
           enable = true;
           openOnSetupFile = true;
-          settings = { view = { width = "35%"; }; };
+          settings = {
+            view = {
+              width = "35%";
+            };
+          };
         };
         web-devicons.enable = true;
       };
 
-      autoCmd = [{
-        event = "FileType";
-        pattern = "nix";
-        command = "setlocal tabstop=2 shiftwidth=2";
-      }];
+      autoCmd = [
+        {
+          event = "FileType";
+          pattern = "nix";
+          command = "setlocal tabstop=2 shiftwidth=2";
+        }
+      ];
     };
   };
 }
