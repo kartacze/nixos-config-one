@@ -37,10 +37,10 @@ in {
     # pkgs.ghostty-bin
     pkgs.bat
     pkgs.fd
-    # pkgs.nodejs_22
+    pkgs.nodejs_24
     pkgs.direnv
 # pkgs.bun
-    # pkgs.steam-run
+    pkgs.steam-run
   ] ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven
@@ -59,6 +59,8 @@ in {
     pkgs.livebook
     pkgs.valgrind
     pkgs.zathura
+    pkgs.calibre
+    pkgs.brightnessctl
     # move it to nixvim when in home
     pkgs.nixfmt-rfc-style
     pkgs.megasync

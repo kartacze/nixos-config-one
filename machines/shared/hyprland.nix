@@ -8,7 +8,7 @@
     xwayland.enable = false;
   };
 
-  programs.light.enable = true;
+  # programs.light.enable = true;
   programs.thunar.enable = true;
   programs.yazi.enable = true;
 

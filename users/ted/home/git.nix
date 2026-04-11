@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let cfg = config.veritas.configs.git;
-
-in {
+let
+  cfg = config.veritas.configs.git;
+in
+{
   options.veritas.configs.git = {
     enable = lib.mkEnableOption "git configuration";
   };
@@ -15,9 +21,12 @@ in {
       settings = {
         # name = "Teodor Pytka";
         # email = "teodoreczek@gmail.com";
+        user = {
+          name = "Teodor Pytka";
+          email = "teodoreczek@gmail.com";
 
-        user.name = "Teodor Pytka";
-        user.email = "teodoreczek@gmail.com";
+        };
+
         alias = {
           ci = "commit";
           cim = "commit -m";
@@ -27,12 +36,9 @@ in {
           co = "checkout";
           cia = "commit --amend";
           br = "branch";
-          hist =
-            ''log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'';
-          lf =
-            "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative";
-          lfa =
-            "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative --all";
+          hist = ''log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'';
+          lf = "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative";
+          lfa = "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative --all";
         };
 
         extraConfig = {
