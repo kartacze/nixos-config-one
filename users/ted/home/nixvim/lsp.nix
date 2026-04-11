@@ -17,6 +17,35 @@ in
         nix.enable = true;
 
         lsp-signature.enable = true;
+
+        # linters configuration
+        lint = {
+          enable = true;
+
+          lintersByFt = {
+  javascript = [
+    "eslint"
+  ];
+  typescript = [
+    "eslint"
+  ];
+  javascriptreact = [
+    "eslint"
+  ];
+  typescriptreact = [
+    "eslint"
+  ];
+  json = [
+    "jsonlint"
+  ];
+  markdown = [
+    "vale"
+  ];
+};
+
+        };
+
+        # formatters configuration
         conform-nvim = {
           enable = true;
 
@@ -24,6 +53,7 @@ in
           settings = {
             formatters_by_ft = {
               lua = [ "stylua" ];
+              nix = [ "nixfmt" ];
               python = [ "isort" "black" ];
               # python = [ "black" ];
               bash = [
@@ -87,6 +117,9 @@ in
               black = {
                 command = lib.getExe pkgs.black;
               };
+              nixfmt = {
+                command = lib.getExe pkgs.nixfmt;
+              };
               stylua = {
                 command = lib.getExe pkgs.stylua;
               };
@@ -105,26 +138,6 @@ in
             };
           };
         };
-
-        # none-ls = {
-        #   enable = true;
-        #   sources = {
-        #     code_actions = { gitsigns.enable = true; };
-        #     formatting = {
-        #       prettierd = {
-        #         enable = true;
-        #         disableTsServerFormatter = true;
-        #       };
-        #       stylua.enable = true;
-        #       nixfmt.enable = true;
-        #       black.enable = true;
-        #     };
-        #     diagnostics = {
-        #       fish.enable = true;
-        #       mypy.enable = true;
-        #     };
-        #   };
-        # };
 
         lsp = {
 
@@ -160,7 +173,9 @@ in
 
             nixd.enable = true;
             elixirls.enable = true;
-            eslint.enable = true;
+            # eslint.enable = true;
+                    eslint.enable = true;
+        eslint.autostart = true;
             html.enable = true;
             astro.enable = true;
             # biome.enable = true;

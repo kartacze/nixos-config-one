@@ -12,8 +12,8 @@
   veritas.configs = {
     git.enable = true;
     nixvim.enable = true;
-    fish.enable = false;
+    fish.enable = true;
     tmux.enable = true;
-    hyprland.enable = true;
+    hyprland.enable = false;
   };
 }
