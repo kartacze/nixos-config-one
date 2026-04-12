@@ -22,6 +22,7 @@
   #   secretKeyBaseFile = ./secretKey;
   #   databaseUrlFile = ./databaseUrl;
   # };
+  programs.fish.enable = true;
 
   users.users.ted = {
     isNormalUser = true;

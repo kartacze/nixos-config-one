@@ -15,7 +15,7 @@ in
   home.stateVersion = "24.05";
   programs.zsh.enable = false;
 
-  # programs.fish.enable = true;
+  programs.fish.enable = true;
   programs.nixvim.enable = true;
 
   # xdg.enable = true;
@@ -38,7 +38,6 @@ in
     pkgs.tree
     pkgs.watch
     # pkgs.asciinema
-    # pkgs.ghostty-bin
     pkgs.bat
     pkgs.fd
     pkgs.nodejs_24
@@ -51,6 +50,7 @@ in
     pkgs.maven
   ])
   ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.ghostty
     pkgs.xclip
     pkgs.pipewire
     pkgs.dunst

@@ -1,5 +1,9 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 
+let
+  # isDarwin = pkgs.stdenv.isDarwin;
+  isLinux = pkgs.stdenv.isLinux;
+in
 {
   imports = [
     ./git.nix
@@ -7,6 +11,7 @@
     ./nixvim/default.nix
     ./tmux/default.nix
     ./hyprland/default.nix
+    ./ghostty/default.nix
   ];
 
   veritas.configs = {
@@ -14,6 +19,7 @@
     nixvim.enable = true;
     fish.enable = true;
     tmux.enable = true;
-    hyprland.enable = false;
+    hyprland.enable = isLinux;
+    ghostty.enable = true;
   };
 }
