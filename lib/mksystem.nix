@@ -3,7 +3,12 @@
 { nixpkgs, inputs }:
 
 name:
-{ system, user, darwin ? false, wsl ? false, isLatitude ? false, }:
+{
+  system,
+  user,
+  darwin ? false,
+  wsl ? false,
+}:
 
 let
   # True if this is a WSL system.
@@ -16,22 +21,21 @@ let
 
   nixvim = inputs.nixvim.homeManagerModules.nixvim;
   # NixOS vs nix-darwin functionst
-  systemFunc =
-    if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
-  nixos-hardware = if name == "latitude-7390" then
-    inputs.nixos-hardware.nixosModules.dell-latitude-7390
-  else if name == "x1-intel" then
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
-  else
-    { };
+  nixos-hardware =
+    if name == "latitude-7390" then
+      inputs.nixos-hardware.nixosModules.dell-latitude-7390
+    else if name == "x1-intel" then
+      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
+    else
+      { };
 
-  home-manager = if darwin then
-    inputs.home-manager.darwinModules
-  else
-    inputs.home-manager.nixosModules;
+  home-manager =
+    if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
-in systemFunc rec {
+in
+systemFunc rec {
   inherit system;
 
   modules = [

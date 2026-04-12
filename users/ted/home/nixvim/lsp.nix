@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -23,25 +22,25 @@ in
           enable = true;
 
           lintersByFt = {
-  javascript = [
-    "eslint"
-  ];
-  typescript = [
-    "eslint"
-  ];
-  javascriptreact = [
-    "eslint"
-  ];
-  typescriptreact = [
-    "eslint"
-  ];
-  json = [
-    "jsonlint"
-  ];
-  markdown = [
-    "vale"
-  ];
-};
+            javascript = [
+              "eslint"
+            ];
+            typescript = [
+              "eslint"
+            ];
+            javascriptreact = [
+              "eslint"
+            ];
+            typescriptreact = [
+              "eslint"
+            ];
+            json = [
+              "jsonlint"
+            ];
+            markdown = [
+              "vale"
+            ];
+          };
 
         };
 
@@ -54,7 +53,10 @@ in
             formatters_by_ft = {
               lua = [ "stylua" ];
               nix = [ "nixfmt" ];
-              python = [ "isort" "black" ];
+              python = [
+                "isort"
+                "black"
+              ];
               # python = [ "black" ];
               bash = [
                 "shellcheck"
@@ -140,7 +142,6 @@ in
         };
 
         lsp = {
-
           enable = true;
           servers = {
             ts_ls = {
@@ -174,8 +175,8 @@ in
             nixd.enable = true;
             elixirls.enable = true;
             # eslint.enable = true;
-                    eslint.enable = true;
-        eslint.autostart = true;
+            eslint.enable = true;
+            eslint.autostart = true;
             html.enable = true;
             astro.enable = true;
             # biome.enable = true;

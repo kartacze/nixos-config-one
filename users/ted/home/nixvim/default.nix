@@ -7,7 +7,6 @@
 
 let
   cfg = config.veritas.configs.nixvim;
-
 in
 {
   imports = [
@@ -359,7 +358,10 @@ in
             highlight = {
               additional_vim_regex_highlighting = true;
               custom_captures = { };
-              disable = [ "rust" "nix" ];
+              disable = [
+                "rust"
+                "nix"
+              ];
               enable = true;
             };
             ignore_install = [

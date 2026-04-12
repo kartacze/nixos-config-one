@@ -1,13 +1,11 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
 let
   cfg = config.veritas.configs.ghostty;
-
 in
 {
   options.veritas.configs.ghostty = {

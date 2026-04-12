@@ -68,16 +68,12 @@ in
     pkgs.calibre
     pkgs.brightnessctl
     # move it to nixvim when in home
-    pkgs.nixfmt-rfc-style
+    # pkgs.nixfmt
     pkgs.megasync
     pkgs.signal-desktop
     pkgs.qimgv
     # pkgs.upower
   ]);
-
-  #---------------------------------------------------------------------
-  # Env vars and dotfiles
-  #---------------------------------------------------------------------
 
   home.sessionVariables = {
     LANG = "en_US.UTF-8";
@@ -87,13 +83,6 @@ in
     PAGER = "less -FirSwX";
   };
 
-  # home.file.".gdbinit".source = ./gdbinit;
-  # home.file.".inputrc".source = ./inputrc;
-  #---------------------------------------------------------------------
-  # Programs
-  #---------------------------------------------------------------------
-
-  # programs.gpg.enable = !isDarwin;
   programs.kitty = {
     enable = true;
     extraConfig = builtins.readFile ./kitty;

@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }:
+{
   # We install Nix using a separate installer so we don't want nix-darwin
   # to manage it for us. This tells nix-darwin to just use whatever is running.
   nix.enable = false;
@@ -35,7 +36,10 @@
     # End Nix
   '';
 
-  environment.shells = with pkgs; [ bashInteractive fish ];
+  environment.shells = with pkgs; [
+    bashInteractive
+    fish
+  ];
   # environment.shells = with pkgs; [ bashInteractive zsh fish ];
   # environment.systemPackages = with pkgs; [ cachix ];
 }

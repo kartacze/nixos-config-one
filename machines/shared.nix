@@ -2,13 +2,16 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
 
   imports = [ ./shared/default.nix ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -61,9 +64,12 @@
   users.users.ted = {
     isNormalUser = true;
     description = "ted";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
-    hashedPassword =
-      "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+    ];
+    hashedPassword = "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
   };
 
   nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
