@@ -43,13 +43,13 @@ in
     pkgs.nodejs_24
     pkgs.direnv
     # pkgs.bun
-    pkgs.steam-run
   ]
   ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux
     pkgs.maven
   ])
   ++ (lib.optionals (isLinux && !isWSL) [
+    pkgs.steam-run
     pkgs.ghostty
     pkgs.xclip
     pkgs.pipewire

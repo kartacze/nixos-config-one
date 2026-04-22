@@ -62,6 +62,8 @@ in
         jn = "jj new";
         js = "jj st";
         oc = "steam-run opencode";
+        mci = "mvn clean install";
+        nrs = "npm run start";
       }
       // (
         if isLinux then

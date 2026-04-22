@@ -10,6 +10,7 @@ in
     ./nixvim/default.nix
     ./tmux/default.nix
     ./hyprland/default.nix
+    ./starship/default.nix
     ./ghostty/default.nix
   ];
 
@@ -20,5 +21,6 @@ in
     tmux.enable = true;
     hyprland.enable = isLinux;
     ghostty.enable = true;
+    starship.enable = true;
   };
 }

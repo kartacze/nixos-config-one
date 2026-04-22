@@ -11,6 +11,11 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      eslint_d
+      stylelint
+    ];
+
     programs.nixvim = {
       plugins = {
         nix.enable = true;
@@ -18,27 +23,38 @@ in
         lsp-signature.enable = true;
 
         # linters configuration
+        # nvim-lint
         lint = {
           enable = true;
 
+          autoCmd.event = [
+            "BufWritePost"
+            "BufReadPost"
+            "BufNewFile"
+            "BufNew"
+          ];
+
           lintersByFt = {
             javascript = [
-              "eslint"
+              "eslint_d"
             ];
             typescript = [
-              "eslint"
+              "eslint_d"
             ];
             javascriptreact = [
-              "eslint"
+              "eslint_d"
             ];
             typescriptreact = [
-              "eslint"
-            ];
-            json = [
-              "jsonlint"
+              "eslint_d"
             ];
             markdown = [
               "vale"
+            ];
+            css = [
+              "stylelint"
+            ];
+            scss = [
+              "stylelint"
             ];
           };
 
@@ -64,7 +80,25 @@ in
                 "shfmt"
               ];
               cpp = [ "clang_format" ];
+              typescript = {
+                __unkeyed-1 = "prettierd";
+                __unkeyed-2 = "prettier";
+                timeout_ms = 2000;
+                stop_after_first = true;
+              };
+              typescriptreact = {
+                __unkeyed-1 = "prettierd";
+                __unkeyed-2 = "prettier";
+                timeout_ms = 2000;
+                stop_after_first = true;
+              };
               javascript = {
+                __unkeyed-1 = "prettierd";
+                __unkeyed-2 = "prettier";
+                timeout_ms = 2000;
+                stop_after_first = true;
+              };
+              javascriptreact = {
                 __unkeyed-1 = "prettierd";
                 __unkeyed-2 = "prettier";
                 timeout_ms = 2000;
@@ -95,7 +129,7 @@ in
                   --   end
                   -- end
 
-                  return { timeout_ms = 200, lsp_fallback = true }, on_format
+                  return { timeout_ms = 1000, lsp_fallback = true }, on_format
                  end
               '';
             format_after_save = # Lua
@@ -116,6 +150,12 @@ in
             notify_on_error = true;
             notify_no_formatters = true;
             formatters = {
+              prettierd = {
+                command = lib.getExe pkgs.prettierd;
+              };
+              prettier = {
+                command = lib.getExe pkgs.prettier;
+              };
               black = {
                 command = lib.getExe pkgs.black;
               };
@@ -144,6 +184,10 @@ in
         lsp = {
           enable = true;
           servers = {
+            cssls = {
+              enable = true;
+            };
+
             ts_ls = {
               enable = true;
               packageFallback = true;
@@ -175,8 +219,8 @@ in
             nixd.enable = true;
             elixirls.enable = true;
             # eslint.enable = true;
-            eslint.enable = true;
-            eslint.autostart = true;
+            # eslint.enable = true;
+            # eslint.autostart = true;
             html.enable = true;
             astro.enable = true;
             # biome.enable = true;

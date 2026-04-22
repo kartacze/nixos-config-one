@@ -88,9 +88,25 @@ in
         }
         {
           key = "<leader>e";
-          action = "<cmd>lua Snacks.explorer.open()<CR>";
+          action = "<cmd>lua MiniFiles.open()<CR>";
           options = {
             desc = "File Explorer";
+          };
+        }
+        {
+          key = "<leader>t";
+          action.__raw = ''
+            function()
+              local MiniFiles = require("mini.files")
+              local _ = MiniFiles.close()
+                or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
+              vim.schedule(function()
+                MiniFiles.reveal_cwd()
+              end)
+            end
+          '';
+          options = {
+            desc = "Testing stuff";
           };
         }
         {

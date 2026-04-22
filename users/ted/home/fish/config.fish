@@ -136,5 +136,7 @@ set -gx EDITOR nvim
 # with it.
 alias fnix "nix-shell --run fish"
 
+starship init fish | source
+
 # rbenv stuff
 # status --is-interactive; and . (rbenv init -|psub)

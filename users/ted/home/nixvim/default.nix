@@ -19,11 +19,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+
+    home.packages = with pkgs; [
+      jsonfmt
+    ];
+
     programs.nixvim = {
       enable = true;
       colorschemes.dracula.enable = true;
 
-      extraPlugins = with pkgs.vimPlugins; [ vim-nix ];
+      extraPlugins = with pkgs.vimPlugins; [
+        vim-nix
+        tsc-nvim
+      ];
 
       clipboard.providers.xclip.enable = true;
       # print("Hello world!")
@@ -98,9 +106,17 @@ in
             picker = {
               enabled = true;
             };
-            explorer = {
-              enabled = true;
-            };
+            # explorer = {
+            #   enabled = true;
+            #   settings = {
+            #     layout = {
+            #       layout = {
+            #         width = 0.4;
+            #         min_width = 80;
+            #       };
+            #     };
+            #   };
+            # };
             bufdelete = {
               enabled = true;
             };
@@ -160,6 +176,7 @@ in
             cursorword = { };
             jump = { };
             bracketed = { };
+            files = { };
 
             # snippets = {
             #   settings = {
@@ -429,15 +446,16 @@ in
           };
         };
         lualine.enable = true;
-        nvim-tree = {
-          enable = true;
-          openOnSetupFile = true;
-          settings = {
-            view = {
-              width = "35%";
-            };
-          };
-        };
+        # nvim-tree = {
+        #   enable = true;
+        #   openOnSetupFile = true;
+        #   settings = {
+        #     view = {
+        #       width.spec = "40%";
+        #       width.min = 50;
+        #     };
+        #   };
+        # };
         web-devicons.enable = true;
       };
 
