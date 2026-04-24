@@ -46,11 +46,11 @@ in
         }
         {
           action = "<cmd>Gitsigns preview_hunk<CR>";
-          key = "<leader>ph";
+          key = "<leader>hp";
         }
         {
           action = "<cmd>Gitsigns reset_hunk<CR>";
-          key = "<leader>rh";
+          key = "<leader>hr";
         }
         # SNACKS
         {
@@ -94,7 +94,7 @@ in
           };
         }
         {
-          key = "<leader>t";
+          key = "<leader>rr";
           action.__raw = ''
             function()
               local MiniFiles = require("mini.files")
