@@ -64,6 +64,7 @@ in
         oc = "steam-run opencode";
         mci = "mvn clean install";
         nrs = "npm run start";
+        l = "glow ~/workspace/links.md";
       }
       // (
         if isLinux then
