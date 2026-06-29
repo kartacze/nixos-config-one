@@ -4,6 +4,18 @@
 
 { pkgs, ... }:
 
+let
+
+  nix-clean = pkgs.writeShellApplication {
+    name = "ted-nix-clean";
+    # runtimeInputs = with pkgs; [ ];
+    text = ''
+      sudo nix-env --delete-generations +4
+      sudo nix-collect-garbage -d
+    '';
+  };
+
+in
 {
 
   imports = [ ./shared/default.nix ];
@@ -93,6 +105,7 @@
     home-manager
     pciutils
     logseq
+    nix-clean
   ];
 
   # Enable the OpenSSH daemon.

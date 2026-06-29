@@ -1,4 +1,4 @@
 theme = Gruvbox Dark Hard
 shell-integration = fish
 
-config-file = /Users/teodor.pytka/.config/ghostty/ted.ghostty
+config-file = ~/.config/ghostty/ted.ghostty
