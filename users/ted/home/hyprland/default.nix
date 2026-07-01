@@ -23,6 +23,7 @@ in
       package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
       portalPackage =
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      configType = "lua";
 
       # settings = {
       #   "$mod" = "SUPER";
@@ -76,9 +77,11 @@ in
       pkgs.hypridle
       pkgs.hyprsunset
       pkgs.hyprlock
+      pkgs.hyprlauncher
     ];
 
-    xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
+    # xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
+    xdg.configFile."hypr/hyprland.lua".source = ./hyprland.lua;
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
     xdg.configFile."hypr/hypridle.conf".source = ./hypridle.conf;
     xdg.configFile."hypr/hyprsunset.conf".source = ./hyprsunset.conf;

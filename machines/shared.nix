@@ -106,6 +106,7 @@ in
     pciutils
     # logseq
     nix-clean
+    nextcloud-client
   ];
 
   # Enable the OpenSSH daemon.

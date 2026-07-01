@@ -6,6 +6,7 @@
     enable = true;
     withUWSM = true;
     xwayland.enable = false;
+
   };
 
   # programs.light.enable = true;
@@ -13,6 +14,11 @@
   programs.yazi.enable = true;
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+  environment.sessionVariables.LIBVA_DRIVER_NAME = "";
+  environment.sessionVariables.XDG_SESSION_TYPE = "wayland";
+  environment.sessionVariables.GBM_BACKEND = "nvidia-drm";
+  environment.sessionVariables.GLX_VENDOR_LIBRARY_NAME = "nvidia";
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
