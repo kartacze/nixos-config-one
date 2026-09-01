@@ -153,6 +153,22 @@ in
         }
         # git
         {
+          key = "<leader>gm";
+          action = "<cmd>DiffviewOpen<CR>";
+          options = {
+            desc = "Open Diffview";
+          };
+        }
+
+        {
+          key = "<leader>gn";
+          action = "<cmd>Neogit<CR>";
+          options = {
+            desc = "Open Neogit";
+          };
+        }
+
+        {
           key = "<leader>gb";
           action = "<cmd>lua Snacks.picker.git_branches()<CR>";
           options = {

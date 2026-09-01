@@ -31,6 +31,8 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         vim-nix
+        tsc-nvim
+        # vim-signature
       ];
 
       # Wayland-native clipboard (wl-clipboard is in home.packages).
@@ -189,6 +191,10 @@ in
           };
         };
 
+        flash = {
+          enable = true;
+        };
+
         snacks = {
           enable = true;
           settings = {
@@ -269,7 +275,7 @@ in
             notify = { };
             indentscope = { };
             cursorword = { };
-            jump = { };
+            # jump = { };
             bracketed = { };
             files = { };
 
@@ -342,6 +348,20 @@ in
               };
             };
           };
+        };
+
+        neogit = {
+          enable = true;
+          settings = {
+            kind = "floating";
+            integrations = {
+              diffview = false;
+            };
+          };
+        };
+
+        diffview = {
+          enable = true;
         };
 
         gitsigns = {
