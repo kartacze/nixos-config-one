@@ -140,3 +140,5 @@ starship init fish | source
 
 # rbenv stuff
 # status --is-interactive; and . (rbenv init -|psub)
+
+fish_add_path /home/ted/.opencode/bin
