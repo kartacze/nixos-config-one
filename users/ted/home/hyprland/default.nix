@@ -94,8 +94,6 @@ in
     systemd.user.targets.tray.Unit.Requires = lib.mkForce [ "graphical-session.target" ];
 
     home.sessionVariables = {
-      QT_QPA_PLATFORM = "wayland";
-      SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
     };
 

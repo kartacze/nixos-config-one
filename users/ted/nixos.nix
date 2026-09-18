@@ -1,6 +1,12 @@
 { pkgs, ... }:
 
 {
+  imports = [
+    ./home/gaming/default.nix
+  ];
+
+  veritas.configs.gaming.enable = true;
+
   # https://github.com/nix-community/home-manager/pull/2408
   environment.pathsToLink = [ "/share/fish" ];
 
@@ -15,7 +21,6 @@
     package = pkgs.mullvad-vpn;
   };
 
-  # programs.steam.enable = true;
   # services.gicz-server = {
   #   enable = true;
   #   host = "localhost";
