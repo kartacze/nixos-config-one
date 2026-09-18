@@ -12,10 +12,6 @@ in
 {
   imports = [ ];
 
-  options.veritas.configs.hyprland = {
-    enable = lib.mkEnableOption "hyprland configuration";
-  };
-
   config = lib.mkIf cfg.enable {
 
     wayland.windowManager.hyprland = {

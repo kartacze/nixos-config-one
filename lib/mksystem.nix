@@ -20,6 +20,7 @@ let
   userHMConfig = ../users/ted/home-manager.nix;
 
   nixvim = inputs.nixvim.homeManagerModules.nixvim;
+  veritasOptions = ../modules/veritas-options.nix;
   # NixOS vs nix-darwin functionst
   systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
@@ -39,6 +40,8 @@ systemFunc rec {
   inherit system;
 
   modules = [
+    # Declare veritas.configs.* flags before anything reads/sets them.
+    veritasOptions
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     machineConfig
@@ -56,7 +59,7 @@ systemFunc rec {
       };
 
       home-manager.extraSpecialArgs = { inherit inputs; };
-      home-manager.sharedModules = [ nixvim ];
+      home-manager.sharedModules = [ nixvim veritasOptions ];
     }
 
     # We expose some extra arguments so that our modules can parameterize

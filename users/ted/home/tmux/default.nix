@@ -10,10 +10,6 @@ let
 
 in
 {
-  options.veritas.configs.tmux = {
-    enable = lib.mkEnableOption "tmux configuration";
-  };
-
   config = lib.mkIf cfg.enable {
 
     programs.tmux = {

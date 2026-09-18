@@ -2,12 +2,9 @@
 
 {
   imports = [
-    ./home/gaming/default.nix
+    ./nixos/gaming.nix
   ];
 
-  veritas.configs.gaming.enable = true;
-
-  # https://github.com/nix-community/home-manager/pull/2408
   environment.pathsToLink = [ "/share/fish" ];
 
   # Add ~/.local/bin to PATH
@@ -18,7 +15,6 @@
 
   services.mullvad-vpn = {
     enable = true;
-    package = pkgs.mullvad-vpn;
   };
 
   # services.gicz-server = {

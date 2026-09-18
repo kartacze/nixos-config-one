@@ -9,10 +9,6 @@ let
   cfg = config.veritas.configs.starship;
 in
 {
-  options.veritas.configs.starship = {
-    enable = lib.mkEnableOption "starship configuration";
-  };
-
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ git-absorb ];
 

@@ -15,10 +15,6 @@ in
     ./lsp.nix
   ];
 
-  options.veritas.configs.nixvim = {
-    enable = lib.mkEnableOption "neovim configuration";
-  };
-
   config = lib.mkIf cfg.enable {
 
     home.packages = with pkgs; [

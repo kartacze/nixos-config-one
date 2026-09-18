@@ -9,10 +9,6 @@ let
   cfg = config.veritas.configs.git;
 in
 {
-  options.veritas.configs.git = {
-    enable = lib.mkEnableOption "git configuration";
-  };
-
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ git-absorb ];
 

@@ -10,10 +10,6 @@ let
   isLinux = pkgs.stdenv.isLinux;
 in
 {
-  options.veritas.configs.fish = {
-    enable = lib.mkEnableOption "fish configuration";
-  };
-
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ zoxide ];
 
