@@ -31,38 +31,17 @@
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
     in
     {
-
-      nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {
-        system = "aarch64-linux";
-        user = "ted";
-      };
-
-      nixosConfigurations.vm-aarch64-prl = mkSystem "vm-aarch64-prl" rec {
-        system = "aarch64-linux";
-        user = "ted";
-      };
-
-      nixosConfigurations.vm-aarch64-utm = mkSystem "vm-aarch64-utm" rec {
-        system = "aarch64-linux";
-        user = "ted";
-      };
-
-      nixosConfigurations.vm-intel = mkSystem "vm-intel" rec {
+      nixosConfigurations.g5555-intel = mkSystem "g5555-intel" {
         system = "x86_64-linux";
         user = "ted";
       };
 
-      nixosConfigurations.g5555-intel = mkSystem "g5555-intel" rec {
+      nixosConfigurations.latitude-7390 = mkSystem "latitude-7390" {
         system = "x86_64-linux";
         user = "ted";
       };
 
-      nixosConfigurations.latitude-7390 = mkSystem "latitude-7390" rec {
-        system = "x86_64-linux";
-        user = "ted";
-      };
-
-      nixosConfigurations.x1-intel = mkSystem "x1-intel" rec {
+      nixosConfigurations.x1-intel = mkSystem "x1-intel" {
         system = "x86_64-linux";
         user = "ted";
       };
@@ -78,6 +57,5 @@
         user = "teodorp";
         darwin = true;
       };
-
     };
 }
