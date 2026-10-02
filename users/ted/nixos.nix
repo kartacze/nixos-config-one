@@ -10,11 +10,8 @@
   # Add ~/.local/bin to PATH
   environment.localBinInPath = true;
 
-  # Since we're using fish as our shell
-  # programs.fish.enable = true;
-
   services.mullvad-vpn = {
-    enable = true;
+    enable = false;
   };
 
   # services.gicz-server = {
@@ -23,6 +20,7 @@
   #   secretKeyBaseFile = ./secretKey;
   #   databaseUrlFile = ./databaseUrl;
   # };
+
   programs.fish.enable = true;
 
   users.users.ted = {

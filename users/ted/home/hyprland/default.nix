@@ -73,6 +73,7 @@ in
       pkgs.hypridle
       pkgs.hyprsunset
       pkgs.hyprlock
+      pkgs.hyprutils
       pkgs.hyprlauncher
     ];
 

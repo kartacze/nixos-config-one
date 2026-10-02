@@ -9,9 +9,8 @@ let
   cfg = config.veritas.configs.gaming;
 in
 {
-  options.veritas.configs.gaming = {
-    enable = lib.mkEnableOption "gaming configuration";
-  };
+  # Option is declared centrally in modules/veritas-options.nix
+  # (shared via home-manager.sharedModules). Do not redeclare it here.
 
   config = lib.mkIf cfg.enable {
     programs.steam = {

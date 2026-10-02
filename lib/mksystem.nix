@@ -19,8 +19,31 @@ let
   userOSConfig = ../users/ted/${if darwin then "darwin" else "nixos"}.nix;
   userHMConfig = ../users/ted/home-manager.nix;
 
-  nixvim = inputs.nixvim.homeManagerModules.nixvim;
+  nixvim = inputs.nixvim.homeModules.nixvim;
   veritasOptions = ../modules/veritas-options.nix;
+
+  # Veritas flags are applied directly here, not via machines/*.nix.
+  # Per-host source of truth: veritas/<name>.nix (e.g. veritas/wsl.nix).
+  veritasHostPath = ../veritas + "/${name}.nix";
+  veritasHost = if builtins.pathExists veritasHostPath then veritasHostPath else { };
+
+  # Auto-logic fallback (used when veritas/<name>.nix is missing, e.g. a
+  # new/VM host): CLI tools on, gaming off, GUI off on WSL/darwin.
+  # veritas/<name>.nix wins over these mkDefault values when it exists.
+  veritasDefaults =
+    { lib, ... }:
+    {
+      veritas.configs = {
+        git.enable = lib.mkDefault true;
+        nixvim.enable = lib.mkDefault true;
+        fish.enable = lib.mkDefault true;
+        tmux.enable = lib.mkDefault true;
+        starship.enable = lib.mkDefault true;
+        gaming.enable = lib.mkDefault false;
+        ghostty.enable = lib.mkDefault (!isWSL);
+        hyprland.enable = lib.mkDefault (!isWSL && !darwin);
+      };
+    };
   # NixOS vs nix-darwin functionst
   systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
@@ -35,6 +58,19 @@ let
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
+  # Values set once at system level (veritas/<name>.nix via mksystem).
+  # They are mirrored into home-manager below so that users/ted/home/*
+  # modules see the same `config.veritas.configs.*` values.
+  # They are also exposed to every module (system + home) via
+  # extraSpecialArgs / _module.args.
+  hostArgs = {
+    inherit inputs;
+    currentSystem = system;
+    currentSystemName = name;
+    currentSystemUser = user;
+    isWSL = isWSL;
+  };
+
 in
 systemFunc rec {
   inherit system;
@@ -42,6 +78,9 @@ systemFunc rec {
   modules = [
     # Declare veritas.configs.* flags before anything reads/sets them.
     veritasOptions
+    # Auto defaults (WSL/darwin-aware), then per-host veritas/<name>.nix.
+    veritasDefaults
+    veritasHost
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     machineConfig
@@ -58,20 +97,21 @@ systemFunc rec {
         inputs = inputs;
       };
 
-      home-manager.extraSpecialArgs = { inherit inputs; };
-      home-manager.sharedModules = [ nixvim veritasOptions ];
+      home-manager.extraSpecialArgs = hostArgs;
+      home-manager.sharedModules = [
+        nixvim
+        veritasOptions
+        veritasDefaults
+        veritasHost
+      ];
     }
 
     # We expose some extra arguments so that our modules can parameterize
-    # better based on these values.
+    # better based on these values. Keep in sync with extraSpecialArgs
+    # above (same hostArgs) so system modules and home modules see the
+    # same values.
     {
-      config._module.args = {
-        currentSystem = system;
-        currentSystemName = name;
-        currentSystemUser = user;
-        isWSL = isWSL;
-        inputs = inputs;
-      };
+      config._module.args = hostArgs;
     }
   ];
 }

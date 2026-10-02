@@ -2,6 +2,8 @@
 {
   imports = [ ];
 
+  # Veritas flags live in veritas/wsl.nix (applied by lib/mksystem.nix).
+
   wsl = {
     enable = true;
     wslConf.automount.root = "/mnt";

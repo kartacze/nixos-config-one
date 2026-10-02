@@ -7,7 +7,7 @@
 
 let
   cfg = config.veritas.configs.fish;
-  isLinux = pkgs.stdenv.isLinux;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
 in
 {
   config = lib.mkIf cfg.enable {

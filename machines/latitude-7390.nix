@@ -8,15 +8,7 @@
     ./hardware/battery.nix
   ];
 
-  veritas.configs = {
-    git.enable = true;
-    nixvim.enable = true;
-    fish.enable = true;
-    tmux.enable = true;
-    hyprland.enable = true;
-    ghostty.enable = true;
-    starship.enable = true;
-  };
+  # Veritas flags live in veritas/latitude-7390.nix (applied by lib/mksystem.nix).
 
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkMerge [
@@ -6,9 +11,8 @@
       console.keyMap = "pl2";
       programs.hyprland = {
         enable = true;
-        withUWSM = true;
-        xwayland.enable = true;
-
+        # withUWSM = true;
+        # xwayland.enable = true;
       };
 
       # programs.light.enable = true;

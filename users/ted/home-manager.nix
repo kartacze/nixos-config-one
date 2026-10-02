@@ -7,16 +7,18 @@
 }:
 
 let
-  isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
+  isLinux = pkgs.stdenv.hostPlatform.isLinux;
 in
 {
   imports = [ ./home/default.nix ];
+
   home.stateVersion = "24.05";
   programs.zsh.enable = false;
 
-  programs.fish.enable = true;
-  programs.nixvim.enable = true;
+  # NOTE: fish / nixvim are enabled via veritas.configs flags in
+  # users/ted/home/{fish,nixvim}/default.nix (controlled per-machine).
+  # Do not enable them unconditionally here.
 
   # xdg.enable = true;
 
