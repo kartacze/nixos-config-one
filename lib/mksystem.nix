@@ -42,6 +42,7 @@ let
         gaming.enable = lib.mkDefault false;
         ghostty.enable = lib.mkDefault (!isWSL);
         hyprland.enable = lib.mkDefault (!isWSL && !darwin);
+        printing3D.enable = lib.mkDefault false;
       };
     };
   # NixOS vs nix-darwin functionst

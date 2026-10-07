@@ -42,5 +42,8 @@
     tmux = {
       enable = lib.mkEnableOption "tmux configuration";
     };
+    printing3D = {
+      enable = lib.mkEnableOption "3d printing";
+    };
   };
 }
