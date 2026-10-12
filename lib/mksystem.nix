@@ -73,6 +73,10 @@ let
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
+  # sops-nix only on NixOS (provides the `sops.*` options used for the
+  # ted password in users/ted/nixos.nix). Darwin manages no passwords.
+  sopsModules = nixpkgs.lib.optionals (!darwin) [ inputs.sops-nix.nixosModules.sops ];
+
   # Values set once at system level (veritas/<name>.nix via mksystem).
   # They are mirrored into home-manager below so that users/ted/home/*
   # modules see the same `config.veritas.configs.*` values.
@@ -98,6 +102,7 @@ systemFunc rec {
     machineConfig
   ]
   ++ nixosHardwareModules
+  ++ sopsModules
   ++ [
     userOSConfig
     home-manager.home-manager

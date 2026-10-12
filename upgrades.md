@@ -14,15 +14,17 @@ on all inputs; Electron allowlist deleted; `niv` removed; `nixUnstable` fixed;
 packages deduped; `Makefile` cleaned (`NIXNAME ?= x1-intel`, no
 `ALLOW_UNSUPPORTED_SYSTEM`); local-only CI via `git-hooks.nix` + `make lint`
 (`nix/pre-commit.nix`: nixfmt, deadnix, whitespace hygiene — no remote CI by
-design; statix stays manual since its ruleset conflicts with NixOS idioms).
+design; statix stays manual since its ruleset conflicts with NixOS idioms);
+`README.md` rewritten for the actual hosts and workflow; `sops-nix` manages
+the `ted` password (`secrets/ted.yaml`, git holds only `.sops.yaml`); each
+host uses its own hostname (`currentSystemName`); SSH is key-only
+(`PasswordAuthentication = false`); `LC_ALL` removed from home session vars.
 
 Everything below is still open, ordered by priority.
 
 ## P1 – Correctness / hygiene
 
-### 1. Plaintext password hashes in git (`machines/shared.nix`, `users/ted/nixos.nix`)
-Same hash committed twice (user is also defined twice — dedupe to one place,
-preferably `users/ted/nixos.nix`). Move secrets to `sops-nix` or `agenix`.
+(nothing open — password secrets done, see above)
 
 ## P2 – Modernization
 
@@ -32,23 +34,3 @@ frequently and pulls ~15 sub-inputs. Unless git HEAD is needed, drop the input
 and use `programs.hyprland` / `pkgs.hyprland` from nixpkgs
 (`users/ted/home/hyprland/default.nix` package/portalPackage would simplify to
 `null` with the NixOS module installing it).
-
-## P3 – Repo health
-
-### 3. `stateVersion` values are old, leave them
-`system.stateVersion = "24.05"` (`machines/shared.nix`),
-`home.stateVersion = "24.05"` (`users/ted/home-manager.nix`),
-`system.stateVersion = 5` (darwin, current is 6+ on new installs). Do NOT bump
-on existing installs. Any fresh host should use the current release value.
-
-### 4. Declarative disks / bootstrap (`Makefile`, `machines/hardware/*`)
-`vm/bootstrap0` hand-partitions `/dev/sda` with `parted`; hardware files embed
-UUIDs. Migrate to `disko` (+ `nixos-anywhere` for remote installs) so new
-machines are reproducible from this repo.
-
-### 5. `README.md` is stale
-Still documents the Mitchell-Hashimoto VM workflow (`vm-aarch64*`, Parallels/UTM
-notes), WSL tarball builds, and `niv` — none of which match this repo anymore
-(WSL/`vm-*` removed, ghosts of `NIXNAME=vm-aarch64` in setup guide). Rewrite or
-trim to the actual hosts (`g5555-intel`, `latitude-7390`, `x1-intel`,
-`macbook-pro-m1`) and the current `make switch/test` flow.

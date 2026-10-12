@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ pkgs, currentSystemName, ... }:
 
 let
 
@@ -41,7 +41,10 @@ in
 
   # Enable networking
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    # Per-host hostname (g5555-intel, latitude-7390, x1-intel) from
+    # lib/mksystem.nix `currentSystemName`; was a static "nixos" on all
+    # hosts, which breaks mDNS/DHCP.
+    hostName = currentSystemName;
     # wireless.enable = true; # Enables wireless support via wpa_supplicant.
     networkmanager.enable = true;
     firewall.enable = true;
@@ -82,17 +85,7 @@ in
 
   # Configure console keymap
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.ted = {
-    isNormalUser = true;
-    description = "ted";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-    ];
-    hashedPassword = "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
-  };
+  # NOTE: the ted user is defined once in users/ted/nixos.nix.
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -110,13 +103,16 @@ in
     vim
     home-manager
     pciutils
+    ssh-to-age
+    passage
     # logseq
     nextcloud-client
   ];
 
-  # Enable the OpenSSH daemon.
+  # Enable the OpenSSH daemon (key-only: passwords are managed via
+  # sops-nix, see users/ted/nixos.nix).
   services.openssh.enable = true;
-  services.openssh.settings.PasswordAuthentication = true;
+  services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "no";
 
   # This value determines the NixOS release from which the default

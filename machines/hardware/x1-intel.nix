@@ -33,6 +33,34 @@
   services.fstrim.enable = lib.mkDefault true;
   powerManagement.enable = true;
 
+  # ThinkPad battery longevity: start charging below 80%, stop at 90%.
+  # EC-persisted via thinkpad_acpi (BAT0/BAT1). Handles both legacy
+  # (charge_start/stop_threshold) and modern (charge_control_*) sysfs names.
+  # Kept here (not battery.nix) so latitude-7390 is unaffected.
+  systemd.services.thinkpad-battery-thresholds = {
+    description = "Set ThinkPad battery charge thresholds (80/90)";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      for bat in /sys/class/power_supply/BAT0 /sys/class/power_supply/BAT1; do
+        [ -d "$bat" ] || continue
+        if [ -w "$bat/charge_control_start_threshold" ]; then
+          echo 80 > "$bat/charge_control_start_threshold"
+        elif [ -w "$bat/charge_start_threshold" ]; then
+          echo 80 > "$bat/charge_start_threshold"
+        fi
+        if [ -w "$bat/charge_control_end_threshold" ]; then
+          echo 90 > "$bat/charge_control_end_threshold"
+        elif [ -w "$bat/charge_stop_threshold" ]; then
+          echo 90 > "$bat/charge_stop_threshold"
+        fi
+      done
+    '';
+  };
+
   # Early KMS + virtualization.
   boot.initrd.availableKernelModules = [
     "xhci_pci"
