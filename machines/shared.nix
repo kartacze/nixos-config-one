@@ -6,14 +6,15 @@
 
 let
 
-  nix-clean = pkgs.writeShellApplication {
-    name = "ted-nix-clean";
-    # runtimeInputs = with pkgs; [ ];
-    text = ''
-      sudo nix-env --delete-generations +4
-      sudo nix-collect-garbage -d
-    '';
-  };
+  # Just an example of how to add custom script
+  # nix-clean = pkgs.writeShellApplication {
+  #   name = "ted-nix-clean";
+  #   # runtimeInputs = with pkgs; [ ];
+  #   text = ''
+  #     sudo nix-env --delete-generations +4
+  #     sudo nix-collect-garbage -d
+  #   '';
+  # };
 
 in
 {
@@ -24,6 +25,15 @@ in
     "nix-command"
     "flakes"
   ];
+
+  # Automatic store maintenance (replaces the old `ted-nix-clean` script,
+  # which deleted all generations with no grace period).
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+  nix.optimise.automatic = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -102,7 +112,6 @@ in
     home-manager
     pciutils
     # logseq
-    nix-clean
     nextcloud-client
   ];
 

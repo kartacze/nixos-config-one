@@ -38,7 +38,8 @@
   ################### NVIDIA PART ##############################
   ##############################################################
 
-  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
+  # videoDrivers ["nvidia"] comes from nixos-hardware common-gpu-nvidia
+  # (see lib/mksystem.nix); PRIME offload is configured below.
 
   hardware.graphics = {
     enable = true;

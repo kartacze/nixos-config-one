@@ -1,41 +1,16 @@
 {
-  config,
-  lib,
-  pkgs,
-  modulesPath,
   ...
 }:
 
 {
 
-  powerManagement = {
-    enable = true;
-    powertop.enable = true;
-    cpuFreqGovernor = "powersave";
-  };
+  # Single power-management stack: power-profiles-daemon (dynamic
+  # governors / EPP) + thermald (Intel thermal).
 
+  powerManagement.enable = true;
   services = {
     thermald.enable = true;
-    power-profiles-daemon.enable = false;
-
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "powersave";
-          turbo = "auto";
-        };
-      };
-    };
-
-    system76-scheduler = {
-      enable = true;
-      useStockConfig = true;
-    };
+    power-profiles-daemon.enable = true;
 
     udev.extraRules = ''
       # Remove NVIDIA USB xHCI Host Controller devices, if present

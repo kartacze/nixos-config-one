@@ -47,8 +47,21 @@ let
   nixosHardwareModules =
     if name == "latitude-7390" then
       [ inputs.nixos-hardware.nixosModules.dell-latitude-7390 ]
+    else if name == "g5555-intel" then
+      # Dell G15 (Intel CPU + NVIDIA PRIME, no dedicated profile upstream):
+      # generic Intel/NVIDIA/laptop modules. Manual PRIME offload config
+      # lives in machines/hardware/g5555-intel.nix.
+      with inputs.nixos-hardware.nixosModules;
+      [
+        common-cpu-intel
+        common-gpu-intel
+        common-gpu-nvidia
+        common-pc-laptop
+        common-pc-laptop-ssd
+      ]
     else if name == "x1-intel" then
-      with inputs.nixos-hardware.nixosModules; [
+      with inputs.nixos-hardware.nixosModules;
+      [
         lenovo-thinkpad-x1-9th-gen
         common-cpu-intel
         common-gpu-intel
@@ -83,7 +96,9 @@ systemFunc rec {
     veritasDefaults
     veritasHost
     machineConfig
-  ] ++ nixosHardwareModules ++ [
+  ]
+  ++ nixosHardwareModules
+  ++ [
     userOSConfig
     home-manager.home-manager
 

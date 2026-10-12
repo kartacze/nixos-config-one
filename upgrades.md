@@ -13,6 +13,13 @@ Everything below is still open, ordered by priority.
 > `follows` on all inputs, Electron allowlist deleted, `niv` removed,
 > `nixUnstable` → `nixVersions.latest` in `Makefile`). `nix flake check`
 > passes with zero warnings.
+>
+> 2026-10-12 update: points 7–10 are done (`nix.gc` + `nix.optimise` replace
+> `ted-nix-clean`; `battery.nix` is now power-profiles-daemon + thermald only;
+> `g5555-intel` gets generic `common-{cpu-intel,gpu-intel,gpu-nvidia,pc-laptop,
+> pc-laptop-ssd}` modules; gaming hosts run `linuxPackages_latest`, verified
+> 7.2.9 vs default 6.18.55). Latitude microcode already comes from the
+> `dell-latitude-7390` profile — no change needed.
 
 ## P1 – Correctness / hygiene
 
