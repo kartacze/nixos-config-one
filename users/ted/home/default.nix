@@ -9,5 +9,6 @@
     ./hyprland/default.nix
     ./starship/default.nix
     ./ghostty/default.nix
+    ./kitty/default.nix
   ];
 }
