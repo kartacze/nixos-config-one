@@ -7,13 +7,9 @@ name:
   system,
   user,
   darwin ? false,
-  wsl ? false,
 }:
 
 let
-  # True if this is a WSL system.
-  isWSL = wsl;
-
   # The config files for this system.
   machineConfig = ../machines/${name}.nix;
   userOSConfig = ../users/ted/${if darwin then "darwin" else "nixos"}.nix;
@@ -23,12 +19,12 @@ let
   veritasOptions = ../modules/veritas-options.nix;
 
   # Veritas flags are applied directly here, not via machines/*.nix.
-  # Per-host source of truth: veritas/<name>.nix (e.g. veritas/wsl.nix).
+  # Per-host source of truth: veritas/<name>.nix (e.g. veritas/x1-intel.nix).
   veritasHostPath = ../veritas + "/${name}.nix";
   veritasHost = if builtins.pathExists veritasHostPath then veritasHostPath else { };
 
   # Auto-logic fallback (used when veritas/<name>.nix is missing, e.g. a
-  # new/VM host): CLI tools on, gaming off, GUI off on WSL/darwin.
+  # new/VM host): CLI tools on, gaming off, GUI off on darwin.
   # veritas/<name>.nix wins over these mkDefault values when it exists.
   veritasDefaults =
     { lib, ... }:
@@ -40,13 +36,13 @@ let
         tmux.enable = lib.mkDefault true;
         starship.enable = lib.mkDefault true;
         gaming.enable = lib.mkDefault false;
-        ghostty.enable = lib.mkDefault (!isWSL);
-        hyprland.enable = lib.mkDefault (!isWSL && !darwin);
+        ghostty.enable = lib.mkDefault true;
+        hyprland.enable = lib.mkDefault (!darwin);
         printing3D.enable = lib.mkDefault false;
       };
     };
-  # NixOS vs nix-darwin functionst
-  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+  # NixOS vs nix-darwin functions
+  systemFunc = if darwin then inputs.nix-darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
   nixosHardwareModules =
     if name == "latitude-7390" then
@@ -74,7 +70,6 @@ let
     currentSystem = system;
     currentSystemName = name;
     currentSystemUser = user;
-    isWSL = isWSL;
   };
 
 in
@@ -84,11 +79,9 @@ systemFunc rec {
   modules = [
     # Declare veritas.configs.* flags before anything reads/sets them.
     veritasOptions
-    # Auto defaults (WSL/darwin-aware), then per-host veritas/<name>.nix.
+    # Auto defaults (darwin-aware), then per-host veritas/<name>.nix.
     veritasDefaults
     veritasHost
-    # Bring in WSL if this is a WSL build
-    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     machineConfig
   ] ++ nixosHardwareModules ++ [
     userOSConfig
@@ -98,10 +91,7 @@ systemFunc rec {
       home-manager.useGlobalPkgs = true;
       home-manager.useUserPackages = true;
       home-manager.backupFileExtension = "hm-backup";
-      home-manager.users.${user} = import userHMConfig {
-        isWSL = isWSL;
-        inputs = inputs;
-      };
+      home-manager.users.${user} = import userHMConfig { };
 
       home-manager.extraSpecialArgs = hostArgs;
       home-manager.sharedModules = [

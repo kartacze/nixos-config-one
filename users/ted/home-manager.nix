@@ -1,4 +1,4 @@
-{ isWSL, ... }:
+{ ... }:
 
 {
   lib,
@@ -50,7 +50,7 @@ in
     # This is automatically setup on Linux
     pkgs.maven
   ])
-  ++ (lib.optionals (isLinux && !isWSL) [
+  ++ (lib.optionals isLinux [
     pkgs.steam-run
     pkgs.ghostty
     pkgs.xclip
