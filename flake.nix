@@ -28,15 +28,28 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
+      self,
       nixpkgs,
       ...
     }@inputs:
     let
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
 
     {
@@ -60,5 +73,27 @@
         user = "teodorp";
         darwin = true;
       };
+
+      # Local-only CI: `nix flake check` runs the pre-commit env build,
+      # `make lint` runs the hooks. No remote CI by design.
+      checks = forAllSystems (
+        system:
+        let
+          hooks = import ./nix/pre-commit.nix;
+        in
+        {
+          pre-commit-check = inputs.git-hooks.lib.${system}.run {
+            src = ./.;
+            inherit hooks;
+          };
+        }
+      );
+
+      devShells = forAllSystems (system: {
+        default = nixpkgs.legacyPackages.${system}.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
+          buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
+        };
+      });
     };
 }

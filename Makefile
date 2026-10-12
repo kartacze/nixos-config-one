@@ -34,6 +34,12 @@ endif
 
 flakeupdate:
 	nix flake --extra-experimental-features nix-command --extra-experimental-features flakes update
+
+# Local CI (no remote CI by design): flake check + all pre-commit hooks.
+.PHONY: lint
+lint:
+	nix flake check --no-build --extra-experimental-features "nix-command flakes"
+	nix develop --extra-experimental-features "nix-command flakes" --command pre-commit run --all-files
 # This builds the given NixOS configuration and pushes the results to the
 # cache. This does not alter the current running system. This requires
 # cachix authentication to be configured out of band.

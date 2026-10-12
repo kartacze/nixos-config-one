@@ -15,7 +15,6 @@ with lib;
 let
   cfg = config.virtualisation.vmware.guest;
   open-vm-tools = if cfg.headless then pkgs.open-vm-tools-headless else pkgs.open-vm-tools;
-  xf86inputvmmouse = pkgs.xorg.xf86inputvmmouse;
 in
 {
   imports = [
@@ -78,8 +77,7 @@ in
     environment.etc.vmware-tools.source = "${open-vm-tools}/etc/vmware-tools/*";
 
     services.xserver = mkIf (!cfg.headless) {
-      # TODO: does not build on aarch64
-      # modules = [ xf86inputvmmouse ];
+      # TODO: xorg vmmouse module does not build on aarch64
 
       config = ''
         Section "InputClass"
