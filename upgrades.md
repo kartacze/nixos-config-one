@@ -20,6 +20,14 @@ Everything below is still open, ordered by priority.
 > pc-laptop-ssd}` modules; gaming hosts run `linuxPackages_latest`, verified
 > 7.2.9 vs default 6.18.55). Latitude microcode already comes from the
 > `dell-latitude-7390` profile — no change needed.
+>
+> 2026-10-12 update: points 11–14 are done (`bat`/`fd`/`ripgrep`/`fzf`/
+> `direnv`+nix-direnv/`zoxide` via `programs.*` with fish integration,
+> `nodejs_24` → `nodejs` — identical 24.21.0, now LTS-tracking; kitty config
+> converted to native `font`/`keybindings`/`settings`, `users/ted/kitty`
+> deleted; `brave`/`kitty`/`xclip` dropped from system profile, HM owns them;
+> `Makefile` defaults `NIXNAME` to `x1-intel`, `ALLOW_UNSUPPORTED_SYSTEM`
+> removed, dead Darwin comments cleaned).
 
 ## P1 – Correctness / hygiene
 

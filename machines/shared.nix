@@ -96,9 +96,10 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
+  # NOTE: user apps (brave, kitty, xclip, ...) live in home-manager
+  # (users/ted/home-manager.nix), not here.
   environment.systemPackages = with pkgs; [
     firefox
-    brave
     libnotify
     glib
     glibc
@@ -106,9 +107,7 @@ in
     gnumake
     gcc
     killall
-    xclip
     vim
-    kitty
     home-manager
     pciutils
     # logseq
