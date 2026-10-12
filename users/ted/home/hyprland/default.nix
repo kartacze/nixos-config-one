@@ -21,6 +21,12 @@ in
         inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
       configType = "lua";
 
+      # Main config, managed by the home-manager hyprland module: it is
+      # appended to the generated hyprland.lua (which also carries the
+      # systemd activation hooks). Do NOT also deploy it via
+      # xdg.configFile."hypr/hyprland.lua", the module owns that file.
+      extraConfig = builtins.readFile ./hyprland.lua;
+
       # settings = {
       #   "$mod" = "SUPER";
       #   "exec-once" = [ "waybar" ];
@@ -78,7 +84,6 @@ in
     ];
 
     # xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
-    xdg.configFile."hypr/hyprland.lua".source = ./hyprland.lua;
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
     xdg.configFile."hypr/hypridle.conf".source = ./hypridle.conf;
     xdg.configFile."hypr/hyprsunset.conf".source = ./hyprsunset.conf;

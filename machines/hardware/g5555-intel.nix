@@ -40,10 +40,6 @@
 
   services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
 
-  hardware.opengl = {
-    enable = true;
-  };
-
   hardware.graphics = {
     enable = true;
     # 32-bit compat required by Steam.

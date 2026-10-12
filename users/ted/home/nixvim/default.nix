@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -23,6 +24,9 @@ in
 
     programs.nixvim = {
       enable = true;
+      # Pin nixvim to the flake's nixpkgs (see flake.nix `follows`).
+      # Explicitly set to silence nixvim's follows warning.
+      nixpkgs.source = inputs.nixpkgs.outPath;
       colorschemes.dracula.enable = true;
 
       extraPlugins = with pkgs.vimPlugins; [
@@ -393,18 +397,18 @@ in
         # oil.enable = true;
         treesitter = {
           enable = true;
+          # Native highlighting (nvim-treesitter main branch).
+          highlight = {
+            enable = true;
+            disable = [
+              "rust"
+              "nix"
+            ];
+            enableVimSyntax = true;
+          };
           settings = {
             auto_install = true;
             ensure_installed = "all";
-            highlight = {
-              additional_vim_regex_highlighting = true;
-              custom_captures = { };
-              disable = [
-                "rust"
-                "nix"
-              ];
-              enable = true;
-            };
             ignore_install = [
               "rust"
               "ipkg"
