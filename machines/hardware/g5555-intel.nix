@@ -72,6 +72,10 @@
     nvidiaBusId = "PCI:1:0:0";
   };
 
+  # PRIME offload laptop: prefer dGPU node first, iGPU second.
+  # (Moved here from shared/hyprland.nix so Intel-only hosts aren't affected.)
+  environment.sessionVariables.WLR_DRM_DEVICES = lib.mkDefault "/dev/dri/card1:/dev/dri/card0";
+
   ##############################################################
   ################# END OF NVIDIA ##############################
   ##############################################################

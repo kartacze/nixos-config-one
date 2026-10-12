@@ -32,8 +32,8 @@ in
       mangohud
       protonup-qt
       lutris
-      # bottles
-      # heroic
+      bottles
+      heroic
     ];
 
     users.users.ted.extraGroups = [

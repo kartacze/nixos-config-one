@@ -48,13 +48,18 @@ let
   # NixOS vs nix-darwin functionst
   systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
 
-  nixos-hardware =
+  nixosHardwareModules =
     if name == "latitude-7390" then
-      inputs.nixos-hardware.nixosModules.dell-latitude-7390
+      [ inputs.nixos-hardware.nixosModules.dell-latitude-7390 ]
     else if name == "x1-intel" then
-      inputs.nixos-hardware.nixosModules.lenovo-thinkpad-x1-9th-gen
+      with inputs.nixos-hardware.nixosModules; [
+        lenovo-thinkpad-x1-9th-gen
+        common-cpu-intel
+        common-gpu-intel
+        common-pc-laptop-ssd
+      ]
     else
-      { };
+      [ ];
 
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
@@ -85,7 +90,7 @@ systemFunc rec {
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
     machineConfig
-    nixos-hardware
+  ] ++ nixosHardwareModules ++ [
     userOSConfig
     home-manager.home-manager
 

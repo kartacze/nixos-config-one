@@ -25,8 +25,9 @@
       };
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
-      environment.sessionVariables.WLR_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
-      environment.sessionVariables.LIBVA_DRIVER_NAME = "";
+      # GPU-specific vars (WLR_DRM_DEVICES, LIBVA_DRIVER_NAME) are set per-host:
+      # Intel-only X1 sets LIBVA_DRIVER_NAME=iHD + WLR_DRM_DEVICES=/dev/dri/card0,
+      # NVIDIA PRIME g5555 sets WLR_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0.
       environment.sessionVariables.XDG_SESSION_TYPE = "wayland";
       # Do not force GBM_BACKEND=nvidia-drm / GLX_VENDOR_LIBRARY_NAME=nvidia globally
       # on PRIME offload laptops - it forces everything onto dGPU and breaks Hyprland on iGPU.

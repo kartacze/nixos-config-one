@@ -9,6 +9,6 @@
     hyprland.enable = true;
     ghostty.enable = true;
     starship.enable = true;
-    gaming.enable = false;
+    gaming.enable = true;
   };
 }
