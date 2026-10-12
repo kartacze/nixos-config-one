@@ -84,8 +84,6 @@ in
     hashedPassword = "$y$j9T$D7FDR5mTReMHtGsU4t0sG1$i9C6ltgqCy7VD7/zwA2t0r/GjYzNd4omdGZOaWjHFR9";
   };
 
-  nixpkgs.config.permittedInsecurePackages = [ "electron-39.8.10" ];
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -98,7 +96,6 @@ in
     gnumake
     gcc
     killall
-    niv
     xclip
     vim
     kitty
