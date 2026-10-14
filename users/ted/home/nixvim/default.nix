@@ -31,10 +31,10 @@ in
 
       extraPlugins = with pkgs.vimPlugins; [
         vim-nix
-        tsc-nvim
       ];
 
-      clipboard.providers.xclip.enable = true;
+      # Wayland-native clipboard (wl-clipboard is in home.packages).
+      clipboard.providers.wl-copy.enable = true;
       # print("Hello world!")
       extraConfigLua = ''
         -- Print a little welcome message when nvim is opened!

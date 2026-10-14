@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
 
@@ -16,9 +15,8 @@ in
 
     wayland.windowManager.hyprland = {
       enable = true;
-      package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
-      portalPackage =
-        inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+      # Package + portal come from nixpkgs (matching the NixOS
+      # programs.hyprland module) — no Hyprland flake input.
       configType = "lua";
 
       # Main config, managed by the home-manager hyprland module: it is

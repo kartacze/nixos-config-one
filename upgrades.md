@@ -28,9 +28,6 @@ Everything below is still open, ordered by priority.
 
 ## P2 – Modernization
 
-### 2. Hyprland tracks git main (`flake.nix`)
-`github:hyprwm/Hyprland` without a rev breaks against `nixos-unstable`
-frequently and pulls ~15 sub-inputs. Unless git HEAD is needed, drop the input
-and use `programs.hyprland` / `pkgs.hyprland` from nixpkgs
-(`users/ted/home/hyprland/default.nix` package/portalPackage would simplify to
-`null` with the NixOS module installing it).
+### 2. Hyprland tracks git main (`flake.nix`) — DONE
+Dropped the `github:hyprwm/Hyprland` input; Hyprland + portal now come from
+nixpkgs (`programs.hyprland` on NixOS, HM defaults at home level).

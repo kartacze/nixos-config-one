@@ -1,4 +1,0 @@
-theme = Gruvbox Dark Hard
-shell-integration = fish
-
-config-file = ~/.config/ghostty/ted.ghostty

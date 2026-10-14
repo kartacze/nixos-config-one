@@ -12,6 +12,11 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [ git-absorb ];
 
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     programs.git = {
       enable = true;
       settings = {
@@ -37,9 +42,10 @@ in
           lfa = "log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative --all";
         };
 
-        extraConfig = {
-          core.editor = "nvim";
-          core.pager = "diff-so-fancy | less --tabs=4 -RFX";
+        core = {
+          editor = "nvim";
+          # Pager is wired by programs.delta (gitIntegration); diff-so-fancy
+          # is unmaintained and no longer installed.
         };
       };
     };

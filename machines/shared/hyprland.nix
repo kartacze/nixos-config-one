@@ -12,7 +12,7 @@
       programs.hyprland = {
         enable = true;
         # withUWSM = true;
-        # xwayland.enable = true;
+        xwayland.enable = true;
       };
 
       # programs.light.enable = true;
@@ -33,7 +33,6 @@
       # on PRIME offload laptops - it forces everything onto dGPU and breaks Hyprland on iGPU.
       # Launch games explicitly with `nvidia-offload <cmd>` instead.
 
-      services.pulseaudio.enable = false;
       security.rtkit.enable = true;
       services.pipewire = {
         enable = true;
@@ -41,18 +40,13 @@
         pulse.enable = true;
         # If you want to use JACK applications, uncomment this
         jack.enable = true;
-        wireplumber = {
-          enable = true;
-          package = pkgs.wireplumber;
-        };
+        wireplumber.enable = true;
       };
     }
 
-    # 32-bit graphics / audio / X11 client libs required by Steam.
+    # 32-bit graphics / audio libs required by Steam. XWayland itself
+    # comes from programs.hyprland.xwayland above (no full xserver needed).
     (lib.mkIf config.veritas.configs.gaming.enable {
-      # Needed even for Wayland-only Hyprland: provides XWayland libs + 32-bit
-      # compat required by Steam (X11 client).
-      services.xserver.enable = true;
       hardware.graphics.enable32Bit = true;
       services.pipewire.alsa.support32Bit = true;
     })

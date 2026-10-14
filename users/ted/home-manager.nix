@@ -35,7 +35,6 @@ in
   # not zoxide.
   home.packages = [
     pkgs.htop
-    pkgs.diff-so-fancy
     pkgs.vim
     pkgs.jq
     pkgs.tree
@@ -48,9 +47,7 @@ in
   ])
   ++ (lib.optionals isLinux [
     pkgs.steam-run
-    pkgs.ghostty
     pkgs.xclip
-    pkgs.pipewire
     pkgs.dunst
     pkgs.anki-bin
     pkgs.qalculate-qt
