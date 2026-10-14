@@ -36,9 +36,6 @@
     nixvim = {
       enable = lib.mkEnableOption "nixvim configuration";
     };
-    starship = {
-      enable = lib.mkEnableOption "starship configuration";
-    };
     tmux = {
       enable = lib.mkEnableOption "tmux configuration";
     };

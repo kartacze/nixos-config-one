@@ -8,7 +8,6 @@
     tmux.enable = true;
     hyprland.enable = false;
     ghostty.enable = true;
-    starship.enable = true;
     gaming.enable = false;
   };
 }

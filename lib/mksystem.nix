@@ -34,7 +34,6 @@ let
         nixvim.enable = lib.mkDefault true;
         fish.enable = lib.mkDefault true;
         tmux.enable = lib.mkDefault true;
-        starship.enable = lib.mkDefault true;
         gaming.enable = lib.mkDefault false;
         ghostty.enable = lib.mkDefault true;
         hyprland.enable = lib.mkDefault (!darwin);

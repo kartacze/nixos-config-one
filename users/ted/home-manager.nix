@@ -29,8 +29,10 @@ in
   # Packages I always want installed. Most packages I install using
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
-  # NOTE: bat/fd/ripgrep/fzf/direnv/zoxide are managed via their
+  # NOTE: bat/fd/ripgrep/fzf/direnv are managed via their
   # programs.* modules below (shell integration included).
+  # Directory jumping uses fish's `z` plugin (see home/fish/default.nix),
+  # not zoxide.
   home.packages = [
     pkgs.htop
     pkgs.diff-so-fancy
@@ -90,11 +92,6 @@ in
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
-    enableFishIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
     enableFishIntegration = true;
   };
 }

@@ -226,8 +226,8 @@ in
             # biome.enable = true;
             # nil_ls.enable = true;
             pyright.enable = true;
-            pylsp.enable = true;
-            stylua.enable = true;
+            # pylsp disabled: pyright is the single Python LSP (both on
+            # is slow and they fight over diagnostics).
           };
           keymaps = {
             diagnostic = {

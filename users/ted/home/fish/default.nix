@@ -11,8 +11,6 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [ zoxide ];
-
     programs.fish = {
       enable = true;
 

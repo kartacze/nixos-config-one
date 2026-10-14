@@ -21,7 +21,7 @@ usernames, locale, hardware UUIDs). Read the source before running anything.
 | `macbook-pro-m1` | `aarch64-darwin` | `teodorp` | MacBook Pro M1 (nix-darwin) |
 
 Linux hosts run Hyprland + Home Manager; the Mac shares the same Home Manager
-CLI tooling (fish, nixvim, tmux, git, starship) via nix-darwin.
+CLI tooling (fish + tide, nixvim, tmux, git) via nix-darwin.
 
 ## Layout
 

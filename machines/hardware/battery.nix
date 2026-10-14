@@ -1,3 +1,8 @@
+# Intel-only laptop power profile (x1-intel, latitude-7390).
+#
+# Do NOT import this on NVIDIA hosts (g5555-intel): the nouveau/nvidia
+# module blacklist and the NVIDIA PCI-removal udev rules below would
+# break PRIME offload there.
 {
   ...
 }:
@@ -5,9 +10,9 @@
 {
 
   # Single power-management stack: power-profiles-daemon (dynamic
-  # governors / EPP) + thermald (Intel thermal).
-
-  powerManagement.enable = true;
+  # governors / EPP) + thermald (Intel thermal). These two cooperate
+  # (thermal vs power policy); do NOT add TLP/auto-cpufreq alongside
+  # power-profiles-daemon — they fight over governors.
   services = {
     thermald.enable = true;
     power-profiles-daemon.enable = true;

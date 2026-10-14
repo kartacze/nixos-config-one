@@ -77,16 +77,34 @@ in
     home.packages = [
       pkgs.hyprpaper
       pkgs.hypridle
-      pkgs.hyprsunset
       pkgs.hyprlock
       pkgs.hyprutils
       pkgs.hyprlauncher
     ];
 
+    # Blue-light filter (replaces X11-only redshift): runs as a systemd
+    # user service bound to the Hyprland session, config at hypr/hyprsunset.conf.
+    services.hyprsunset = {
+      enable = true;
+      settings = {
+        max-gamma = 150;
+        profile = [
+          {
+            time = "7:30";
+            identity = true;
+          }
+          {
+            time = "21:00";
+            temperature = 2500;
+            gamma = 0.8;
+          }
+        ];
+      };
+    };
+
     # xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
     xdg.configFile."hypr/hypridle.conf".source = ./hypridle.conf;
-    xdg.configFile."hypr/hyprsunset.conf".source = ./hyprsunset.conf;
     xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
     xdg.configFile."hypr/wallpaper.png".source = ./wallpaper.png;
     xdg.configFile."hypr/green-mountains.jpg".source = ./green-mountains.jpg;
