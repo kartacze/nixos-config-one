@@ -125,7 +125,6 @@
   },
   "clock": {
     "interval": 1,
-    "timezone": "Asia/Chengdu",
     "format": "<span color='#BF00FF'>  </span>{:%H:%M} ",
     "tooltip": true,
     "tooltip-format": "{:L%Y 年 %m 月 %d 日, %A}",

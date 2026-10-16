@@ -64,11 +64,22 @@ local menu = 'rofi -show drun -show combi -icon-theme "gruvbox-light" -show-icon
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
+-- NOTE: waybar, hyprpaper and nm-applet run as systemd user units
+-- bound to graphical-session.target (home-manager), not here — so
+-- `uwsm stop` tears them down cleanly with the session.
 hl.on("hyprland.start", function()
 	hl.exec_cmd(terminal, { workspace = "3 silent" })
 	hl.exec_cmd(browser, { workspace = "8 silent" })
-	hl.exec_cmd("nm-applet")
-	hl.exec_cmd("waybar & hyprpaper")
+	-- Required when launched via uwsm: exports WAYLAND_DISPLAY to the
+	-- systemd user manager and signals compositor readiness. Without
+	-- it, uwsm's startup timeout (~30s) kills the session and you land
+	-- back at the login screen. Outside uwsm it exits harmlessly.
+	hl.exec_cmd("uwsm finalize")
+	hl.exec_cmd("systemctl --user start hyprland-session.target")
+end)
+
+hl.on("hyprland.shutdown", function()
+	os.execute("systemctl --user stop graphical-session.target")
 end)
 
 -------------------------------
@@ -286,10 +297,11 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 local closeWindowBind = hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
-hl.bind(
-	mainMod .. " + SHIFT + M",
-	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
-)
+-- Exit the session via uwsm so systemd session units stop cleanly.
+-- (A shell-style `command -v ... || hyprctl dispatch exit` is not used:
+-- exec dispatchers must be a plain executable, and bypassing uwsm
+-- leaves the session scope behind.)
+hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser), { window = "8" })
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
@@ -312,13 +324,9 @@ for i = 1, 10 do
 end
 
 -- Move active workspace to the next/right monitor
-hl.bind(mainMod .. " + SHIFT + l", function()
-	hl.dispatch(hl.dsp.window.move({ monitor = "r" }))
-end)
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.exec_cmd("hyprctl dispatch movecurrentworkspacetomonitor r"))
 
-hl.bind(mainMod .. " + SHIFT + h", function()
-	hl.dispatch(hl.dsp.window.move({ monitor = "l" }))
-end)
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.exec_cmd("hyprctl dispatch movecurrentworkspacetomonitor l"))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))

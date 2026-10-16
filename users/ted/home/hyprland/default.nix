@@ -24,14 +24,18 @@ in
       # systemd activation hooks). Do NOT also deploy it via
       # xdg.configFile."hypr/hyprland.lua", the module owns that file.
       extraConfig = builtins.readFile ./hyprland.lua;
+      systemd.enable = false;
     };
 
+    # Bar as a systemd user unit bound to the graphical session
+    # (uwsm-owned) instead of an exec in hyprland.lua, so it stops
+    # cleanly with `uwsm stop`.
     programs.waybar = {
       enable = true;
+      systemd.enable = true;
     };
 
     home.packages = [
-      pkgs.hyprpaper
       pkgs.hyprlock
       pkgs.hyprutils
       pkgs.hyprlauncher
@@ -51,12 +55,12 @@ in
 
         listener = [
           {
-            timeout = 60; # 2.5min. Dim the monitor backlight (avoid 0 on OLED monitors).
+            timeout = 150; # 2.5min. Dim the monitor backlight (avoid 0 on OLED monitors).
             on-timeout = "brightnessctl -s set 5";
             on-resume = "brightnessctl -r"; # restore the monitor backlight.
           }
           {
-            timeout = 60; # 2.5min. Turn off the keyboard backlight (no-op without rgb:kbd_backlight).
+            timeout = 150; # 2.5min. Turn off the keyboard backlight (no-op without rgb:kbd_backlight).
             on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
             on-resume = "brightnessctl -rd rgb:kbd_backlight"; # turn the keyboard backlight back on.
           }
@@ -97,8 +101,25 @@ in
       };
     };
 
+    # Wallpaper daemon as a systemd user unit bound to the graphical
+    # session. Config is rendered from settings below into
+    # hypr/hyprpaper.conf (equivalent to the previous static file).
+    services.hyprpaper = {
+      enable = true;
+      settings = {
+        wallpaper = {
+          monitor = "";
+          path = "$HOME/.config/hypr/green-mountains.jpg";
+          fit_mode = "cover";
+        };
+      };
+    };
+
+    # Tray applet as a systemd user unit (requires tray.target, bound
+    # to the graphical session below).
+    services.network-manager-applet.enable = true;
+
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
-    xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
     xdg.configFile."hypr/wallpaper.png".source = ./wallpaper.png;
     xdg.configFile."hypr/green-mountains.jpg".source = ./green-mountains.jpg;
     xdg.configFile."waybar/config.jsonc".source = ./waybar/config.jsonc;

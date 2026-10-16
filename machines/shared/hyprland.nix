@@ -29,10 +29,17 @@
       };
 
       # Graphical login (replaces manual `Hyprland` from a TTY).
+      # The picker only offers the UWSM-managed entry: the plain
+      # `hyprland.desktop` (Exec=start-hyprland) bypasses uwsm, which
+      # breaks `uwsm stop` and leaves session units unmanaged. The entry
+      # below mirrors nixpkgs' programs/wayland/uwsm.nix template.
       services.greetd = {
         enable = true;
+        # NOTE: no --remember-session. With a single-entry picker there
+        # is nothing to remember, and a stale remembered plain-Hyprland
+        # command would bypass the UWSM session entirely.
         settings.default_session = {
-          command = "${lib.getExe pkgs.tuigreet} --time --remember --remember-session --cmd \"uwsm start hyprland-uwsm.desktop\"";
+          command = "${lib.getExe pkgs.tuigreet} --time --remember --background doom --cmd \"uwsm start hyprland-uwsm.desktop\"";
           user = "greeter";
         };
       };
