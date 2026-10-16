@@ -118,7 +118,7 @@ in
         }
         {
           key = "<leader>fc";
-          action = "<cmd>lua Snacks.picker.files({ cwd = vim.fn.stdpath('config')<CR>";
+          action = "<cmd>lua Snacks.picker.files({ cwd = vim.fn.stdpath(\"config\") })<CR>";
           options = {
             desc = "Find Config File";
           };
@@ -254,13 +254,6 @@ in
           action = "<cmd>lua Snacks.picker.autocmds()<CR>";
           options = {
             desc = "Autocmds";
-          };
-        }
-        {
-          key = "<leader>sb";
-          action = "<cmd>lua Snacks.picker.lines()<CR>";
-          options = {
-            desc = "Buffer Lines";
           };
         }
         {
@@ -475,27 +468,6 @@ in
         #   action = "<cmd>lua Snacks.zen.zoom()<CR>";
         #   options = { desc = "Toggle Zoom"; };
         # }
-        {
-          key = "<leader>.";
-          action = "<cmd>lua Snacks.scratch()<CR>";
-          options = {
-            desc = "Toggle Scratch Buffer";
-          };
-        }
-        {
-          key = "<leader>S";
-          action = "<cmd>lua Snacks.scratch.select()<CR>";
-          options = {
-            desc = "Select Scratch Buffer";
-          };
-        }
-        {
-          key = "<leader>n";
-          action = "<cmd>lua Snacks.notifier.show_history()<CR>";
-          options = {
-            desc = "Notification History";
-          };
-        }
         {
           key = "<leader>bd";
           action = "<cmd>lua Snacks.bufdelete()<CR>";

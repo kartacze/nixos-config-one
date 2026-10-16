@@ -407,12 +407,9 @@ in
             enableVimSyntax = true;
           };
           settings = {
-            auto_install = true;
-            ensure_installed = "all";
-            ignore_install = [
-              "rust"
-              "ipkg"
-            ];
+            # Grammars come from Nix (`grammarPackages` below) — never
+            # download parsers at runtime (offline/reproducible).
+            auto_install = false;
             incremental_selection = {
               enable = true;
               keymaps = {

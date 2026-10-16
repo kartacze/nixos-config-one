@@ -8,9 +8,7 @@
     ./hardware/battery.nix
   ];
 
-  # Veritas flags live in veritas/latitude-7390.nix (applied by lib/mksystem.nix).
-
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
-  nixpkgs.config.allowUnfree = true;
+  # Install-time release for stateful-data defaults. Never bump on a
+  # working system (see NixOS manual, `system.stateVersion`).
+  system.stateVersion = "24.05";
 }

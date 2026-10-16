@@ -64,7 +64,7 @@ in
         conform-nvim = {
           enable = true;
 
-          autoInstall.enable = true;
+          autoInstall.enable = false;
           settings = {
             formatters_by_ft = {
               lua = [ "stylua" ];
@@ -75,7 +75,6 @@ in
               ];
               # python = [ "black" ];
               bash = [
-                "shellcheck"
                 "shellharden"
                 "shfmt"
               ];
@@ -165,9 +164,6 @@ in
               stylua = {
                 command = lib.getExe pkgs.stylua;
               };
-              shellcheck = {
-                command = lib.getExe pkgs.shellcheck;
-              };
               shfmt = {
                 command = lib.getExe pkgs.shfmt;
               };
@@ -236,8 +232,6 @@ in
             };
             lspBuf = {
               K = "hover";
-              gD = "references";
-              gd = "definition";
               gi = "implementation";
               gt = "type_definition";
               gca = "code_action";

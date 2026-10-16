@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, currentSystemName, ... }:
+{
+  pkgs,
+  lib,
+  currentSystemName,
+  ...
+}:
 
 let
 
@@ -20,6 +25,29 @@ in
 {
 
   imports = [ ./shared/default.nix ];
+
+  # Canonical firmware / unfree policy for all NixOS hosts (was copy-pasted
+  # into every machines/<host>.nix). enableAllFirmware implies
+  # enableRedistributableFirmware; both are kept explicit for readability.
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
+  # Explicit unfree allowlist instead of blanket allowUnfree. If a rebuild
+  # fails with "<pkg> has an unfree license", add `lib.getName pkg` here.
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "intel-ocl" # OpenCL runtime via nixos-hardware common-gpu-intel
+      "megasync" # home package (unfree binary)
+      "nvidia-settings" # hardware.nvidia.nvidiaSettings GUI (g5555-intel)
+      "nvidia-x11" # PRIME driver (g5555-intel)
+      "steam" # programs.steam wrapper
+      "steam-unwrapped" # programs.steam runtime
+      "broadcom-bt-firmware"
+      "b43-firmware"
+      "facetimehd-calibration"
+      "facetimehd-firmware"
+      "xone-dongle-firmware"
+    ];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -114,13 +142,4 @@ in
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "no";
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.05"; # Did you read the comment?
-
 }

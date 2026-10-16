@@ -7,12 +7,34 @@
 
 {
   config = lib.mkMerge [
-    {
+    (lib.mkIf config.veritas.configs.hyprland.enable {
       console.keyMap = "pl2";
       programs.hyprland = {
         enable = true;
-        # withUWSM = true;
+        # UWSM wraps Hyprland in systemd user units (binds
+        # graphical-session.target itself); also enables programs.uwsm.
+        withUWSM = true;
         xwayland.enable = true;
+      };
+
+      # Desktop entry greetd/tuigreet offers at login. withUWSM only
+      # enables the manager — compositors must be registered explicitly.
+      programs.uwsm = {
+        enable = true;
+        waylandCompositors.hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/Hyprland";
+        };
+      };
+
+      # Graphical login (replaces manual `Hyprland` from a TTY).
+      services.greetd = {
+        enable = true;
+        settings.default_session = {
+          command = "${lib.getExe pkgs.tuigreet} --time --remember --remember-session --cmd \"uwsm start hyprland-uwsm.desktop\"";
+          user = "greeter";
+        };
       };
 
       # programs.light.enable = true;
@@ -21,7 +43,10 @@
 
       xdg.portal = {
         enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        extraPortals = with pkgs; [
+          xdg-desktop-portal-gtk
+          xdg-desktop-portal-hyprland
+        ];
       };
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -34,6 +59,7 @@
       # Launch games explicitly with `nvidia-offload <cmd>` instead.
 
       security.rtkit.enable = true;
+
       services.pipewire = {
         enable = true;
         alsa.enable = true;
@@ -42,10 +68,11 @@
         jack.enable = true;
         wireplumber.enable = true;
       };
-    }
+    })
 
     # 32-bit graphics / audio libs required by Steam. XWayland itself
     # comes from programs.hyprland.xwayland above (no full xserver needed).
+    # Single definition — do not repeat enable32Bit in per-host hardware files.
     (lib.mkIf config.veritas.configs.gaming.enable {
       hardware.graphics.enable32Bit = true;
       services.pipewire.alsa.support32Bit = true;

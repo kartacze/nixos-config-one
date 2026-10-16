@@ -79,8 +79,8 @@
 
   hardware.graphics = {
     enable = true;
-    # 32-bit compat required by Steam.
-    enable32Bit = lib.mkIf config.veritas.configs.gaming.enable true;
+    # 32-bit compat (Steam) is enabled centrally in
+    # machines/shared/hyprland.nix, gated on veritas gaming flag.
     # common-gpu-intel (imported via lib/mksystem.nix) provides
     # intel-media-driver + intel-vaapi-driver + OpenCL + OneVPL.
     # Only the VDPAU wrapper is missing upstream.

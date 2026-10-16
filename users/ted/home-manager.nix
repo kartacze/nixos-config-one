@@ -13,6 +13,10 @@ in
 {
   imports = [ ./home/default.nix ];
 
+  # Pinned to the Home Manager release active at install time. Never bump
+  # on a working system without reading the HM release notes — a bump
+  # silently changes option defaults (new-version behavior) for all hosts
+  # sharing this file.
   home.stateVersion = "24.05";
   programs.zsh.enable = false;
 
@@ -39,6 +43,8 @@ in
     pkgs.jq
     pkgs.tree
     pkgs.watch
+    # Pinned major: Node 26 is required (plain `nodejs` is still 24.x in
+    # this nixpkgs). Re-evaluate when nixpkgs promotes a newer default.
     pkgs.nodejs_26
   ]
   ++ (lib.optionals isDarwin [
@@ -57,7 +63,8 @@ in
     pkgs.solaar
     pkgs.brave
     pkgs.rofi
-    pkgs.livebook
+    # NOTE: livebook runs as a systemd user service
+    # (machines/shared/livebook.nix), not a home package.
     pkgs.valgrind
     pkgs.zathura
     pkgs.calibre

@@ -1,7 +1,9 @@
 # Connectivity info for Linux VM
 NIXADDR ?= unset
 NIXPORT ?= 22
-NIXUSER ?= ted
+
+# We need to do some OS switching below.
+UNAME := $(shell uname)
 
 # Get the path to this Makefile and directory
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
@@ -9,12 +11,13 @@ MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 # The name of the nixosConfiguration in the flake
 NIXNAME ?= x1-intel
 
-# SSH options that are used. These aren't meant to be overridden but are
-# reused a lot so we just store them up here.
-SSH_OPTIONS=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
-
-# We need to do some OS switching below.
-UNAME := $(shell uname)
+# SSH options. BOOTSTRAP_SSH_OPTIONS skips host verification and uses
+# password auth — only acceptable for vm/bootstrap0 against a fresh ISO
+# install (no host keys exist yet, root password is transient). Everything
+# else verifies the host and uses key auth; seed keys with `ssh-copy-id`
+# before running vm/copy or vm/secrets against a new machine.
+BOOTSTRAP_SSH_OPTIONS=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
+SSH_OPTIONS=-o PubkeyAuthentication=yes -o StrictHostKeyChecking=yes
 
 switch:
 ifeq ($(UNAME), Darwin)
@@ -31,9 +34,6 @@ ifeq ($(UNAME), Darwin)
 else
 	sudo nixos-rebuild test --flake ".#$(NIXNAME)"
 endif
-
-flakeupdate:
-	nix flake --extra-experimental-features nix-command --extra-experimental-features flakes update
 
 # Local CI (no remote CI by design): flake check + all pre-commit hooks.
 .PHONY: lint
@@ -56,7 +56,7 @@ lint:
 # NOTE(mitchellh): I'm sure there is a way to do this and bootstrap all
 # in one step but when I tried to merge them I got errors. One day.
 vm/bootstrap0:
-	ssh $(SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
+	ssh $(BOOTSTRAP_SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
 		parted /dev/sda -- mklabel gpt; \
 		parted /dev/sda -- mkpart primary 512MB -8GB; \
 		parted /dev/sda -- mkpart primary linux-swap -8GB 100\%; \
@@ -92,7 +92,10 @@ vm/bootstrap:
 		sudo reboot; \
 	"
 
-# copy our secrets into the VM
+# copy our secrets into the VM.
+# NOTE: this ships whole ~/.gnupg and ~/.ssh keyrings and is insecure by
+# design — local throwaway VMs only. For anything else, provision a
+# dedicated deploy key instead of reusing personal key material.
 vm/secrets:
 	# GPG keyring
 	rsync -av -e 'ssh $(SSH_OPTIONS)' \
@@ -108,9 +111,9 @@ vm/secrets:
 # copy the Nix configurations into the VM.
 vm/copy:
 	rsync -av -e 'ssh $(SSH_OPTIONS) -p$(NIXPORT)' \
-		--exclude='vendor/' \
 		--exclude='.git/' \
-		--exclude='.git-crypt/' \
+		--exclude='result' \
+		--exclude='.direnv/' \
 		--exclude='iso/' \
 		--rsync-path="sudo rsync" \
 		$(MAKEFILE_DIR)/ $(NIXUSER)@$(NIXADDR):/nix-config

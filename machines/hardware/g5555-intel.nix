@@ -43,11 +43,10 @@
 
   hardware.graphics = {
     enable = true;
-    # 32-bit compat required by Steam.
-    enable32Bit = lib.mkIf config.veritas.configs.gaming.enable true;
+    # 32-bit compat (Steam) is enabled centrally in
+    # machines/shared/hyprland.nix, gated on veritas gaming flag.
   };
 
-  # TODO: this will be a default after https://github.com/NixOS/nixpkgs/pull/326369
   hardware.nvidia.modesetting.enable = lib.mkDefault true;
   hardware.nvidia.open = false;
 
@@ -96,8 +95,8 @@
     device = "/dev/disk/by-uuid/6607-EFBD";
     fsType = "vfat";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "fmask=0077"
+      "dmask=0077"
     ];
   };
 
