@@ -133,6 +133,7 @@ in
     home-manager
     pciutils
     ssh-to-age
+    age
     passage
     # logseq
     nextcloud-client
