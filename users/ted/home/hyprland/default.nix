@@ -32,11 +32,50 @@ in
 
     home.packages = [
       pkgs.hyprpaper
-      pkgs.hypridle
       pkgs.hyprlock
       pkgs.hyprutils
       pkgs.hyprlauncher
     ];
+
+    # Idle daemon as a systemd user unit bound to the graphical session.
+    # Policy: 2.5min idle → dim/keyboard backlight off, 5min → lock,
+    #         5.5min → display off, 10min → log out.
+    services.hypridle = {
+      enable = true;
+      settings = {
+        general = {
+          lock_cmd = "pidof hyprlock || hyprlock"; # avoid starting multiple hyprlock instances.
+          before_sleep_cmd = "loginctl lock-session"; # lock before suspend.
+          after_sleep_cmd = "hyprctl dispatch dpms on"; # avoid pressing a key twice to turn the display on.
+        };
+
+        listener = [
+          {
+            timeout = 60; # 2.5min. Dim the monitor backlight (avoid 0 on OLED monitors).
+            on-timeout = "brightnessctl -s set 5";
+            on-resume = "brightnessctl -r"; # restore the monitor backlight.
+          }
+          {
+            timeout = 60; # 2.5min. Turn off the keyboard backlight (no-op without rgb:kbd_backlight).
+            on-timeout = "brightnessctl -sd rgb:kbd_backlight set 0";
+            on-resume = "brightnessctl -rd rgb:kbd_backlight"; # turn the keyboard backlight back on.
+          }
+          {
+            timeout = 300; # 5min. Lock the screen when the timeout has passed.
+            on-timeout = "loginctl lock-session";
+          }
+          {
+            timeout = 330; # 5.5min. Screen off when the timeout has passed.
+            on-timeout = "hyprctl dispatch dpms off";
+            on-resume = "hyprctl dispatch dpms on"; # screen on when activity is detected after the timeout fired.
+          }
+          {
+            timeout = 600; # 10min. Log out if the session is still idle 5min after locking.
+            on-timeout = "uwsm stop";
+          }
+        ];
+      };
+    };
 
     # Blue-light filter (replaces X11-only redshift): runs as a systemd
     # user service bound to the Hyprland session, config at hypr/hyprsunset.conf.
@@ -59,7 +98,6 @@ in
     };
 
     xdg.configFile."hypr/hyprlock.conf".source = ./hyprlock.conf;
-    xdg.configFile."hypr/hypridle.conf".source = ./hypridle.conf;
     xdg.configFile."hypr/hyprpaper.conf".source = ./hyprpaper.conf;
     xdg.configFile."hypr/wallpaper.png".source = ./wallpaper.png;
     xdg.configFile."hypr/green-mountains.jpg".source = ./green-mountains.jpg;
