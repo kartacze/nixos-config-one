@@ -47,6 +47,7 @@ in
       "facetimehd-calibration"
       "facetimehd-firmware"
       "xone-dongle-firmware"
+      "nvidia-kernel-modules"
     ];
 
   nix.settings.experimental-features = [
