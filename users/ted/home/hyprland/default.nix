@@ -21,15 +21,16 @@ in
 
       # Main config, managed by the home-manager hyprland module: it is
       # appended to the generated hyprland.lua (which also carries the
-      # systemd activation hooks). Do NOT also deploy it via
+      # systemd activation hooks: dbus-update-activation-environment and
+      # hyprland-session.target start/stop). Do NOT also deploy it via
       # xdg.configFile."hypr/hyprland.lua", the module owns that file.
       extraConfig = builtins.readFile ./hyprland.lua;
-      systemd.enable = false;
+      systemd.enable = true;
     };
 
     # Bar as a systemd user unit bound to the graphical session
-    # (uwsm-owned) instead of an exec in hyprland.lua, so it stops
-    # cleanly with `uwsm stop`.
+    # instead of an exec in hyprland.lua, so it stops
+    # cleanly with the session.
     programs.waybar = {
       enable = true;
       systemd.enable = true;
@@ -75,7 +76,7 @@ in
           }
           {
             timeout = 600; # 10min. Log out if the session is still idle 5min after locking.
-            on-timeout = "uwsm stop";
+            on-timeout = "hyprctl dispatch exit";
           }
         ];
       };

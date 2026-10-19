@@ -135,8 +135,12 @@ in
     ssh-to-age
     age
     passage
-    # logseq
-    nextcloud-client
+    logseq
+    # nextcloud-client
+  ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-39.8.10"
   ];
 
   # Enable the OpenSSH daemon (key-only: passwords are managed via

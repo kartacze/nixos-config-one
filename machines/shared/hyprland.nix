@@ -11,35 +11,18 @@
       console.keyMap = "pl2";
       programs.hyprland = {
         enable = true;
-        # UWSM wraps Hyprland in systemd user units (binds
-        # graphical-session.target itself); also enables programs.uwsm.
-        withUWSM = true;
+        # Plain Hyprland without UWSM: home-manager's
+        # wayland.windowManager.hyprland.systemd owns
+        # hyprland-session.target / graphical-session.target.
+        withUWSM = false;
         xwayland.enable = true;
       };
 
-      # Desktop entry greetd/tuigreet offers at login. withUWSM only
-      # enables the manager — compositors must be registered explicitly.
-      programs.uwsm = {
-        enable = true;
-        waylandCompositors.hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/Hyprland";
-        };
-      };
-
       # Graphical login (replaces manual `Hyprland` from a TTY).
-      # The picker only offers the UWSM-managed entry: the plain
-      # `hyprland.desktop` (Exec=start-hyprland) bypasses uwsm, which
-      # breaks `uwsm stop` and leaves session units unmanaged. The entry
-      # below mirrors nixpkgs' programs/wayland/uwsm.nix template.
       services.greetd = {
         enable = true;
-        # NOTE: no --remember-session. With a single-entry picker there
-        # is nothing to remember, and a stale remembered plain-Hyprland
-        # command would bypass the UWSM session entirely.
         settings.default_session = {
-          command = "${lib.getExe pkgs.tuigreet} --time --remember --background doom --cmd \"uwsm start hyprland-uwsm.desktop\"";
+          command = "${lib.getExe pkgs.tuigreet} --time --remember --background doom --cmd \"start-hyprland\"";
           user = "greeter";
         };
       };

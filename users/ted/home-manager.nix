@@ -74,6 +74,10 @@ in
     pkgs.megasync
     pkgs.signal-desktop
     pkgs.qimgv
+    pkgs.just
+    pkgs.freecad-wayland
+    pkgs.gimp
+    pkgs.pinta
     # pkgs.upower
   ]);
 
