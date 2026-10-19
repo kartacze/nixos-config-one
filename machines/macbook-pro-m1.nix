@@ -35,7 +35,7 @@
   # The user `darwin-rebuild` runs as. Required by any nix-darwin option
   # that still applies per-user (see `system.requiresPrimaryUser`); also
   # gates the primary-user activation check.
-  system.primaryUser = "teodorp";
+  system.primaryUser = "teodor.pytka";
 
   programs.fish.enable = true;
   programs.fish.shellInit = ''

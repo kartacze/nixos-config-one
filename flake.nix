@@ -70,7 +70,7 @@
 
       darwinConfigurations.macbook-pro-m1 = mkSystem "macbook-pro-m1" {
         system = "aarch64-darwin";
-        user = "teodorp";
+        user = "teodor.pytka";
         darwin = true;
       };
 

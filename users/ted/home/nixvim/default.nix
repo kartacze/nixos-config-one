@@ -36,7 +36,7 @@ in
       ];
 
       # Wayland-native clipboard (wl-clipboard is in home.packages).
-      clipboard.providers.wl-copy.enable = true;
+      # clipboard.providers.wl-copy.enable = true;
       # print("Hello world!")
       extraConfigLua = ''
         -- Print a little welcome message when nvim is opened!
