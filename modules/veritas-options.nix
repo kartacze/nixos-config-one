@@ -33,6 +33,20 @@
     hyprland = {
       enable = lib.mkEnableOption "hyprland configuration";
     };
+    syncthing = {
+      enable = lib.mkEnableOption "Syncthing client configuration";
+      tailscaleIP = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        example = "100.64.0.2";
+        description = ''
+          Tailscale IPv4 address of this host. When set, the Syncthing web UI
+          and sync listener bind to this address only, so Syncthing is
+          reachable exclusively from the tailnet. When null, they bind all
+          interfaces and the firewall keeps access tailnet-only.
+        '';
+      };
+    };
     nixvim = {
       enable = lib.mkEnableOption "nixvim configuration";
     };

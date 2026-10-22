@@ -37,6 +37,7 @@ let
         gaming.enable = lib.mkDefault false;
         ghostty.enable = lib.mkDefault true;
         hyprland.enable = lib.mkDefault (!darwin);
+        syncthing.enable = lib.mkDefault false;
         printing3D.enable = lib.mkDefault false;
       };
     };
@@ -72,8 +73,8 @@ let
   home-manager =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
-  # sops-nix only on NixOS (provides the `sops.*` options used for the
-  # ted password in users/ted/nixos.nix). Darwin manages no passwords.
+  # sops-nix only on NixOS (provides the `sops.*` options used by
+  # users/ted/nixos.nix for optional secrets). Darwin manages no secrets.
   sopsModules = nixpkgs.lib.optionals (!darwin) [ inputs.sops-nix.nixosModules.sops ];
 
   # Values set once at system level (veritas/<name>.nix via mksystem).

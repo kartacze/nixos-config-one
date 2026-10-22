@@ -78,6 +78,7 @@ in
     pkgs.freecad-wayland
     pkgs.gimp
     pkgs.pinta
+    pkgs.feh
     # pkgs.upower
   ]);
 

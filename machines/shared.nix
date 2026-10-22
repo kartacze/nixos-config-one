@@ -134,17 +134,17 @@ in
     pciutils
     ssh-to-age
     age
+    sops
     passage
     logseq
-    # nextcloud-client
   ];
 
   nixpkgs.config.permittedInsecurePackages = [
     "electron-39.8.10"
   ];
 
-  # Enable the OpenSSH daemon (key-only: passwords are managed via
-  # sops-nix, see users/ted/nixos.nix).
+  # Enable the OpenSSH daemon (key-only; login passwords are not managed
+  # by sops).
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "no";

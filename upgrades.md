@@ -15,8 +15,9 @@ packages deduped; `Makefile` cleaned (`NIXNAME ?= x1-intel`, no
 `ALLOW_UNSUPPORTED_SYSTEM`); local-only CI via `git-hooks.nix` + `make lint`
 (`nix/pre-commit.nix`: nixfmt, deadnix, whitespace hygiene — no remote CI by
 design; statix stays manual since its ruleset conflicts with NixOS idioms);
-`README.md` rewritten for the actual hosts and workflow; `sops-nix` manages
-the `ted` password (`secrets/ted.yaml`, git holds only `.sops.yaml`); each
+`README.md` rewritten for the actual hosts and workflow; `sops-nix` is
+wired up for optional secrets (`secrets/ted.yaml` is encrypted, `.sops.yaml`
+holds the recipients); the `ted` login password is not stored in sops; each
 host uses its own hostname (`currentSystemName`); SSH is key-only
 (`PasswordAuthentication = false`); `LC_ALL` removed from home session vars.
 
@@ -24,7 +25,7 @@ Everything below is still open, ordered by priority.
 
 ## P1 – Correctness / hygiene
 
-(nothing open — password secrets done, see above)
+(nothing open)
 
 ## P2 – Modernization
 
