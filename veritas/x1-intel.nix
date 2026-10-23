@@ -9,6 +9,7 @@
     hyprland.enable = true;
     syncthing = {
       enable = true;
+      pinned = true;
       tailscaleIP = "100.64.0.2";
     };
     ghostty.enable = true;

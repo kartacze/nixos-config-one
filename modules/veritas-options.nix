@@ -35,6 +35,11 @@
     };
     syncthing = {
       enable = lib.mkEnableOption "Syncthing client configuration";
+      pinned = lib.mkEnableOption ''
+        Pinning the Syncthing identity (cert/key from sops) and declaring peers
+        and folders from Nix. Hosts without this flag keep pairing interactively
+        through the web UI.
+      '';
       tailscaleIP = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
         default = null;
