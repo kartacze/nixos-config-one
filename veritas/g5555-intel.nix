@@ -9,10 +9,12 @@
     hyprland.enable = true;
     syncthing = {
       enable = true;
+      pinned = true;
       tailscaleIP = "100.64.0.5";
     };
     ghostty.enable = true;
     gaming.enable = true;
+    claudeCode.enable = true;
     printing3D.enable = true;
   };
 }

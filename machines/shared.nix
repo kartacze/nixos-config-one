@@ -42,6 +42,7 @@ in
       "nvidia-x11" # PRIME driver (g5555-intel)
       "steam" # programs.steam wrapper
       "steam-unwrapped" # programs.steam runtime
+      "claude" # nix-claude-code (veritas claudeCode flag)
       "broadcom-bt-firmware"
       "b43-firmware"
       "facetimehd-calibration"

@@ -39,6 +39,7 @@ let
         hyprland.enable = lib.mkDefault (!darwin);
         syncthing.enable = lib.mkDefault false;
         printing3D.enable = lib.mkDefault false;
+        claudeCode.enable = lib.mkDefault false;
       };
     };
   # NixOS vs nix-darwin functions

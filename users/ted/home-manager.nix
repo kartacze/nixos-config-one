@@ -45,7 +45,7 @@ in
     pkgs.watch
     # Pinned major: Node 26 is required (plain `nodejs` is still 24.x in
     # this nixpkgs). Re-evaluate when nixpkgs promotes a newer default.
-    pkgs.nodejs_26
+    pkgs.nodejs_24
   ]
   ++ (lib.optionals isDarwin [
     # This is automatically setup on Linux

@@ -18,6 +18,9 @@
 
 {
   options.veritas.configs = {
+    claudeCode = {
+      enable = lib.mkEnableOption "Claude Code CLI (github:ryoppippi/nix-claude-code)";
+    };
     fish = {
       enable = lib.mkEnableOption "fish configuration";
     };

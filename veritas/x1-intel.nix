@@ -14,5 +14,6 @@
     };
     ghostty.enable = true;
     gaming.enable = true;
+    claudeCode.enable = true;
   };
 }

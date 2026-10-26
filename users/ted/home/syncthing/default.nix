@@ -19,7 +19,24 @@ let
         "quic://100.64.0.1:22000"
       ];
     };
+    x1-intel = {
+      id = "5MVKTFA-DTGWLX5-XOXFH5A-EJP6KQZ-OVKQFPS-KFY73SV-LFXJXKG-CL5GJQ7";
+      addresses = [
+        "tcp://100.64.0.2:22000"
+        "quic://100.64.0.2:22000"
+      ];
+    };
+    g5555-intel = {
+      id = "BTPKDS6-KQBVMXF-SEDVBOE-EIE4IX4-JKR2PM3-CFK5IX2-I6SGZCQ-CUXSSAS";
+      addresses = [
+        "tcp://100.64.0.5:22000"
+        "quic://100.64.0.5:22000"
+      ];
+    };
   };
+
+  # Every peer except this host itself.
+  devices = lib.filterAttrs (name: _: name != currentSystemName) peers;
 
   # Bind to the host's tailscale address when it is declared, so the web UI
   # and the sync listener are not reachable on LAN/WAN at all. Hosts without
@@ -62,16 +79,22 @@ in
         };
       }
       // lib.optionalAttrs cfg.pinned {
-        devices = lib.filterAttrs (name: _: name != currentSystemName) peers;
+        inherit devices;
 
-        # One-way backup of ~/Documents to the home server. The server side is
-        # `receiveonly`, so it never pushes changes back. The folder id must
-        # match the one declared on the server.
+        # ~/Documents is shared two-way between the laptops and backed up to
+        # the home server. The server side is `receiveonly`, so it never pushes
+        # changes back. The folder id must match the one declared on the server.
+        # Deletes now propagate between laptops, so keep them in .stversions
+        # for a while.
         folders."${config.home.homeDirectory}/Documents" = {
           id = "newhw-nghmf";
           label = "Documents";
-          type = "sendonly";
-          devices = [ "mtp-zamoyski" ];
+          type = "sendreceive";
+          devices = lib.attrNames devices;
+          versioning = {
+            type = "trashcan";
+            params.cleanoutDays = "30";
+          };
         };
       };
     };

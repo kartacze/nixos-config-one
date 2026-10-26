@@ -7,5 +7,6 @@
     ./syncthing.nix
     ./fonts.nix
     ./gaming.nix
+    ./claude-code.nix
   ];
 }
