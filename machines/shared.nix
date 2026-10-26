@@ -135,7 +135,6 @@ in
     ssh-to-age
     age
     sops
-    passage
     logseq
   ];
 

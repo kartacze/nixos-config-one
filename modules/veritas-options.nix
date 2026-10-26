@@ -58,6 +58,9 @@
     nixvim = {
       enable = lib.mkEnableOption "nixvim configuration";
     };
+    passage = {
+      enable = lib.mkEnableOption "passage password store configuration";
+    };
     tmux = {
       enable = lib.mkEnableOption "tmux configuration";
     };

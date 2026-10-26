@@ -7,6 +7,7 @@
     fish.enable = true;
     tmux.enable = true;
     hyprland.enable = true;
+    passage.enable = true;
     syncthing = {
       enable = true;
       pinned = true;
