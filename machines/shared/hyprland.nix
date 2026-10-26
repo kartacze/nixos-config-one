@@ -31,13 +31,13 @@
       programs.thunar.enable = true;
       programs.yazi.enable = true;
 
-      xdg.portal = {
-        enable = true;
-        extraPortals = with pkgs; [
-          xdg-desktop-portal-gtk
-          xdg-desktop-portal-hyprland
-        ];
-      };
+      # xdg.portal = {
+      #   enable = true;
+      #   extraPortals = with pkgs; [
+      #     xdg-desktop-portal-gtk
+      #     xdg-desktop-portal-hyprland
+      #   ];
+      # };
 
       environment.sessionVariables.NIXOS_OZONE_WL = "1";
       # GPU-specific vars (WLR_DRM_DEVICES, LIBVA_DRIVER_NAME) are set per-host:
