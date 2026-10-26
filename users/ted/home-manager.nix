@@ -71,7 +71,6 @@ in
     pkgs.brightnessctl
     pkgs.lm_sensors
     pkgs.playerctl
-    pkgs.megasync
     pkgs.signal-desktop
     pkgs.qimgv
     pkgs.just

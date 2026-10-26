@@ -37,7 +37,6 @@ in
     pkg:
     builtins.elem (lib.getName pkg) [
       "intel-ocl" # OpenCL runtime via nixos-hardware common-gpu-intel
-      "megasync" # home package (unfree binary)
       "nvidia-settings" # hardware.nvidia.nvidiaSettings GUI (g5555-intel)
       "nvidia-x11" # PRIME driver (g5555-intel)
       "steam" # programs.steam wrapper
