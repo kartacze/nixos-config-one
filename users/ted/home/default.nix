@@ -10,6 +10,7 @@
     ./passage/default.nix
     ./syncthing/default.nix
     ./ghostty/default.nix
+    ./firefox/default.nix
     ./kitty/default.nix
   ];
 }

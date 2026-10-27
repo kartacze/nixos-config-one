@@ -30,6 +30,9 @@
     desktopApps = {
       enable = lib.mkEnableOption "GUI desktop applications (browsers, office, graphics, ...)";
     };
+    firefox = {
+      enable = lib.mkEnableOption "Firefox as the Google-free main browser (Google stays in Brave)";
+    };
     fish = {
       enable = lib.mkEnableOption "fish configuration";
     };

@@ -14,6 +14,7 @@
       tailscaleIP = "100.64.0.2";
     };
     ghostty.enable = true;
+    firefox.enable = true;
     gaming.enable = true;
     claudeCode.enable = true;
   };

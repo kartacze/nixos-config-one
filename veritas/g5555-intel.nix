@@ -15,6 +15,7 @@
     };
     ghostty.enable = true;
     # Minimal agent host: no gaming / desktop apps, Hyprland on demand.
+    firefox.enable = true;
     gaming.enable = false;
     claudeCode.enable = true;
     printing3D.enable = false;
