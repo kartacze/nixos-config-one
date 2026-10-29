@@ -450,6 +450,7 @@ in
             javascript
             kotlin
             java
+            zig
           ];
         };
 
@@ -489,6 +490,11 @@ in
           event = "FileType";
           pattern = "nix";
           command = "setlocal tabstop=2 shiftwidth=2";
+        }
+        {
+          event = "FileType";
+          pattern = "zig";
+          command = "setlocal tabstop=4 shiftwidth=4 expandtab";
         }
       ];
     };

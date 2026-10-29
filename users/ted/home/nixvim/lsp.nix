@@ -79,6 +79,7 @@ in
                 "shfmt"
               ];
               cpp = [ "clang_format" ];
+              zig = [ "zigfmt" ];
               typescript = {
                 __unkeyed-1 = "prettierd";
                 __unkeyed-2 = "prettier";
@@ -213,6 +214,7 @@ in
             };
 
             nixd.enable = true;
+            zls.enable = true;
             elixirls.enable = true;
             # eslint.enable = true;
             # eslint.enable = true;
