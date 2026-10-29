@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 {
+  config,
   pkgs,
   lib,
   currentSystemName,
@@ -120,25 +121,30 @@ in
   # $ nix search wget
   # NOTE: user apps (brave, kitty, xclip, ...) live in home-manager
   # (users/ted/home-manager.nix), not here.
-  environment.systemPackages = with pkgs; [
-    firefox
-    libnotify
-    glib
-    glibc
-    pavucontrol
-    gnumake
-    gcc
-    killall
-    vim
-    home-manager
-    pciutils
-    ssh-to-age
-    age
-    sops
-    logseq
-  ];
+  environment.systemPackages =
+    with pkgs;
+    [
+      firefox
+      libnotify
+      glib
+      glibc
+      gnumake
+      gcc
+      killall
+      vim
+      home-manager
+      pciutils
+      ssh-to-age
+      age
+      sops
+    ]
+    ++ lib.optionals config.veritas.configs.desktopApps.enable [
+      pavucontrol
+      logseq
+    ];
 
-  nixpkgs.config.permittedInsecurePackages = [
+  # logseq's electron.
+  nixpkgs.config.permittedInsecurePackages = lib.optionals config.veritas.configs.desktopApps.enable [
     "electron-39.8.10"
   ];
 

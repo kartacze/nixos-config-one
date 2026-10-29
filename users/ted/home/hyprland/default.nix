@@ -74,6 +74,9 @@ in
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on"; # screen on when activity is detected after the timeout fired.
           }
+        ]
+        # Agent host: stay locked instead of logging out.
+        ++ lib.optionals (!config.veritas.configs.agentHost.enable) [
           {
             timeout = 600; # 10min. Log out if the session is still idle 5min after locking.
             on-timeout = "hyprctl dispatch exit";

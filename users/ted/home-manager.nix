@@ -1,6 +1,7 @@
 { ... }:
 
 {
+  config,
   lib,
   pkgs,
   ...
@@ -9,6 +10,7 @@
 let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  desktopApps = config.veritas.configs.desktopApps.enable;
 in
 {
   imports = [ ./home/default.nix ];
@@ -52,33 +54,37 @@ in
     pkgs.maven
   ])
   ++ (lib.optionals isLinux [
-    pkgs.steam-run
+    # Session essentials + CLI, kept on minimal hosts too.
     pkgs.xclip
     pkgs.dunst
-    pkgs.anki-bin
-    pkgs.qalculate-qt
     pkgs.wl-clipboard
-    pkgs.copyq
     pkgs.cliphist
-    pkgs.solaar
-    pkgs.brave
     pkgs.rofi
-    # NOTE: livebook runs as a systemd user service
-    # (machines/shared/livebook.nix), not a home package.
-    pkgs.valgrind
-    pkgs.zathura
-    pkgs.calibre
     pkgs.brightnessctl
     pkgs.lm_sensors
     pkgs.playerctl
+    pkgs.just
+    # pkgs.upower
+  ])
+  # GUI apps, off on minimal hosts (veritas desktopApps flag).
+  # NOTE: livebook runs as a systemd user service
+  # (machines/shared/livebook.nix), not a home package.
+  ++ (lib.optionals (isLinux && desktopApps) [
+    pkgs.steam-run
+    pkgs.anki-bin
+    pkgs.qalculate-qt
+    pkgs.copyq
+    pkgs.solaar
+    pkgs.brave
+    pkgs.valgrind
+    pkgs.zathura
+    pkgs.calibre
     pkgs.signal-desktop
     pkgs.qimgv
-    pkgs.just
     pkgs.freecad-wayland
     pkgs.gimp
     pkgs.pinta
     pkgs.feh
-    # pkgs.upower
   ]);
 
   home.sessionVariables = {

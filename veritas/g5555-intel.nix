@@ -14,8 +14,11 @@
       tailscaleIP = "100.64.0.5";
     };
     ghostty.enable = true;
-    gaming.enable = true;
+    # Minimal agent host: no gaming / desktop apps, Hyprland on demand.
+    gaming.enable = false;
     claudeCode.enable = true;
-    printing3D.enable = true;
+    printing3D.enable = false;
+    desktopApps.enable = false;
+    agentHost.enable = true;
   };
 }

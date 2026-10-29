@@ -15,7 +15,7 @@ usernames, locale, hardware UUIDs). Read the source before running anything.
 
 | Host | System | User | Description |
 | ---- | ------ | ---- | ----------- |
-| `g5555-intel` | `x86_64-linux` | `ted` | Dell G15, Intel + NVIDIA PRIME, gaming |
+| `g5555-intel` | `x86_64-linux` | `ted`, `agent` | Dell G15, Intel + NVIDIA PRIME, minimal agent host (Hyprland on demand) |
 | `latitude-7390` | `x86_64-linux` | `ted` | Dell Latitude 7390 laptop |
 | `x1-intel` | `x86_64-linux` | `ted` | ThinkPad X1 Carbon Gen 9 |
 | `macbook-pro-m1` | `aarch64-darwin` | `teodorp` | MacBook Pro M1 (nix-darwin) |

@@ -18,8 +18,17 @@
 
 {
   options.veritas.configs = {
+    agentHost = {
+      enable = lib.mkEnableOption ''
+        unattended agent host: never sleeps (lid ignored), dedicated
+        unprivileged `agent` user with lingering, no Hyprland idle logout
+      '';
+    };
     claudeCode = {
       enable = lib.mkEnableOption "Claude Code CLI (github:ryoppippi/nix-claude-code)";
+    };
+    desktopApps = {
+      enable = lib.mkEnableOption "GUI desktop applications (browsers, office, graphics, ...)";
     };
     fish = {
       enable = lib.mkEnableOption "fish configuration";

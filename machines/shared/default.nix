@@ -9,5 +9,6 @@
     ./fonts.nix
     ./gaming.nix
     ./claude-code.nix
+    ./agent-host.nix
   ];
 }

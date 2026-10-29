@@ -40,6 +40,8 @@ let
         syncthing.enable = lib.mkDefault false;
         printing3D.enable = lib.mkDefault false;
         claudeCode.enable = lib.mkDefault false;
+        desktopApps.enable = lib.mkDefault (!darwin);
+        agentHost.enable = lib.mkDefault false;
       };
     };
   # NixOS vs nix-darwin functions

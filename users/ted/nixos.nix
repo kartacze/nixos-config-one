@@ -11,6 +11,7 @@ in
   imports = [
     ./nixos/gaming.nix
     ./nixos/printing3D.nix
+    ./nixos/agent.nix
   ];
 
   environment.pathsToLink = [ "/share/fish" ];
