@@ -6,6 +6,7 @@
 
 let
   hasSopsSecrets = builtins.pathExists (../.. + "/secrets/ted.yaml");
+  keys = import ../../lib/keys.nix;
 in
 {
   imports = [
@@ -47,6 +48,7 @@ in
       "wheel"
     ];
     shell = pkgs.fish;
+    openssh.authorizedKeys.keys = [ keys.main ];
   };
 
 }
