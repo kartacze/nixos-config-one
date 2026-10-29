@@ -17,6 +17,8 @@ in
       shell = "${pkgs.fish}/bin/fish";
       keyMode = "vi";
       historyLimit = 100000;
+      # Wheel scrolls the pane history (copy mode) instead of sending arrows.
+      mouse = true;
       terminal = "tmux-256color";
       extraConfig = ''
         # Truecolor support.
