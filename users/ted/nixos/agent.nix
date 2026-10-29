@@ -7,6 +7,7 @@
 
 let
   cfg = config.veritas.configs.agentHost;
+  keys = import ../../../lib/keys.nix;
 in
 {
   config = lib.mkIf cfg.enable {
@@ -20,9 +21,7 @@ in
       shell = pkgs.fish;
       # User services / tmux keep running without an active login.
       linger = true;
-      openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN5X3sPc15vP/7Us0WVa/3+amgFyfueQZjhQ3KWal3aJ teodor.pytka@gmail.com"
-      ];
+      openssh.authorizedKeys.keys = [ keys.main ];
     };
 
     environment.systemPackages = with pkgs; [
