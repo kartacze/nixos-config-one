@@ -91,7 +91,8 @@ in
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
     # NOTE: no LC_ALL — it overrides every other locale setting and
-    # breaks sorting/collation. System locale stays pl_PL.UTF-8.
+    # breaks sorting/collation. Matches the NixOS system locale; on darwin
+    # it is the only locale setting.
     EDITOR = "nvim";
     PAGER = "less -FirSwX";
   };
