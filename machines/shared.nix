@@ -124,7 +124,6 @@ in
   environment.systemPackages =
     with pkgs;
     [
-      firefox
       libnotify
       glib
       glibc
@@ -138,6 +137,8 @@ in
       age
       sops
     ]
+    # Hosts with veritas firefox get the policy-wrapped one from home-manager.
+    ++ lib.optionals (!config.veritas.configs.firefox.enable) [ firefox ]
     ++ lib.optionals config.veritas.configs.desktopApps.enable [
       pavucontrol
       logseq
