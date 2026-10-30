@@ -28,5 +28,26 @@ in
       git
       tmux
     ];
+
+    # Same fish as ted (plugins, aliases, config.fish), nothing else from
+    # ted's home. Tide's prompt choices are fish universal variables, not
+    # Nix: copy ted's `tide_*` ones over or run `tide configure` as agent.
+    home-manager.users.agent = {
+      imports = [ ../home/fish/default.nix ];
+      home.stateVersion = "24.05";
+
+      # Tools the fzf.fish plugin and the fish integrations rely on.
+      programs.bat.enable = true;
+      programs.fd.enable = true;
+      programs.fzf = {
+        enable = true;
+        enableFishIntegration = true;
+      };
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+        enableFishIntegration = true;
+      };
+    };
   };
 }
