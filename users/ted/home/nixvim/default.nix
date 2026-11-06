@@ -13,6 +13,7 @@ in
   imports = [
     ./keymaps.nix
     ./keymaps/trouble.nix
+    ./keymaps/livebook.nix
     ./lsp.nix
   ];
 
