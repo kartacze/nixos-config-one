@@ -3,7 +3,10 @@
 {
   veritas.configs = {
     git.enable = true;
-    nixvim.enable = true;
+    nixvim = {
+      enable = true;
+      livebook.enable = true;
+    };
     fish.enable = true;
     tmux.enable = true;
     hyprland.enable = true;

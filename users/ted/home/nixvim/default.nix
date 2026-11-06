@@ -29,9 +29,19 @@ in
       nixpkgs.source = inputs.nixpkgs.outPath;
       colorschemes.dracula.enable = true;
 
-      extraPlugins = with pkgs.vimPlugins; [
-        vim-nix
-      ];
+      extraPlugins =
+        with pkgs.vimPlugins;
+        [
+          vim-nix
+        ]
+        ++ lib.optionals cfg.livebook.enable [
+          otter-nvim
+          (pkgs.vimUtils.buildVimPlugin {
+            pname = "livebook.nvim";
+            version = "0-unstable";
+            src = lib.cleanSource inputs.livebook-nvim;
+          })
+        ];
 
       # Wayland-native clipboard (wl-clipboard is in home.packages).
       clipboard.providers.wl-copy.enable = true;
@@ -84,6 +94,15 @@ in
            Lua = {},
          },
          })
+      ''
+      # Matches the Livebook user service on x1 (machines/x1-intel.nix).
+      + lib.optionalString cfg.livebook.enable ''
+
+        require("livebook").setup({
+          node = "livebook@127.0.0.1",
+          cookie_file = "/run/secrets/livebook-env",
+          rpc_cmd = { "${pkgs.livebook}/bin/livebook", "rpc" },
+        })
       '';
 
       files = {

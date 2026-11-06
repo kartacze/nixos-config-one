@@ -12,14 +12,15 @@
   ];
 
   # Livebook runs as a local user service on x1 (machines/shared/livebook.nix
-  # enables it for desktop hosts). LIVEBOOK_PASSWORD comes from sops instead of
-  # that module's default /var/lib/livebook.env. The unit is read by ted's user
-  # manager, so the secret has to be owned by ted.
+  # enables it for desktop hosts). LIVEBOOK_PASSWORD and LIVEBOOK_COOKIE come
+  # from sops instead of that module's default /var/lib/livebook.env. The unit
+  # is read by ted's user manager, so the secret has to be owned by ted.
   sops.secrets."livebook-env" = {
     owner = "ted";
     mode = "0400";
   };
   services.livebook.environmentFile = lib.mkForce config.sops.secrets."livebook-env".path;
+  services.livebook.environment.LIVEBOOK_NODE = "livebook@127.0.0.1";
 
   # Read-only view of the phone photo backup on zamoyski, mounted on demand.
   # The login key is passphrase-protected, so the root-owned system mount uses

@@ -69,6 +69,9 @@
     };
     nixvim = {
       enable = lib.mkEnableOption "nixvim configuration";
+      livebook = {
+        enable = lib.mkEnableOption "livebook.nvim, connected to the local Livebook service";
+      };
     };
     passage = {
       enable = lib.mkEnableOption "passage password store configuration";

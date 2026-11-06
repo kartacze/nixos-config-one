@@ -8,11 +8,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1793851379,
-        "narHash": "sha256-I2Kjvm/AOALE+mSnXZV4SxBibi9jd0izTTka966fNtg=",
+        "lastModified": 1793937760,
+        "narHash": "sha256-XOF2XZRZl5PxVzbyIMIIqp0cuVQFoSeluW9ldBQL5QA=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "b6e66be25618463a9d1072b50cbb5a6777e7f5e3",
+        "rev": "b8553c5899fad80dcff1b61f22897b2dfe039c34",
         "type": "gitlab"
       },
       "original": {
@@ -100,6 +100,19 @@
         "type": "github"
       }
     },
+    "livebook-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793960632,
+        "narHash": "sha256-2+95otKIu5CdV/06aeBbqGUfw8ojlrPexvfmXfDwctw=",
+        "path": "/home/ted/workspace/slop/livebook.nvim",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/ted/workspace/slop/livebook.nvim",
+        "type": "path"
+      }
+    },
     "nix-claude-code": {
       "inputs": {
         "nixpkgs": [
@@ -107,11 +120,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793743329,
-        "narHash": "sha256-WyqkXbUMyt0Z1fndNQgWqxvK7eOW8uSPweajiGn76Yc=",
+        "lastModified": 1793926962,
+        "narHash": "sha256-IOw1mpW0pt9+XBdc1UhBG+2AyvW27lkFtutWrFlCLTo=",
         "owner": "ryoppippi",
         "repo": "nix-claude-code",
-        "rev": "dfdc6e65fdc10844126d61c5ba6816fe82f7117a",
+        "rev": "d942ac47544a42b1daaa2f5d468109cf278bbde3",
         "type": "github"
       },
       "original": {
@@ -203,6 +216,7 @@
         "firefox-addons": "firefox-addons",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "livebook-nvim": "livebook-nvim",
         "nix-claude-code": "nix-claude-code",
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",

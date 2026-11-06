@@ -43,6 +43,13 @@
       url = "github:ryoppippi/nix-claude-code";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Local checkout, so it only exists on x1 (veritas.configs.nixvim.livebook).
+    # After changing the plugin: nix flake update livebook-nvim
+    livebook-nvim = {
+      url = "path:/home/ted/workspace/slop/livebook.nvim";
+      flake = false;
+    };
   };
 
   outputs =
