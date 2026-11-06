@@ -7,8 +7,8 @@
 
   # The user should already exist, but we need to set this up so Nix knows
   # what our home directory is (https://github.com/nix-darwin/nix-darwin/issues/423).
-  users.users."teodorp" = {
-    home = "/Users/teodorp";
+  users.users."teodor.pytka" = {
+    home = "/Users/teodor.pytka";
     shell = pkgs.fish;
 
     packages = [

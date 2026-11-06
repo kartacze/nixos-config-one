@@ -34,6 +34,7 @@ in
         with pkgs.vimPlugins;
         [
           vim-nix
+          tsc-nvim
         ]
         ++ lib.optionals cfg.livebook.enable [
           otter-nvim
@@ -45,7 +46,7 @@ in
         ];
 
       # Wayland-native clipboard (wl-clipboard is in home.packages).
-      clipboard.providers.wl-copy.enable = true;
+      # clipboard.providers.wl-copy.enable = true;
       # print("Hello world!")
       extraConfigLua = ''
         -- Print a little welcome message when nvim is opened!
@@ -209,6 +210,10 @@ in
           };
         };
 
+        flash = {
+          enable = true;
+        };
+
         snacks = {
           enable = true;
           settings = {
@@ -289,7 +294,7 @@ in
             notify = { };
             indentscope = { };
             cursorword = { };
-            jump = { };
+            # jump = { };
             bracketed = { };
             files = { };
 
@@ -362,6 +367,20 @@ in
               };
             };
           };
+        };
+
+        neogit = {
+          enable = true;
+          settings = {
+            kind = "floating";
+            integrations = {
+              diffview = false;
+            };
+          };
+        };
+
+        diffview = {
+          enable = true;
         };
 
         gitsigns = {
