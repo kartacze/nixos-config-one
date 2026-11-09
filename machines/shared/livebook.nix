@@ -26,5 +26,16 @@
       ];
       environmentFile = "/var/lib/livebook.env";
     };
+
+    # http://livebook.localhost → Livebook. *.localhost resolves to loopback in
+    # browsers and via nss-myhostname, so no DNS/hosts entry is needed. Caddy
+    # binds loopback only; Livebook itself stays on 127.0.0.1:8080.
+    services.caddy = {
+      enable = true;
+      virtualHosts."http://livebook.localhost".extraConfig = ''
+        bind 127.0.0.1 ::1
+        reverse_proxy 127.0.0.1:8080
+      '';
+    };
   };
 }
