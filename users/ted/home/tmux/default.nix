@@ -24,6 +24,10 @@ in
         # Truecolor support.
         set -as terminal-overrides ",tmux-256color:RGB"
 
+        # Modified keys such as C-Enter reach programs. snacks.nvim also relies
+        # on it to detect the outer terminal for images.
+        set -g extended-keys on
+
         # Quiet: no bells, no activity noise.
         set -g visual-activity off
         set -g visual-bell off

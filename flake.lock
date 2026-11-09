@@ -103,8 +103,8 @@
     "livebook-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1793960632,
-        "narHash": "sha256-2+95otKIu5CdV/06aeBbqGUfw8ojlrPexvfmXfDwctw=",
+        "lastModified": 1793976739,
+        "narHash": "sha256-9QQwcy9zwlaKzNBPj3xCAuPCNSrbztb6e4YHd//1npo=",
         "path": "/home/ted/workspace/slop/livebook.nvim",
         "type": "path"
       },
