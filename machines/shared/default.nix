@@ -10,5 +10,6 @@
     ./gaming.nix
     ./claude-code.nix
     ./agent-host.nix
+    ./chromium.nix
   ];
 }

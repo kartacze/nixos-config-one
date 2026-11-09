@@ -41,6 +41,7 @@ let
         printing3D.enable = lib.mkDefault false;
         claudeCode.enable = lib.mkDefault false;
         desktopApps.enable = lib.mkDefault (!darwin);
+        chromium.enable = lib.mkDefault false;
         agentHost.enable = lib.mkDefault false;
       };
     };

@@ -31,7 +31,10 @@
       enable = lib.mkEnableOption "GUI desktop applications (browsers, office, graphics, ...)";
     };
     firefox = {
-      enable = lib.mkEnableOption "Firefox as the Google-free main browser (Google stays in Brave)";
+      enable = lib.mkEnableOption "Firefox as the Google-free main browser (Google stays in Chromium)";
+    };
+    chromium = {
+      enable = lib.mkEnableOption "ungoogled-chromium as the Google browser (managed policies, Vimium, uBlock Origin Lite)";
     };
     fish = {
       enable = lib.mkEnableOption "fish configuration";

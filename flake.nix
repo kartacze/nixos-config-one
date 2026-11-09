@@ -44,6 +44,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Frozen nixpkgs that still has Brave (removed upstream). Only used to
+    # get the old passwords out of Brave; drop this input together with
+    # pkgs.brave in users/ted/home-manager.nix once that is done.
+    nixpkgs-brave.url = "github:NixOS/nixpkgs/1d060086d60cb76a40cf37109f979d88a5bd6396";
+
     # Local checkout, so it only exists on x1 (veritas.configs.nixvim.livebook).
     # After changing the plugin: nix flake update livebook-nvim
     livebook-nvim = {

@@ -4,6 +4,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -75,7 +76,8 @@ in
     pkgs.qalculate-qt
     pkgs.copyq
     pkgs.solaar
-    pkgs.brave
+    # Temporary: only to export saved passwords (see nixpkgs-brave input).
+    inputs.nixpkgs-brave.legacyPackages.${pkgs.stdenv.hostPlatform.system}.brave
     pkgs.valgrind
     pkgs.zathura
     pkgs.calibre

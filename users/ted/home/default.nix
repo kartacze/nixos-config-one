@@ -11,6 +11,7 @@
     ./syncthing/default.nix
     ./ghostty/default.nix
     ./firefox/default.nix
+    ./chromium/default.nix
     ./kitty/default.nix
   ];
 }

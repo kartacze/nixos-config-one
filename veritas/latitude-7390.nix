@@ -9,5 +9,6 @@
     hyprland.enable = true;
     ghostty.enable = true;
     gaming.enable = true;
+    chromium.enable = true;
   };
 }

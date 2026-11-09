@@ -18,6 +18,7 @@
     };
     ghostty.enable = true;
     firefox.enable = true;
+    chromium.enable = true;
     gaming.enable = true;
     claudeCode.enable = true;
   };

@@ -7,7 +7,7 @@
 }:
 
 # Firefox as the Google-free main browser. Google services live only in
-# Brave; here every Google domain is blocked (first- and third-party) by
+# Chromium; here every Google domain is blocked (first- and third-party) by
 # uBlock Origin, and Firefox's own Google lookups (Safe Browsing,
 # geolocation) are turned off.
 let

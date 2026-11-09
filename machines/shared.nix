@@ -108,7 +108,7 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  # NOTE: user apps (brave, kitty, xclip, ...) live in home-manager
+  # NOTE: user apps (chromium, kitty, xclip, ...) live in home-manager
   # (users/ted/home-manager.nix), not here.
   environment.systemPackages =
     with pkgs;
