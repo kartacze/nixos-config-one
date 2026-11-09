@@ -49,7 +49,7 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal = "ghostty"
-local browser = "brave"
+local browser = "firefox"
 
 local fileManager = "thunar"
 local menu = 'rofi -show drun -show combi -icon-theme "gruvbox-light" -show-icons'
@@ -203,8 +203,8 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 -- })
 --
 hl.window_rule({
-	name = "Move Brave to Workspace 8",
-	match = { class = "^brave$" },
+	name = "Move Firefox to Workspace 8",
+	match = { class = "^firefox$" },
 	workspace = "8 silent",
 })
 
