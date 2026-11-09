@@ -7,6 +7,41 @@
 
 let
   cfg = config.veritas.configs.hyprland;
+
+  # Super+N: focus the Firefox window showing Livebook (jumping to its
+  # workspace), or open Livebook as a new tab. Hyprland only sees the active
+  # tab's title, so a Livebook tab hidden behind another tab isn't found.
+  livebookFocus = pkgs.writeShellApplication {
+    name = "livebook-focus";
+    runtimeInputs = [ pkgs.jq ];
+    # hyprctl and firefox come from PATH so they match the running session.
+    text = ''
+      find_window() {
+        hyprctl clients -j | jq -r '
+          [.[] | select(.class == "firefox"
+            and (.title | test("(^| - )Livebook — Mozilla Firefox$")))]
+          | first | .address // empty'
+      }
+
+      addr=$(find_window)
+      if [ -z "$addr" ]; then
+        # New tab in the most recent Firefox window (its title then becomes
+        # Livebook, so the loop below finds it).
+        firefox http://livebook.localhost &
+        # Wait for the window (a new one, if Firefox wasn't running, lands on
+        # workspace 8 silently via the window rule) and then focus it.
+        for _ in $(seq 50); do
+          sleep 0.1
+          addr=$(find_window)
+          [ -n "$addr" ] && break
+        done
+      fi
+      if [ -n "$addr" ]; then
+        # Lua config: dispatch takes a Lua expression.
+        hyprctl dispatch "hl.dsp.focus({ window = \"address:$addr\" })"
+      fi
+    '';
+  };
 in
 {
   imports = [ ];
@@ -40,6 +75,7 @@ in
       pkgs.hyprlock
       pkgs.hyprutils
       pkgs.hyprlauncher
+      livebookFocus
     ];
 
     # Idle daemon as a systemd user unit bound to the graphical session.

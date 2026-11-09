@@ -295,7 +295,7 @@ local closeWindowBind = hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.window.close()
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("hyprctl dispatch exit"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser), { window = "8" })
-hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(browser .. " --new-window http://livebook.localhost"), { window = "8" })
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("livebook-focus"))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -316,9 +316,9 @@ for i = 1, 10 do
 end
 
 -- Move active workspace to the next/right monitor
-hl.bind(mainMod .. " + SHIFT + l", hl.dsp.exec_cmd("hyprctl dispatch movecurrentworkspacetomonitor r"))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.workspace.move({ monitor = "r" }))
 
-hl.bind(mainMod .. " + SHIFT + h", hl.dsp.exec_cmd("hyprctl dispatch movecurrentworkspacetomonitor l"))
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.workspace.move({ monitor = "l" }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
