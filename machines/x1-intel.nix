@@ -59,6 +59,30 @@
     ];
   };
 
+  # Read-only view of the `zamoyski-phone` folder (synced both ways between
+  # the phone and zamoyski), mounted the same way as the photos.
+  fileSystems."/mnt/zamoyski-phone" = {
+    device = "mtp-zamoyski@100.64.0.1:/var/lib/zamoyski-phone";
+    fsType = "fuse.sshfs";
+    options = [
+      "ro"
+      "allow_other"
+      "default_permissions"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=15min"
+      "reconnect"
+      "ServerAliveInterval=15"
+      "cache=yes"
+      "kernel_cache"
+      "compression=no"
+      "uid=1000"
+      "gid=100"
+      "IdentityFile=/home/ted/.ssh/server_ed25519"
+      "UserKnownHostsFile=/home/ted/.ssh/known_hosts"
+    ];
+  };
+
   # Install-time release for stateful-data defaults. Never bump on a
   # working system (see NixOS manual, `system.stateVersion`).
   system.stateVersion = "24.05";
